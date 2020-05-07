@@ -4,9 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.UUID;
+import java.time.Instant;
+import java.util.*;
 
-// Lombok
 @Getter
 @Setter
 @ToString
@@ -14,22 +14,31 @@ import java.util.UUID;
 @NoArgsConstructor
 
 @Entity
-public class Purchase {
-
+public final class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @ManyToOne
-    private User user;
-    private UUID orderNumber;
+    @ManyToOne // TODO Laziness and cascade type
+    private Customer customer;
+
+    // TODO Double-check that orphanRemoval correctly handles removed entries (or disallow post-persistence removal)
+    @OneToMany(orphanRemoval = true) // TODO Laziness and cascade type
+    private Set<PurchaseEntry> purchaseEntries = new HashSet<>();
+    private UUID orderNumber; // TODO define default value generation
     private Timestamp purchaseTime;
 
-    public Purchase(User user, UUID orderNumber, Timestamp purchaseTime) {
-        this.user = user;
-        this.orderNumber = orderNumber;
-        this.purchaseTime = purchaseTime;
+    public Purchase(Customer customer) {
+        this.customer = customer;
     }
 
+    public Purchase(Customer customer, UUID orderNumber) {
+        this.customer = customer;
+        this.orderNumber = orderNumber;
+    }
 
+    @PrePersist
+    private void setTimestamp() {
+        this.purchaseTime = Timestamp.from(Instant.now());
+    }
 }

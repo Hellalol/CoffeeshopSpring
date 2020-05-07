@@ -3,32 +3,34 @@ package com.example.coffeeshop.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-// Lombok
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "user_type")
 @Entity
-public class User {
-
+public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @NotNull
     private String username;
+
+    @NotNull
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private userType usertype;
-
-    public User(String name, String username, String password, userType usertype) {
+    public User(String name, String username, String password) {
         this.name = name;
         this.username = username;
         this.password = password;
-        this.usertype = usertype;
     }
+
+    public abstract UserType getUserType();
 }

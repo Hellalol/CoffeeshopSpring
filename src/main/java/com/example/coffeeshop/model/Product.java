@@ -8,19 +8,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 
-// Lombok
 @Getter
-@Setter
+//@Setter // Should be unnecessary if we aren't altering product data at runtime
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 
 @Entity
-public class Product {
-
+public final class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String productName;
     private BigDecimal basePrice;
     private String imagePath;
