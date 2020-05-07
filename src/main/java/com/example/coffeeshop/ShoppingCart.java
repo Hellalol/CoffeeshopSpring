@@ -27,14 +27,14 @@ public class ShoppingCart {
 
     public void increment(Product product) {
         PurchaseEntry entry = workingEntries.getOrDefault(product, new PurchaseEntry(workingPurchase, product, 0, product.getBasePrice()));
-        entry.increment();
+        entry.setQuantity(entry.getQuantity() + 1);
         workingEntries.put(product, entry);
     }
 
     public void decrement(Product product) {
         if (workingEntries.containsKey(product)) {
             PurchaseEntry entry = workingEntries.get(product);
-            entry.decrement();
+            entry.setQuantity(entry.getQuantity() - 1);
         }
     }
 

@@ -37,14 +37,4 @@ public final class PurchaseEntry {
             this.currentPrice = this.product.getBasePrice();
         }
     }
-
-    public void increment() {
-        this.quantity++;
-    }
-
-    public void decrement() {
-        if (quantity > 0) {
-            quantity--;
-        }
-    }
 }
