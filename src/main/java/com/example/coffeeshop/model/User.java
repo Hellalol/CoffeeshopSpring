@@ -5,10 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 // Lombok
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
 
 @Inheritance(strategy = InheritanceType.JOINED)

@@ -7,10 +7,7 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 // Lombok
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
 
 @Entity
@@ -30,6 +27,4 @@ public class Purchase {
         this.orderNumber = orderNumber;
         this.purchaseTime = purchaseTime;
     }
-
-
 }
