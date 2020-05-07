@@ -27,6 +27,7 @@ public class Product {
         this.basePrice = basePrice;
         this.imagePath = imagePath;
         this.description = description;
+
     }
 }
 
