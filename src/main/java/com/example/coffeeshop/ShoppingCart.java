@@ -4,8 +4,13 @@ import com.example.coffeeshop.model.Customer;
 import com.example.coffeeshop.model.Product;
 import com.example.coffeeshop.model.Purchase;
 import com.example.coffeeshop.model.PurchaseEntry;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.*;
+
+@Getter // We do NOT want setters, and equals/hashmap should be superfluous
+@ToString
 
 // TODO Move to somewhere more appropriate
 public class ShoppingCart {

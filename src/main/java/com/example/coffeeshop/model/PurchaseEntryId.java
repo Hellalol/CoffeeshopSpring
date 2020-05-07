@@ -4,9 +4,7 @@ import lombok.*;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public final class PurchaseEntryId implements Serializable {

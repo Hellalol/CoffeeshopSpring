@@ -7,10 +7,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.*;
 
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
 
 @Entity
