@@ -21,6 +21,8 @@ public class User {
     private String name;
     private String username;
     private String password;
+
+    @Enumerated(EnumType.STRING)
     private userType usertype;
 
     public User(String name, String username, String password, userType usertype) {

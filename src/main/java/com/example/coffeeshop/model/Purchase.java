@@ -30,4 +30,6 @@ public class Purchase {
         this.orderNumber = orderNumber;
         this.purchaseTime = purchaseTime;
     }
+
+
 }
