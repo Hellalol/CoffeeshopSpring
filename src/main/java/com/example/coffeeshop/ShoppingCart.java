@@ -4,14 +4,11 @@ import com.example.coffeeshop.model.Customer;
 import com.example.coffeeshop.model.Product;
 import com.example.coffeeshop.model.Purchase;
 import com.example.coffeeshop.model.PurchaseEntry;
-import lombok.Getter;
 import lombok.ToString;
 
 import java.util.*;
 
-@Getter // We do NOT want setters, and equals/hashmap should be superfluous
 @ToString
-
 // TODO Move to somewhere more appropriate
 public class ShoppingCart {
     private final Customer workingCustomer;
@@ -22,6 +19,10 @@ public class ShoppingCart {
         this.workingCustomer = customer;
         this.workingEntries = new TreeMap<>(Comparator.comparing(Product::getId));
         this.workingPurchase = new Purchase(workingCustomer);
+    }
+
+    public Customer getCustomer() {
+        return workingCustomer;
     }
 
     public void increment(Product product) {
@@ -48,9 +49,9 @@ public class ShoppingCart {
         workingEntries.entrySet().removeIf(mapEntry -> mapEntry.getValue().getQuantity() < 1);
     }
 
-    public void checkout() {
+    public Purchase toPurchase() {
         clearStaleEntries();
         workingPurchase.setPurchaseEntries(new HashSet<>(workingEntries.values()));
-        // TODO Persist here or wherever checkout is called?
+        return workingPurchase;
     }
 }
