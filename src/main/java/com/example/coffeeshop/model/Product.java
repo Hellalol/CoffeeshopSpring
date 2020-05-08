@@ -8,10 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 
-@Getter
-//@Setter // Should be unnecessary if we aren't altering product data at runtime
-@ToString
-@EqualsAndHashCode
+@Data
+@Setter(AccessLevel.NONE) // We should not be altering product data at runtime
 @NoArgsConstructor
 
 @Entity

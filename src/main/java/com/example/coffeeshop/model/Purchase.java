@@ -20,9 +20,10 @@ public final class Purchase {
     private Customer customer;
 
     // TODO Double-check that orphanRemoval correctly handles removed entries (or disallow post-persistence removal)
-    @OneToMany(orphanRemoval = true) // TODO Laziness and cascade type
+    @OneToMany(mappedBy = "purchase", orphanRemoval = true) // TODO Laziness and cascade type
     private Set<PurchaseEntry> purchaseEntries = new HashSet<>();
-    private UUID orderNumber; // TODO define default value generation
+
+    private UUID orderNumber = UUID.randomUUID(); // TODO check default value generation
     private Timestamp purchaseTime;
 
     public Purchase(Customer customer) {

@@ -4,9 +4,6 @@ import lombok.*;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -15,9 +12,6 @@ import java.util.List;
 @DiscriminatorValue("C")
 public final class Customer extends User {
     private boolean premiumCustomer = false;
-
-    @OneToMany(mappedBy = "customer") // TODO Laziness and cascade type
-    private List<Purchase> purchases = new ArrayList<>();
 
     public Customer() {
         super();

@@ -17,6 +17,7 @@ public abstract class User {
     private Long id;
     private String name;
 
+    @Column(unique = true)
     @NotNull
     private String username;
 

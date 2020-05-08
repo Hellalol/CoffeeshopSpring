@@ -9,6 +9,7 @@ import lombok.ToString;
 import java.util.*;
 
 @ToString
+// TODO Adapt to REST statelessness
 // TODO Move to somewhere more appropriate
 public class ShoppingCart {
     private final Customer workingCustomer;
@@ -34,11 +35,11 @@ public class ShoppingCart {
     public void decrement(Product product) {
         if (workingEntries.containsKey(product)) {
             PurchaseEntry entry = workingEntries.get(product);
-            entry.setQuantity(entry.getQuantity() - 1);
+            entry.setQuantity(Math.max(0, entry.getQuantity() - 1));
         }
     }
 
-    public void setZero(Product product) {
+    public void zeroOut(Product product) {
         if (workingEntries.containsKey(product)) {
             PurchaseEntry entry = workingEntries.get(product);
             entry.setQuantity(0);
