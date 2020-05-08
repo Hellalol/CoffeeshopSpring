@@ -1,7 +1,7 @@
 package com.example.coffeeshop.repository;
 
-import com.example.coffeeshop.model.Customer;
-import com.example.coffeeshop.model.Purchase;
+import com.example.coffeeshop.domain.Customer;
+import com.example.coffeeshop.domain.Purchase;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

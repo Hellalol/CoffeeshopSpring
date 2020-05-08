@@ -1,4 +1,4 @@
-package com.example.coffeeshop.model;
+package com.example.coffeeshop.domain;
 
 import lombok.*;
 
@@ -23,19 +23,15 @@ public final class Purchase {
     @OneToMany(mappedBy = "purchase", orphanRemoval = true) // TODO Laziness and cascade type
     private Set<PurchaseEntry> purchaseEntries = new HashSet<>();
 
-    private UUID orderNumber = UUID.randomUUID(); // TODO check default value generation
+    private UUID orderNumber;
     private Timestamp purchaseTime;
 
     public Purchase(Customer customer) {
         this.customer = customer;
+        this.orderNumber = UUID.randomUUID(); // TODO check default value generation
     }
 
-    public Purchase(Customer customer, UUID orderNumber) {
-        this.customer = customer;
-        this.orderNumber = orderNumber;
-    }
-
-    @PrePersist
+    @PrePersist // TODO Check precision
     private void setTimestamp() {
         this.purchaseTime = Timestamp.from(Instant.now());
     }

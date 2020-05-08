@@ -1,9 +1,9 @@
-package com.example.coffeeshop;
+package com.example.coffeeshop.service;
 
-import com.example.coffeeshop.model.Customer;
-import com.example.coffeeshop.model.Product;
-import com.example.coffeeshop.model.Purchase;
-import com.example.coffeeshop.model.PurchaseEntry;
+import com.example.coffeeshop.domain.Customer;
+import com.example.coffeeshop.domain.Product;
+import com.example.coffeeshop.domain.Purchase;
+import com.example.coffeeshop.domain.PurchaseEntry;
 import lombok.ToString;
 
 import java.util.*;
