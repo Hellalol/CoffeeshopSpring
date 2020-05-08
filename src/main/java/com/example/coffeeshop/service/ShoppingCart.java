@@ -55,4 +55,8 @@ public class ShoppingCart {
         workingPurchase.setPurchaseEntries(new HashSet<>(workingEntries.values()));
         return workingPurchase;
     }
+
+    public static void main(String[] args) {
+
+    }
 }
