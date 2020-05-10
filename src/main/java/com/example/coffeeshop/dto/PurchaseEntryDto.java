@@ -18,8 +18,12 @@ public final class PurchaseEntryDto {
     private final BigDecimal currentPrice;
 
     public PurchaseEntryDto(Product product) {
+        this(product, product.getBasePrice());
+    }
+
+    public PurchaseEntryDto(Product product, BigDecimal currentPrice) {
         this.product = product;
         this.quantity = 0;
-        this.currentPrice = product.getBasePrice();
+        this.currentPrice = currentPrice;
     }
 }
