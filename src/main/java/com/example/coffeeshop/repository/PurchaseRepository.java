@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PurchaseRepository extends JpaRepository<Purchase,Long> {
-    List<Purchase> findByCustomerOrderByPurchaseTime(Customer c);
+public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
+    List<Purchase> findByCustomerOrderByPurchaseTimeDesc(Customer c);
 }

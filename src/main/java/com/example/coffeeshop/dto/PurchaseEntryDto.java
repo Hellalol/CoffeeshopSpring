@@ -5,11 +5,8 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
+@Data
 @RequiredArgsConstructor
-@Getter
-@ToString
-@EqualsAndHashCode
-
 public final class PurchaseEntryDto {
     private final Product product; // TODO Change to id or DTO
     @With

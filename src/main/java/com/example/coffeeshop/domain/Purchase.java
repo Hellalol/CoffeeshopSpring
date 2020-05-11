@@ -9,7 +9,6 @@ import java.util.*;
 
 @Data
 @NoArgsConstructor
-
 @Entity
 public final class Purchase {
     @Id

@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 @ToString
 // TODO Adapt to REST statelessness
-// TODO Move to somewhere more appropriate
 // TODO Implement discount logic, here or elsewhere
 public class ShoppingCart {
     @Getter
