@@ -12,6 +12,10 @@ import javax.validation.constraints.NotNull;
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "user_type")
 @Entity
 public abstract class User {
+    public enum UserType {
+        REGULAR, PREMIUM, ADMIN
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
