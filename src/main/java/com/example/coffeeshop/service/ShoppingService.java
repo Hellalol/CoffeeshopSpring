@@ -15,7 +15,8 @@ public final class ShoppingService {
     private final PurchaseRepository purchaseRepository;
     private final PurchaseEntryRepository entryRepository;
 
-    public ShoppingService(@Autowired PurchaseRepository purchaseRepository, @Autowired PurchaseEntryRepository entryRepository) {
+    @Autowired
+    public ShoppingService(PurchaseRepository purchaseRepository, PurchaseEntryRepository entryRepository) {
         this.purchaseRepository = purchaseRepository;
         this.entryRepository = entryRepository;
     }
@@ -50,6 +51,7 @@ public final class ShoppingService {
         }
     }
 
+    // TODO Sanitize purchase entries here or in the entity class?
     private void clearStaleEntries(Purchase purchase) {
         // Since this is only used internally, there's no need to check purchase status within this method
         purchase.getPurchaseEntries().values().removeIf(purchaseEntry -> purchaseEntry.getQuantity() < 1);
