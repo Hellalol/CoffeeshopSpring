@@ -21,7 +21,9 @@ public final class ShoppingService {
     }
 
     public Purchase setQuantity(Purchase purchase, Product product, int quantity) {
-        // TODO Check purchase status
+        if (purchase.getStatus() != Purchase.Status.IN_PROGRESS) {
+            throw new IllegalArgumentException("Only purchases in progress may be edited");
+        }
         PurchaseEntry entry = entryRepository
                 .findById(new PurchaseEntryId(purchase.getId(), product.getId()))
                 .orElse(new PurchaseEntry(purchase, product, 0, product.getBasePrice()));
@@ -32,16 +34,15 @@ public final class ShoppingService {
     }
 
     public Purchase increment(Purchase purchase, Product product) {
-        // TODO Check purchase status and behaviour on product not found
         if (purchase.getPurchaseEntries().containsKey(product)) {
             return this.setQuantity(purchase, product, purchase.getEntry(product).getQuantity() + 1);
         } else {
-            return purchase;
+            return this.setQuantity(purchase, product, 1);
         }
     }
 
     public Purchase decrement(Purchase purchase, Product product) {
-        // TODO Check purchase status and behaviour on product not found
+        // TODO Check behaviour on product not found
         if (purchase.getPurchaseEntries().containsKey(product)) {
             return this.setQuantity(purchase, product, purchase.getEntry(product).getQuantity() - 1);
         } else {
@@ -50,12 +51,14 @@ public final class ShoppingService {
     }
 
     private void clearStaleEntries(Purchase purchase) {
-        // TODO Check purchase status
+        // Since this is only used internally, there's no need to check purchase status within this method
         purchase.getPurchaseEntries().values().removeIf(purchaseEntry -> purchaseEntry.getQuantity() < 1);
     }
 
     public Purchase checkout(Purchase purchase) {
-        // TODO Check purchase status
+        if (purchase.getStatus() != Purchase.Status.IN_PROGRESS) {
+            throw new IllegalArgumentException("Only purchases in progress may be checked out");
+        }
         clearStaleEntries(purchase);
         purchase.setStatus(Purchase.Status.FINISHED);
         return purchaseRepository.save(purchase);
