@@ -13,7 +13,7 @@ import java.util.*;
 @Entity
 public final class Purchase {
     public enum Status {
-        IN_PROGRESS, FINISHED, CANCELLED
+        IN_PROGRESS, COMPLETED, CANCELLED
     }
 
     @Id
@@ -60,7 +60,7 @@ public final class Purchase {
     @PreUpdate
     private void prepare() {
         purchaseEntries.values().removeIf(entry -> entry.getQuantity() < 1);
-        if (status != Status.FINISHED) {
+        if (status != Status.COMPLETED) {
             // Theoretically this might allow for cancelled purchases to be auto-updated
             // even when they haven't actually been changed, but that's a remote possibility.
             // The sanity checks for that sort of thing should be handled by our services

@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Service
-// TODO Implement discount logic, here or elsewhere
+// TODO Migrate to DTOs? Might be simpler, might be the controllers' responsibility
 public final class ShoppingService {
     private final PurchaseRepository purchaseRepository;
     private final PurchaseEntryRepository entryRepository;
@@ -24,9 +25,19 @@ public final class ShoppingService {
         return purchaseRepository.save(new Purchase(c));
     }
 
-    public Purchase setQuantity(Purchase purchase, Product product, int quantity) {
+    public void deletePurchase(Purchase p) {
+        if (p.getStatus() == Purchase.Status.COMPLETED) {
+            throw new IllegalArgumentException("Completed purchases may not be deleted");
+        } else {
+            purchaseRepository.delete(p);
+        }
+    }
+
+    public Purchase setProductQuantity(Purchase purchase, Product product, int quantity) {
         if (purchase.getStatus() != Purchase.Status.IN_PROGRESS) {
             throw new IllegalArgumentException("Only purchases in progress may be edited");
+        } else if (quantity < 0) {
+            throw new IllegalArgumentException("Purchase quantities may not go below zero");
         }
         PurchaseEntry entry = entryRepository
                 .findById(new PurchaseEntryId(purchase.getId(), product.getId()))
@@ -36,23 +47,6 @@ public final class ShoppingService {
         clearStaleEntries(purchase);
         sanitizePrices(purchase);
         return purchaseRepository.save(purchase);
-    }
-
-    public Purchase increment(Purchase purchase, Product product) {
-        if (purchase.getPurchaseEntries().containsKey(product)) {
-            return this.setQuantity(purchase, product, purchase.getEntry(product).getQuantity() + 1);
-        } else {
-            return this.setQuantity(purchase, product, 1);
-        }
-    }
-
-    public Purchase decrement(Purchase purchase, Product product) {
-        // TODO Check behaviour on product not found
-        if (purchase.getPurchaseEntries().containsKey(product)) {
-            return this.setQuantity(purchase, product, purchase.getEntry(product).getQuantity() - 1);
-        } else {
-            return purchase;
-        }
     }
 
     // TODO Sanitize purchase entries here or in the entity class?
@@ -68,8 +62,8 @@ public final class ShoppingService {
 
     // TODO What if calculation changes during a long-lived purchase?
     private BigDecimal calculateCurrentPrice(Customer c, Product p) {
-        BigDecimal priceFactor = c.isPremiumCustomer() ? BigDecimal.valueOf(0.9) : BigDecimal.ONE;
-        return p.getBasePrice().multiply(priceFactor);
+        BigDecimal priceFactor = c.isPremiumCustomer() ? new BigDecimal("0.9") : BigDecimal.ONE;
+        return p.getBasePrice().multiply(priceFactor).setScale(2, RoundingMode.HALF_UP);
     }
 
     public Purchase checkout(Purchase purchase) {
@@ -77,7 +71,7 @@ public final class ShoppingService {
             throw new IllegalArgumentException("Only purchases in progress may be checked out");
         }
         clearStaleEntries(purchase);
-        purchase.setStatus(Purchase.Status.FINISHED);
+        purchase.setStatus(Purchase.Status.COMPLETED);
         return purchaseRepository.save(purchase);
     }
 }
