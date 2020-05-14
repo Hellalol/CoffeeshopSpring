@@ -21,6 +21,20 @@ public final class ShoppingService {
         this.entryRepository = entryRepository;
     }
 
+    public Purchase emptyCart(Purchase p) {
+        p.getPurchaseEntries().clear();
+        return purchaseRepository.save(p);
+    }
+
+    public Purchase cancelPurchase(Purchase p) {
+        if (p.getStatus() == Purchase.Status.COMPLETED) {
+            throw new IllegalArgumentException("Completed purchases cannot be cancelled");
+        } else {
+            // TODO Check for already cancelled purchase
+            return purchaseRepository.save(p);
+        }
+    }
+
     public Purchase getNewPurchase(Customer c) {
         return purchaseRepository.save(new Purchase(c));
     }
