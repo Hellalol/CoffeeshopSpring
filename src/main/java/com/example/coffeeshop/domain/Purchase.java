@@ -3,6 +3,7 @@ package com.example.coffeeshop.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.*;
@@ -31,7 +32,13 @@ public final class Purchase {
 
     @Enumerated(EnumType.STRING)
     private Status status = Status.IN_PROGRESS;
-    private Timestamp purchaseTime;
+
+    // Timestamps should only be updated on database access
+    @Setter(AccessLevel.NONE)
+    private Timestamp updated;
+
+    @Setter(AccessLevel.NONE)
+    private Timestamp completed;
 
     public Purchase(Customer customer) {
         this.customer = customer;
@@ -43,12 +50,24 @@ public final class Purchase {
         return this.getPurchaseEntries().get(product);
     }
 
+    public BigDecimal getTotalPrice() {
+        return purchaseEntries.values().stream()
+                .map(entry -> entry.getCurrentPrice().multiply(BigDecimal.valueOf(entry.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
     @PrePersist
     @PreUpdate
     private void prepare() {
         purchaseEntries.values().removeIf(entry -> entry.getQuantity() < 1);
-        if (status == Status.FINISHED && purchaseTime == null) {
-            this.purchaseTime = Timestamp.from(Instant.now());
+        if (status != Status.FINISHED) {
+            // Theoretically this might allow for cancelled purchases to be auto-updated
+            // even when they haven't actually been changed, but that's a remote possibility.
+            // The sanity checks for that sort of thing should be handled by our services
+            this.updated = Timestamp.from(Instant.now());
+        } else if (completed == null) {
+            this.updated = Timestamp.from(Instant.now());
+            this.completed = updated;
         }
     }
 }
