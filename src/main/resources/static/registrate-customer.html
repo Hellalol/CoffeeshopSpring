@@ -10,67 +10,46 @@
 </head>
 <body>
 <div class="container">
-
 <form>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="inputEmail4">Name</label>
-            <input type="email" class="form-control" id="inputname4">
-        </div>
-        <div class="form-group col-md-6">
-            <label for="inputPassword4">Lastname</label>
-            <input type="password" class="form-control" id="inputlastname4">
-        </div>
+    <div class="form-group col-md">
+    <div class="form-row col-md-6">
+            <label for="inputname4">Name</label>
+            <input type="text" class="form-control" id="inputname4">
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
+    <div class="form-row col-md-6">
             <label for="inputEmail4">Email</label>
             <input type="email" class="form-control" id="inputEmail4">
-        </div>
-        <div class="form-group col-md-6">
+    </div>
+    <div class="form-row col-md-6">
             <label for="inputPassword4">Password</label>
             <input type="password" class="form-control" id="inputPassword4">
-        </div>
     </div>
-    <div class="form-group">
-        <label for="inputAddress">Address</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+    <br>
+    <div class="form-row col-md-6">
+        <input id="inputPassword5" type="checkbox" onclick="showPasswordFunction()">
+        Show Password
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="inputCity">City</label>
-            <input type="text" class="form-control" id="inputCity">
-        </div>
-        <div class="form-group col-md-4">
-            <label for="inputState">Country</label>
-            <select id="inputState" class="form-control">
-                <option selected>Choose...</option>
-                <option>Sweden</option>
-                <option>Denmark</option>
-                <option>Finland</option>
-                <option>Norway</option>
-            </select>
-        </div>
-        <div class="form-group col-md-2">
-            <label for="inputZip">Zip</label>
-            <input type="text" class="form-control" id="inputZip">
-        </div>
+    <br>
+    <div class="form-row col-md-6">
+        <div class="form-group col-md-3"><button type="reset" class="btn btn-danger">Reset</button></div>
+        <div class="form-group col-md"></div>
+        <div class="form-group col-md-3"><button type="submit" class="btn btn-success">Registrate</button></div>
     </div>
-    <div class="form-group">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck">
-            <label class="form-check-label" for="gridCheck">
-                Check me out
-            </label>
-        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Registrate</button>
-    <button type="submit" class="btn btn-primary">Go back </button>
 </form>
 </div>
 
 
-
+<script>
+    function showPasswordFunction() {
+        var x = document.getElementById("inputPassword4");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
