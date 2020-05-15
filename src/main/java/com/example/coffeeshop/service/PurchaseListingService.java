@@ -18,6 +18,6 @@ public final class PurchaseListingService {
     }
 
     public List<Purchase> getCustomerPurchases(Customer c) {
-        return purchaseRepository.findByCustomerOrderByPurchaseTimeDesc(c);
+        return purchaseRepository.findByCustomerOrderByUpdatedDesc(c);
     }
 }
