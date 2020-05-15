@@ -27,4 +27,5 @@ public class PurchaseDto {
                 .collect(Collectors.toList());
         this.totalPrice = purchase.getTotalPrice();
     }
+    
 }

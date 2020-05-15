@@ -30,6 +30,11 @@ public abstract class User {
     @NotBlank
     private String password;
 
+    private boolean active;
+
+    @NotBlank
+    private String role;
+
     public User(String name, String username, String password) {
         this.name = name;
         this.username = username;

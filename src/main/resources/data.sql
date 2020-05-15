@@ -1,6 +1,6 @@
 -- Users
-insert into user(name, password, username, user_type)
-values ('Test Testsson', 'Password1', 'username1', 'C');
+insert into user(name, password, username, user_type, role, active, premium_customer)
+values ('Test Testsson', 'Password', 'username', 'C','ADMIN', true, false);
 
 -- Products
 insert into product(base_price, description, product_name, image_path)
