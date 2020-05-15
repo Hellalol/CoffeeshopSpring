@@ -6,9 +6,10 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
           id="bootstrap-css">
     <link href="products.css" rel="stylesheet">
-    <title>Product search</title>
+    <title>Product title goes here</title>
 </head>
 <body>
+
 <nav class="navbar">
     <form id="search-form" class="form-inline">
         <label for="search-bar">Search:</label>
@@ -19,14 +20,25 @@
 
 <main class="container">
     <h1>Page title</h1>
-    <section id="search-results">
-        <h2>Results</h2>
-        <div id="products" class="row"></div>
-    </section>
+    <div id="details-page-view" class="row">
+        <div class="col-md-8">
+            <div class="product-image">
+                <img src="http://tafttest.com/300x300">
+            </div>
+            <div id="product-description">
+                <h2>Product name</h2>
+                <p>Nothing to see here.</p>
+            </div>
+            <button class="add-to-cart" type="button">Add to cart</button>
+        </div>
+        <aside class="col-md-4">
+            <p>Some sort of sidebar.</p>
+        </aside>
+    </div>
 </main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="search.js"></script>
+<script src="productDetails.js"></script>
 </body>
 </html>

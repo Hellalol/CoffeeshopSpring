@@ -16,14 +16,14 @@ function getProductListing(product) {
     card.classList.add("col-md-3", "col-sm-6");
 
     let innerCard = document.createElement("div");
-    innerCard.className = "product-grid";
-    innerCard.innerHTML = `<div class="product-img"><img src="${product.imgPath}" alt="dummy alt text""> </div>`;
+    innerCard.className = "card";
+    innerCard.innerHTML = `<div class="card-img-top"><img src="${product.imgPath}" alt="dummy alt text""> </div>`;
 
     let productContent = document.createElement("div");
-    productContent.className = "product-description";
+    productContent.className = "card-body";
     productContent.innerHTML =
-        `<h3 class="title"><a href="#">${product.name}</a></h3>
-        <p class="price">Price: ${product.price} SEK</p>`;
+        `<h3 class="card-title"><a href="#">${product.name}</a></h3>
+        <p class="card-text price">Price: ${product.price} SEK</p>`;
 
     let button = document.createElement("button");
     button.className = "btn add-to-cart";
