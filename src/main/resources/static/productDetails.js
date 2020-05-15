@@ -1,4 +1,4 @@
-// fetch objects from JSON, currently using a dummy url
+// fetch product details from JSON, currently using a dummy url
 fetch("dummyproducts.json")
     .then(response => response.json())
     .then(products => {
