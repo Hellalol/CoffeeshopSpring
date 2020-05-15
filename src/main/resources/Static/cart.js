@@ -1,9 +1,10 @@
-$(document).ready(function () {
-    const productbox = document.getElementById("productbox");
+
+function getProducts() {
     $.getJSON("MOCK_DATA.json", function (response) {
 
+    const productbox = document.getElementById("productbox");
         response.forEach(element => {
-            productbox.innerHTML += `<tr>
+             $(`<tr>
                         <td class="col-md-6">
                         <div class="media">
                             <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
@@ -15,13 +16,13 @@ $(document).ready(function () {
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.basePrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-secondary">-</button>
+                        <button class="btn btn-secondary" style="margin-left: 40px">-</button>
       <div class="amount" style="display: inline-block">0</div>
-      <button class="btn btn-secondary" style="display: inline-block">+</button>
-                        <button type="button" class="btn btn-danger" style="display: inline-block">
+      <button class="btn btn-secondary" style="display: inline-block" >+</button>
+                        <button type="button" class="btn btn-danger" style="display: inline-block; margin-left: 40px">
                             <span class="glyphicon glyphicon-remove"></span> Remove
                         </button></td>
-                    </tr>`
+                    </tr>`).insertBefore($("#afterProducts"))
         });
-    })
-})
+    })}
+

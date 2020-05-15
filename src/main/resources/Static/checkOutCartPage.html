@@ -3,19 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="cart.js"></script>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-10 col-md-offset-1">
             <table class="table table-hover">
-                <tbody>
-               <div id="productbox"></div>
+                <thead>
                 <tr>
+                    <th>Product</th>
+                    <th> </th>
+                    <th class="text-center">Price</th>
+                    <th class="text-center">Quantity</th>
+                    <th> </th>
+                </tr>
+                </thead>
+                <tbody id="productbox">
+                <tr id="afterProducts">
                     <td>  </td>
                     <td>  </td>
                     <td>  </td>
@@ -60,7 +68,7 @@
 <button onclick="location.href = 'receiptPage.html';" id="confirmOrderButton" class="float-left submit-button">Confirm
     Order
 </button>
+<script>getProducts()</script>
 
-<script src="cart.js"></script>
 </body>
 </html>
