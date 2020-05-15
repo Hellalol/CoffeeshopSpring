@@ -12,17 +12,17 @@ function displayAllProducts(products) {
 }
 
 function getProductListing(product) {
-    let card = document.createElement("div");
-    card.classList.add("col-md-3", "col-sm-6");
+    let gridItem = document.createElement("div");
+    gridItem.classList.add("col-md-3", "col-sm-6");
 
-    let innerCard = document.createElement("div");
-    innerCard.className = "card";
-    innerCard.innerHTML = `<div class="card-img-top"><img src="${product.imgPath}" alt="dummy alt text""> </div>`;
+    let card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `<div class="card-img-top"><img src="${product.imgPath}" alt="dummy alt text""> </div>`;
 
     let productContent = document.createElement("div");
     productContent.className = "card-body";
     productContent.innerHTML =
-        `<h3 class="card-title"><a href="#">${product.name}</a></h3>
+        `<h3 class="card-title"><a href="product-details.html?id=${product.id}">${product.name}</a></h3>
         <p class="card-text price">Price: ${product.price} SEK</p>`;
 
     let button = document.createElement("button");
@@ -33,7 +33,7 @@ function getProductListing(product) {
     });
 
     productContent.appendChild(button);
-    innerCard.appendChild(productContent);
-    card.appendChild(innerCard);
-    return card;
+    card.appendChild(productContent);
+    gridItem.appendChild(card);
+    return gridItem;
 }
