@@ -1,37 +1,72 @@
 [
   {
-    "id": 0,
-    "name": "Lorem ipsum",
-    "description": "Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "price": 0.00,
-    "imgPath": "http://tafttest.com/200x200"
-  },
-  {
     "id": 1,
-    "name": "Flygande bäckasiner",
-    "description": "Söka strax hwila på mjuka tuvor",
-    "price": 0.00,
+    "productName": "Coffee - Espresso",
+    "basePrice": "3.66",
+    "description": "Ice Cream - Super Sandwich",
     "imgPath": "http://tafttest.com/200x200"
   },
   {
     "id": 2,
-    "name": "Träutensilierna i ett tryckeri",
-    "description": "Äro ingalunda en oviktig faktor,",
-    "price": 0.00,
+    "productName": "Buffalo - Short Rib Fresh",
+    "basePrice": "7.56",
+    "description": "Parsley Italian - Fresh",
     "imgPath": "http://tafttest.com/200x200"
   },
   {
     "id": 3,
-    "name": "Agare bagare kopparslagare",
-    "description": "Snällt är det inte att slå en svagare\nAgarn slog stopp\nBagarn slog opp\nKopparslagarn slog sönder en kopp",
-    "price": 0.00,
+    "productName": "Ham - Cooked",
+    "basePrice": "6.35",
+    "description": "Sauce - White, Mix",
     "imgPath": "http://tafttest.com/200x200"
   },
   {
     "id": 4,
-    "name": "Jabberwocky",
-    "description": "'Twas brillig and the slithy toves did gyre and gimble in the wabe. All mimsy were the borogoves, and the mome raths outgrabe.'",
-    "price": 0.00,
+    "productName": "Wine - Chianti Classica Docg",
+    "basePrice": "8.93",
+    "description": "Cheese - Boursin, Garlic / Herbs",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 5,
+    "productName": "Miso - Soy Bean Paste",
+    "basePrice": "2.03",
+    "description": "Milk - Skim",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 6,
+    "productName": "Wine - Red, Metus Rose",
+    "basePrice": "9.30",
+    "description": "Juice - Happy Planet",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 7,
+    "productName": "Pork - Backs - Boneless",
+    "basePrice": "2,28",
+    "description": "Lemonade - Natural, 591 Ml",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 8,
+    "productName": "Spice - Chili Powder Mexican",
+    "basePrice": "3.49",
+    "description": "Nestea - Iced Tea",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 9,
+    "productName": "Duck - Fat",
+    "basePrice": "3.97",
+    "description": "Crackers Cheez It",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 10,
+    "productName": "Table Cloth 81x81 White",
+    "basePrice": "7.53",
+    "description": "Soup - Chicken And Wild Rice",
     "imgPath": "http://tafttest.com/200x200"
   }
 ]

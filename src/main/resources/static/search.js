@@ -22,8 +22,8 @@ function getProductListing(product) {
     let productContent = document.createElement("div");
     productContent.className = "card-body";
     productContent.innerHTML =
-        `<h3 class="card-title"><a href="product-details.html?id=${product.id}">${product.name}</a></h3>
-        <p class="card-text price">Price: ${product.price} SEK</p>`;
+        `<h3 class="card-title"><a href="product-details.html?id=${product.id}">${product.productName}</a></h3>
+        <p class="card-text price">Price: ${product.basePrice} SEK</p>`;
 
     let button = document.createElement("button");
     button.className = "btn add-to-cart";
