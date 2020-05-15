@@ -3,21 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-<header>Hittat allt?</header>
-<h1>Din Varukorg</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <table class="table table-hover">
+                <tbody>
+               <div id="productbox"></div>
+                <tr>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td><h5>Subtotal</h5></td>
+                    <td class="text-right"><h5><strong>$24.59</strong></h5></td>
+                </tr>
+                <tr>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td><h5>Estimated shipping</h5></td>
+                    <td class="text-right"><h5><strong>$6.94</strong></h5></td>
+                </tr>
+                <tr>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td><h3>Total</h3></td>
+                    <td class="text-right"><h3><strong>$31.53</strong></h3></td>
+                </tr>
+                <tr>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-success">
+                            Checkout <span class="glyphicon glyphicon-play"></span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<button onclick="location.href = 'productPage';" Class="goBackButton" class="float-left submit-button">Go Back</button>
+<button onclick="location.href = 'receiptPage.html';" id="confirmOrderButton" class="float-left submit-button">Confirm
+    Order
+</button>
 
-
-<div id="productbox"></div>
-
-
-<div id="sumtotaltext">Totalsumma: </div>
-<div id="sum">0</div><div> kr</div>
-<button onclick="location.href = 'productPage';" Class="goBackButton" class="float-left submit-button" >Go Back</button>
-<button onclick="location.href = 'receiptPage.html';" id="confirmOrderButton" class="float-left submit-button" >Confirm Order</button>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="cart.js"></script>
+<script src="cart.js"></script>
 </body>
 </html>
