@@ -1,0 +1,64 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "productName": "Beer - Fruli",
+      "basePrice": "84.87",
+      "description": "Cake - Sheet Strawberry"
+    },
+    {
+      "id": 2,
+      "productName": "Vodka - Moskovskaya",
+      "basePrice": "29.16",
+      "description": "Tuna - Yellowfin"
+    },
+    {
+      "id": 3,
+      "productName": "Table Cloth 54x54 White",
+      "basePrice": "85.93",
+      "description": "Lettuce - Spring Mix"
+    },
+    {
+      "id": 4,
+      "productName": "Paste - Black Olive",
+      "basePrice": "43.81",
+      "description": "Potatoes - Yukon Gold, 80 Ct"
+    },
+    {
+      "id": 5,
+      "productName": "Basil - Thai",
+      "basePrice": "31.85",
+      "description": "Veal - Heart"
+    },
+    {
+      "id": 6,
+      "productName": "Tahini Paste",
+      "basePrice": "32.32",
+      "description": "Yoplait - Strawbrasp Peac"
+    },
+    {
+      "id": 7,
+      "productName": "Soup Campbells Split Pea And Ham",
+      "basePrice": "72.90",
+      "description": "Leeks - Large"
+    },
+    {
+      "id": 8,
+      "productName": "Olives - Green, Pitted",
+      "basePrice": "34.98",
+      "description": "Wine - Red, Colio Cabernet"
+    },
+    {
+      "id": 9,
+      "productName": "Squid - Tubes / Tenticles 10/20",
+      "basePrice": "20.23",
+      "description": "Muffin Mix - Lemon Cranberry"
+    },
+    {
+      "id": 10,
+      "productName": "Cape Capensis - Fillet",
+      "basePrice": "74.04",
+      "description": "Oil - Sunflower"
+    }
+  ]
+}
