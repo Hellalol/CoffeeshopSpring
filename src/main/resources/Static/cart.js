@@ -1,8 +1,5 @@
-
-function getProducts() {
+$(document).ready(function () {
     $.getJSON("MOCK_DATA.json", function (response) {
-
-    const productbox = document.getElementById("productbox");
         response.forEach(element => {
              $(`<tr>
                         <td class="col-md-6">
@@ -24,5 +21,5 @@ function getProducts() {
                         </button></td>
                     </tr>`).insertBefore($("#afterProducts"))
         });
-    })}
+    })})
 
