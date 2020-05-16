@@ -21,7 +21,7 @@ public class CustomerController {
         this.customerRepository = customerRepository;
     }
 
-    //Kolla varför det ska returnera en customer här? Behövs det?
+    //TODO : Om klienten skriver in en mailadress som redan finns crashar programmet. Åtgärd?
     @PostMapping()
     Customer customer (@RequestBody Customer newCustomer){
         return customerRepository.save(newCustomer);
