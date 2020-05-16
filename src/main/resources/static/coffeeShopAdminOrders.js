@@ -17,23 +17,22 @@ $(document).ready(function () {
         let productList2 = ``;
         let groupById = [];
 
+        let placeInArray = 0;
         for (let i = 0; i < data.purchase.length; i++){
-
-            if(data.purchase[i].id === 0) {
-                groupById[groupById.length] += data.purchase[i].productName + ","
+            if(i === 0) {
+                groupById[placeInArray] += data.purchase[i].productName + ","
+                    + data.purchase[i].basePrice + "," + data.purchase[i].description + ",";
+            }else{
+                if(data.purchase[i].id === data.purchase[(i - 1)].id){
+                        groupById[(placeInArray)] += data.purchase[i].productName + ","
+                        + data.purchase[i].basePrice + "," + data.purchase[i].description;
+                }else{
+                    placeInArray++;
+                    groupById[(placeInArray)] += data.purchase[i].productName + ","
                     + data.purchase[i].basePrice + "," + data.purchase[i].description;
+                }
             }
-            console.log(groupById[0]);
-            console.log(data.purchase[i].id);
-            console.log(data.purchase[(i - 1)].id);
-
-            if(data.purchase[i].id === data.purchase[(i - 1)].id)
-                groupById[(groupById.length -1)] += data.purchase[i].productName + ","
-                    + data.purchase[i].basePrice + "," + data.purchase[i].description;
-            console.log(groupById);
-
         }
-
 
 
         groupById.forEach(elm => {
