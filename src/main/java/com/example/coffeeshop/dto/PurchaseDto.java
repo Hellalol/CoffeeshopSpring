@@ -25,9 +25,7 @@ public class PurchaseDto {
                 .map(PurchaseEntryDto::new)
                 .sorted(Comparator.comparing(entry -> entry.getProduct().getId()))
                 .collect(Collectors.toList());
-        this.totalPrice = purchaseEntries.stream()
-                .map(entry -> entry.getCurrentPrice()
-                        .multiply(BigDecimal.valueOf(entry.getQuantity())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        this.totalPrice = purchase.getTotalPrice();
     }
+    
 }
