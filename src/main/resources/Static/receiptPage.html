@@ -6,7 +6,7 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="../js/cart.js"></script>
+    <script src="cart.js"></script>
 </head>
 <body>
 <div class="container">
@@ -14,6 +14,7 @@
         <div class="col-sm-12 col-md-10 col-md-offset-1">
             <table class="table table-hover">
                 <thead>
+                <tr><h1>YOU ARE WELCOME! NOW GIVE US MORE MONEY</h1> </tr>
                 <tr>
                     <th>Product</th>
                     <th> </th>
@@ -23,7 +24,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr id="afterProductsCartPage">
+                <tr id="afterProductsReceiptPage">
                     <td>  </td>
                     <td>  </td>
                     <td>  </td>
@@ -49,13 +50,13 @@
                     <td>  </td>
                     <td>  </td>
                     <td>
-                        <button type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                        <button type="button" class="btn btn-success">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Make another purchase
                         </button>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-success">
-                            Checkout <span class="glyphicon glyphicon-play"></span>
+                        <button type="button" class="btn btn-danger">
+                            Log out <span class="glyphicon glyphicon-log-out"></span>
                         </button>
                     </td>
                 </tr>
@@ -64,9 +65,5 @@
         </div>
     </div>
 </div>
-<button onclick="location.href = 'productPage';" Class="goBackButton" class="float-left submit-button">Go Back</button>
-<button onclick="location.href = 'receiptPage.html';" id="confirmOrderButton" class="float-left submit-button">Confirm
-    Order
-</button>
 </body>
 </html>
