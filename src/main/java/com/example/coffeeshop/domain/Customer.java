@@ -1,5 +1,9 @@
 package com.example.coffeeshop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.DiscriminatorValue;
@@ -12,13 +16,13 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-
 @Entity
 @DiscriminatorValue("CUSTOMER")
 public final class Customer extends User {
     private boolean premiumCustomer = false;
 
     @OneToMany(mappedBy = "customer")
+    @JsonManagedReference
     private List<Purchase> purchases = new ArrayList<>();
 
     public Customer() {

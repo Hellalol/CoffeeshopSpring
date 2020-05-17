@@ -1,5 +1,6 @@
 package com.example.coffeeshop.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "user_type")
 @Entity
+@JsonDeserialize(as = Customer.class)
 public abstract class User {
     public enum UserType {
         ROLE_REGULAR, ROLE_PREMIUM, ROLE_ADMIN
