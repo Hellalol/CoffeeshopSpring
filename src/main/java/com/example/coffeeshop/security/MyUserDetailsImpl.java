@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 
 public class MyUserDetailsImpl implements UserDetails {
 
+    public User user;
+
     private final String username;
     private final String password;
     private final Boolean active;
@@ -64,5 +66,8 @@ public class MyUserDetailsImpl implements UserDetails {
         return active;
     }
 
+    public User getUserDetails(){
+        return user;
+    }
 
 }
