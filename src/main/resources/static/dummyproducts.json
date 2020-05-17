@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "productName": "Coffee - Espresso",
+    "basePrice": "3.66",
+    "description": "Ice Cream - Super Sandwich",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 2,
+    "productName": "Buffalo - Short Rib Fresh",
+    "basePrice": "7.56",
+    "description": "Parsley Italian - Fresh",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 3,
+    "productName": "Ham - Cooked",
+    "basePrice": "6.35",
+    "description": "Sauce - White, Mix",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 4,
+    "productName": "Wine - Chianti Classica Docg",
+    "basePrice": "8.93",
+    "description": "Cheese - Boursin, Garlic / Herbs",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 5,
+    "productName": "Miso - Soy Bean Paste",
+    "basePrice": "2.03",
+    "description": "Milk - Skim",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 6,
+    "productName": "Wine - Red, Metus Rose",
+    "basePrice": "9.30",
+    "description": "Juice - Happy Planet",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 7,
+    "productName": "Pork - Backs - Boneless",
+    "basePrice": "2,28",
+    "description": "Lemonade - Natural, 591 Ml",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 8,
+    "productName": "Spice - Chili Powder Mexican",
+    "basePrice": "3.49",
+    "description": "Nestea - Iced Tea",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 9,
+    "productName": "Duck - Fat",
+    "basePrice": "3.97",
+    "description": "Crackers Cheez It",
+    "imgPath": "http://tafttest.com/200x200"
+  },
+  {
+    "id": 10,
+    "productName": "Table Cloth 81x81 White",
+    "basePrice": "7.53",
+    "description": "Soup - Chicken And Wild Rice",
+    "imgPath": "http://tafttest.com/200x200"
+  }
+]

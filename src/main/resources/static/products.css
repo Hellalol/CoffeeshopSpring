@@ -1,0 +1,42 @@
+nav.navbar {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.add-to-cart {
+    color: #fff;
+    background-color: #404040;
+    font-size: 15px;
+    text-align: center;
+    padding: 10px 10px;
+    display: block;
+}
+
+.card .add-to-cart {
+    width: 100%;
+}
+
+.add-to-cart:hover {
+    background-color: #3498db;
+    text-decoration: none
+}
+
+#products .title a {
+    color: #303030
+}
+
+#products .title a:hover {
+    color: #3498db
+}
+
+#products .price {
+    color: #303030;
+    font-size: 15px
+}
+
+@media screen and (max-width: 990px) {
+    #products .card {
+        margin-bottom: 30px
+    }
+}
