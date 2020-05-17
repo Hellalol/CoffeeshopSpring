@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = true)
 
 @Entity
-@DiscriminatorValue("A")
+@DiscriminatorValue("ADMIN")
 public final class Admin extends User {
     public Admin() {
         super();

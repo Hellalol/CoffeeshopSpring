@@ -14,7 +14,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 
 @Entity
-@DiscriminatorValue("C")
+@DiscriminatorValue("CUSTOMER")
 public final class Customer extends User {
     private boolean premiumCustomer = false;
 
