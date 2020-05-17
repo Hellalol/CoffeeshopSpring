@@ -8,7 +8,6 @@ function showPasswordFunction() {
     });
 }
 
-// Example starter JavaScript for disabling form submissions if there are invalid fields
 function validateForm() {
     'use strict';
     window.addEventListener('load', function() {
@@ -27,6 +26,11 @@ function validateForm() {
     }, false);
 }
 
+function validateEmail(email){
+    let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
 $(document).ready(function() {
     showPasswordFunction();
     validateForm();
@@ -34,25 +38,22 @@ $(document).ready(function() {
 
             event.preventDefault();
 
-            let counter = 0;
+            let allInputsAreFilledOutCorrectly = true;
+
+            //Input fields stored in variables
             let inputname = $.trim($('#inputname').val());
-                if(inputname.length === 0)
-                    counter++;
             let inputlastname = $.trim($('#inputlastname').val());
-                if(inputlastname.length === 0)
-                    counter++;
             let inputusername = $.trim($('#inputEmail').val());
-                if(inputusername.length === 0)
-                    counter++;
             let inputpassword = $.trim($('#inputPassword').val());
-                if(inputpassword.length === 0)
-                    counter++;
+
+
+            //Check if anything is missing
+            if(inputpassword.length === 0 || inputusername.length === 0 || inputlastname.length === 0 || inputname.length === 0 || !validateEmail(inputusername))
+                allInputsAreFilledOutCorrectly = false;
+
             let data = { name: inputname + " " + inputlastname, username : inputusername, password : inputpassword};
 
-            console.log(data);
-            console.log(counter);
-
-            if(counter < 1){
+            if(allInputsAreFilledOutCorrectly){
                 $('#submit-button').attr("disabled", true);
                 $('#reset-button').attr("disabled", true);
                 console.log("All input finns")
