@@ -31,7 +31,7 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
 
         user.orElseThrow(()->new UsernameNotFoundException("Not found" + userName));
 
-        log.info("loadUserByUsername() : {}" , userName);
+        log.info("loadUserByUsername() : {}" , user.get().getUserType());
 
         return user.map(MyUserDetailsImpl::new).get();
     }

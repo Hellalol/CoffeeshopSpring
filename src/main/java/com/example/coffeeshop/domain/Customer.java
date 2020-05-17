@@ -32,7 +32,7 @@ public final class Customer extends User {
 
     @Override
     public UserType getUserType() {
-        return premiumCustomer ? UserType.PREMIUM : UserType.REGULAR;
+        return premiumCustomer ? UserType.ROLE_PREMIUM : UserType.ROLE_REGULAR;
     }
 
     @PreUpdate

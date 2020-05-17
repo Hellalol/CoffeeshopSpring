@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 public abstract class User {
     public enum UserType {
-        REGULAR, PREMIUM, ADMIN
+        ROLE_REGULAR, ROLE_PREMIUM, ROLE_ADMIN
     }
 
     @Id

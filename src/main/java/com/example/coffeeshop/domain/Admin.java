@@ -22,6 +22,6 @@ public final class Admin extends User {
 
     @Override
     public UserType getUserType() {
-        return UserType.ADMIN;
+        return UserType.ROLE_ADMIN;
     }
 }

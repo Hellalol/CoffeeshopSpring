@@ -1,10 +1,11 @@
 package com.example.coffeeshop.security;
 
 import com.example.coffeeshop.domain.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MyUserDetailsImpl implements UserDetails {
-
+    private static final Logger log = LoggerFactory.getLogger(MyUserDetailsImpl.class);
     public User user;
 
     private final String username;
@@ -29,6 +30,8 @@ public class MyUserDetailsImpl implements UserDetails {
                         .split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
+
+        log.info(user.getUserType().name());
     }
 
     @Override
