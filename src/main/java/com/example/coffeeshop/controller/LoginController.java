@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
     private static final Logger log = LogManager.getLogger(LoginController.class);
 
-
     @GetMapping("/")
     public String home(){
         return ("<h1> Welcome User <h1>");
