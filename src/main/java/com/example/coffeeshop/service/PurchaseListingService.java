@@ -13,7 +13,7 @@ public final class PurchaseListingService {
         this.purchaseRepository = purchaseRepository;
     }
 
-//    public List<Purchase> getCustomerPurchases(Customer c) {
-//        return purchaseRepository.findByCustomerOrderByPurchaseTimeDesc(c);
-//    }
+    public List<Purchase> getCustomerPurchases(Customer c) {
+        return purchaseRepository.findByCustomerOrderByUpdatedDesc(c);
+    }
 }
