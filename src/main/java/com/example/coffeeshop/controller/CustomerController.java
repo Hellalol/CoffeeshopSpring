@@ -1,23 +1,15 @@
 package com.example.coffeeshop.controller;
 
 import com.example.coffeeshop.domain.Customer;
-import com.example.coffeeshop.domain.User;
 import com.example.coffeeshop.repository.CustomerRepository;
 import com.example.coffeeshop.repository.UserRepository;
-import com.example.coffeeshop.service.CustomerServiceImpl;
+import com.example.coffeeshop.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import com.example.coffeeshop.domain.Customer;
-import com.example.coffeeshop.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/customer")
@@ -25,12 +17,12 @@ public class CustomerController {
 
     CustomerRepository customerRepository;
     UserRepository userRepository;
-    CustomerServiceImpl customerServiceImpl;
+    CustomerService customerService;
 
     @Autowired
-    public CustomerController(UserRepository userRepository, CustomerRepository customerRepository, CustomerServiceImpl customerServiceImpl) {
+    public CustomerController(UserRepository userRepository, CustomerRepository customerRepository, CustomerService customerService) {
         this.customerRepository = customerRepository;
-        this.customerServiceImpl = customerServiceImpl;
+        this.customerService = customerService;
         this.userRepository = userRepository;
     }
 
@@ -41,8 +33,7 @@ public class CustomerController {
     }
 
     @GetMapping(path = "/all")
-    Iterable<Customer> getAllCustomers(){
-        //return customerRepository.findCustomerByNameIgnoreCase("test testsson");
-        return customerRepository.findAll();
+    List<Customer> getAllCustomers(){
+        return customerService.getAllCustomers();
     }
 }

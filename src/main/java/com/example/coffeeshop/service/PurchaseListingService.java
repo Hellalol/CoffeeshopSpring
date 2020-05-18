@@ -1,8 +1,12 @@
 package com.example.coffeeshop.service;
 
+import com.example.coffeeshop.domain.Customer;
+import com.example.coffeeshop.domain.Purchase;
 import com.example.coffeeshop.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public final class PurchaseListingService {

@@ -22,7 +22,7 @@ public final class Customer extends User {
     private boolean premiumCustomer = false;
 
     @OneToMany(mappedBy = "customer")
-    @JsonManagedReference
+    //@JsonManagedReference
     private List<Purchase> purchases = new ArrayList<>();
 
     public Customer() {
