@@ -1,6 +1,5 @@
 package com.example.coffeeshop.dto;
 
-import com.example.coffeeshop.domain.Customer;
 import com.example.coffeeshop.domain.Purchase;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -14,18 +13,19 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PurchaseDto {
     private final Long id;
-    private final Customer customer; // TODO Change to id or DTO
+    private final Long customerId;
     private final List<PurchaseEntryDto> purchaseEntries;
     private final BigDecimal totalPrice;
+    private final String status;
 
     public PurchaseDto(Purchase purchase) {
         this.id = purchase.getId();
-        this.customer = purchase.getCustomer();
+        this.customerId = purchase.getCustomer().getId();
         this.purchaseEntries = purchase.getPurchaseEntries().values().stream()
                 .map(PurchaseEntryDto::new)
-                .sorted(Comparator.comparing(entry -> entry.getProduct().getId()))
+                .sorted(Comparator.comparing(PurchaseEntryDto::getProductId))
                 .collect(Collectors.toList());
         this.totalPrice = purchase.getTotalPrice();
+        this.status = purchase.getStatus().name();
     }
-    
 }
