@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    fetch('MOCK_PURCHASE.json')
+    fetch('../MOCK_PURCHASE.json')
         .then(res => res.json())
         .then(data => {
             product(data);
@@ -7,37 +7,17 @@ $(document).ready(function () {
 
     $('.collapse').collapse();
 
-    // const unique = new Map(product(data).map(obj => [obj.id, obj]));
-    //
-    //   const uniques = Array.from(unique.values());
-
 
     function product(data) {
         let productList = ``;
         let productList2 = ``;
-        let groupById = [];
+        let unique = {};
 
-        let placeInArray = 0;
-        for (let i = 0; i < data.purchase.length; i++){
-            if(i === 0) {
-                groupById[placeInArray] += data.purchase[i].productName + ","
-                    + data.purchase[i].basePrice + "," + data.purchase[i].description + ",";
-            }else{
-                if(data.purchase[i].id === data.purchase[(i - 1)].id){
-                        groupById[(placeInArray)] += data.purchase[i].productName + ","
-                        + data.purchase[i].basePrice + "," + data.purchase[i].description;
-                }else{
-                    placeInArray++;
-                    groupById[(placeInArray)] += data.purchase[i].productName + ","
-                    + data.purchase[i].basePrice + "," + data.purchase[i].description;
-                }
-            }
-        }
+        data.purchase.forEach(elm => {
+            if(!unique[elm.id]) {
+                unique[elm.id] = true;
 
-
-        groupById.forEach(elm => {
-
-            productList +=  `<div class="card">
+                productList += `<div class="card">
         <div class="card-header ,heading">
             <h2 class="mb-0">
                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
@@ -47,6 +27,8 @@ $(document).ready(function () {
             </h2>
         </div>`
 
+
+            }
 
         });
 
@@ -62,7 +44,7 @@ $(document).ready(function () {
                 </tr>
             </div>
         </div>
-    </div> `;
+    </div> `
 
 
         });
