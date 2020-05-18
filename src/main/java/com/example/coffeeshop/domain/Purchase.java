@@ -23,7 +23,7 @@ public final class Purchase {
 
 
     @ManyToOne // TODO Laziness and cascade type
-    //@JsonBackReference
+    @JsonIgnore
     private Customer customer;
 
     // TODO Double-check that orphanRemoval correctly handles removed entries
@@ -73,4 +73,6 @@ public final class Purchase {
             this.completed = updated;
         }
     }
+
+
 }

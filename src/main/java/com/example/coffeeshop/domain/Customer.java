@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+//@Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @DiscriminatorValue("CUSTOMER")
@@ -22,7 +22,6 @@ public final class Customer extends User {
     private boolean premiumCustomer = false;
 
     @OneToMany(mappedBy = "customer")
-    //@JsonManagedReference
     private List<Purchase> purchases = new ArrayList<>();
 
     public Customer() {
@@ -50,5 +49,23 @@ public final class Customer extends User {
                     // TODO Check and move premium customer treshold
                     .compareTo(BigDecimal.valueOf(500_000)) >= 0;
         }
+    }
+
+    @JsonManagedReference
+    public List<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
+    }
+
+
+    public boolean isPremiumCustomer() {
+        return premiumCustomer;
+    }
+
+    public void setPremiumCustomer(boolean premiumCustomer) {
+        this.premiumCustomer = premiumCustomer;
     }
 }

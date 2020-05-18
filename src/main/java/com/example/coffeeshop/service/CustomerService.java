@@ -2,6 +2,7 @@ package com.example.coffeeshop.service;
 
 import com.example.coffeeshop.domain.Customer;
 import com.example.coffeeshop.domain.User;
+import com.example.coffeeshop.dto.CustomerDto;
 import com.example.coffeeshop.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,6 @@ public class CustomerService {
 
     public List<Customer>getAllCustomers(){
         return customerRepository.findAll();
+
     }
 }
