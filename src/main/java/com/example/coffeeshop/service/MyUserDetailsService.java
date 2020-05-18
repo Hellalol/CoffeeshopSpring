@@ -1,9 +1,8 @@
-package com.example.coffeeshop.security;
+package com.example.coffeeshop.service;
 
 import com.example.coffeeshop.domain.User;
 import com.example.coffeeshop.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.example.coffeeshop.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,25 +13,26 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-public class MyUserDetailsServiceImpl implements UserDetailsService {
-    private static final Logger log = LoggerFactory.getLogger(MyUserDetailsImpl.class);
+public class MyUserDetailsService implements UserDetailsService {
 
+    private Optional<User> user;
     UserRepository userRepository;
 
     @Autowired
-    public MyUserDetailsServiceImpl(UserRepository userRepository) {
+    public MyUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public Optional<User> getLoggedInUser() {
+        return user;
     }
 
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findUserByUsername(userName);
-
+        this.user = userRepository.findUserByUsername(userName);
         user.orElseThrow(()->new UsernameNotFoundException("Not found" + userName));
-
-        log.info("loadUserByUsername() : {}" , user.get().getUserType());
-
-        return user.map(MyUserDetailsImpl::new).get();
+        return user.map(CustomUserDetails::new).get();
     }
+
 }

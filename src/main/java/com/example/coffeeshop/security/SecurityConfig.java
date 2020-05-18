@@ -16,13 +16,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-
-    UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Autowired
-    public void getUserDetailsService(@Qualifier("myUserDetailsServiceImpl") UserDetailsService userDetailsService) {
-         this.userDetailsService = userDetailsService;
+    public void getUserDetailsService(@Qualifier("myUserDetailsService") UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -32,15 +30,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/","/home","/user").access("hasRole('REGULAR')")
-                .antMatchers("/","/home","/admin").hasRole("ADMIN")
-                .and().formLogin();
+        http
+                .authorizeRequests()
+                .antMatchers("/login*").permitAll()
+                .antMatchers("/admin","/username").hasRole("ADMIN")
+                .antMatchers("/","/customer").access("hasRole('REGULAR')")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/index.html")
+                .and()
+                .logout();
     }
 
     @Bean
-    public PasswordEncoder getPasswordEncoder(){
+    public PasswordEncoder getPasswordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
-
 }

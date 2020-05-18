@@ -1,9 +1,9 @@
 -- Users
 insert into user(name, password, username, user_type, active, premium_customer)
-values ('Test Testsson', 'Password', 'test','CUSTOMER', true, false),
-('Test2 Testsson2', 'Password2', 'test2','ADMIN', true, false),
+values ('Test Testsson', 'reg', 'reg','CUSTOMER', true, false),
+('Test2 Testsson2', 'admin', 'admin','ADMIN', true, false),
  ('kund1', 'Pass', 'kund1', 'CUSTOMER', true, false),
- ('kund2', 'Pass', 'kund2', 'CUSTOMER', true, true);
+ ('kund2', 'premium', 'premium', 'CUSTOMER', true, true);
 
 -- Products
 insert into product(base_price, description, product_name, image_path)

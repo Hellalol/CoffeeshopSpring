@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link href="login.css" rel="stylesheet"/>
+    <link href="../css/login.css" rel="stylesheet"/>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 
 <body>
@@ -21,16 +20,20 @@
     <div class="col-md-6 col-sm-12">
         <div class="login-form">
             <form>
-                <div class="form-group">
+                <div class="form-group" id="loginform">
                     <label>User Name</label>
-                    <input type="text" class="form-control" placeholder="User Name">
+                    <input type="text" class="form-control" placeholder="User Name" id="username">
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input type="password" class="form-control" placeholder="Password" id="password">
                 </div>
                 <button type="submit" class="btn btn-black">Login</button>
-                <button type="submit" class="btn btn-secondary">Register</button>
+            </form>
+            <form>
+                <a href="registrate-customer.html">
+                <button type="submit" class="btn btn-secondary" onclick="">Register<button>
+                </a>
             </form>
         </div>
     </div>
