@@ -1,5 +1,6 @@
 package com.example.coffeeshop.domain;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,7 +21,9 @@ public final class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @ManyToOne // TODO Laziness and cascade type
+    @JsonIgnore
     private Customer customer;
 
     // TODO Double-check that orphanRemoval correctly handles removed entries
@@ -70,4 +73,6 @@ public final class Purchase {
             this.completed = updated;
         }
     }
+
+
 }

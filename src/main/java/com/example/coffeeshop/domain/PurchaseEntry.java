@@ -1,5 +1,6 @@
 package com.example.coffeeshop.domain;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +11,6 @@ import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
-
 @Entity
 @IdClass(PurchaseEntryId.class)
 public final class PurchaseEntry {

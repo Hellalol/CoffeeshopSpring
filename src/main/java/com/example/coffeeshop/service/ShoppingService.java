@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Optional;
 
 @Service
-// TODO Migrate to DTOs? Might be simpler, might be the controllers' responsibility
 public final class ShoppingService {
     private final PurchaseRepository purchaseRepository;
     private final PurchaseEntryRepository entryRepository;
@@ -19,6 +19,10 @@ public final class ShoppingService {
     public ShoppingService(PurchaseRepository purchaseRepository, PurchaseEntryRepository entryRepository) {
         this.purchaseRepository = purchaseRepository;
         this.entryRepository = entryRepository;
+    }
+
+    public Optional<Purchase> getById(long id) {
+        return purchaseRepository.findById(id);
     }
 
     public Purchase emptyCart(Purchase p) {
@@ -31,6 +35,7 @@ public final class ShoppingService {
             throw new IllegalArgumentException("Completed purchases cannot be cancelled");
         } else {
             // TODO Check for already cancelled purchase
+            p.setStatus(Purchase.Status.CANCELLED);
             return purchaseRepository.save(p);
         }
     }
