@@ -1,9 +1,11 @@
 package com.example.coffeeshop.controller;
 
 import com.example.coffeeshop.domain.Customer;
+import com.example.coffeeshop.domain.Product;
 import com.example.coffeeshop.domain.Purchase;
 import com.example.coffeeshop.dto.PurchaseDto;
 import com.example.coffeeshop.dto.PurchaseEntryDto;
+import com.example.coffeeshop.service.ProductService;
 import com.example.coffeeshop.service.ShoppingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +16,12 @@ import org.springframework.web.bind.annotation.*;
 // TODO Throw correct exceptions
 public class PurchaseController {
     private final ShoppingService shoppingService;
+    private final ProductService productService;
 
     @Autowired
-    public PurchaseController(ShoppingService shoppingService) {
+    public PurchaseController(ShoppingService shoppingService, ProductService productService) {
         this.shoppingService = shoppingService;
+        this.productService = productService;
     }
 
     @PostMapping("/new")
@@ -50,5 +54,21 @@ public class PurchaseController {
         Purchase purchase = shoppingService.getById(id).orElseThrow();
         // Do the thing
         return null;
+    }
+
+    @DeleteMapping("/{purchaseId}/remove/{productId}")
+    public PurchaseDto remove(@PathVariable long purchaseId, @PathVariable long productId) {
+        Purchase purchase = shoppingService.getById(purchaseId).orElseThrow();
+        Product product = productService.getById(productId).orElseThrow();
+        // TODO A remove() method might be more elegant
+        return new PurchaseDto(shoppingService.setProductQuantity(purchase, product, 0));
+    }
+
+    @DeleteMapping("/{id}/removeAll")
+    public PurchaseDto removeAll(@PathVariable long id) {
+        return shoppingService.getById(id)
+                .map(shoppingService::emptyCart)
+                .map(PurchaseDto::new)
+                .orElseThrow();
     }
 }
