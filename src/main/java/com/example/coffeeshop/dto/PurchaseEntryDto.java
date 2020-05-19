@@ -1,5 +1,6 @@
 package com.example.coffeeshop.dto;
 
+import com.example.coffeeshop.domain.Customer;
 import com.example.coffeeshop.domain.PurchaseEntry;
 import lombok.*;
 
@@ -15,4 +16,5 @@ public final class PurchaseEntryDto {
     public PurchaseEntryDto(PurchaseEntry purchaseEntry) {
         this(purchaseEntry.getProduct().getId(), purchaseEntry.getQuantity(), purchaseEntry.getCurrentPrice());
     }
+
 }

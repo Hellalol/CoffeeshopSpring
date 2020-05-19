@@ -1,56 +1,52 @@
+function getProduct(id){
+    $.ajax({
+        url: `http://localhost:8080/customer/product/${JSON.parse(id)}`,
+    }).then(function (data) {
+        return data
+    });
+}
+
 $(document).ready(function () {
-    fetch('../MOCK_PURCHASE.json')
-        .then(res => res.json())
-        .then(data => {
-            product(data);
-        }).catch(error => console.error(error));
+    $.ajax({
+        url: "http://localhost:8080/customer/order/3",
+    }).then(function (data) {
 
-    $('.collapse').collapse();
-
-
-    function product(data) {
+        $('.collapse').collapse();
         let productList = ``;
-        let productList2 = ``;
-        let unique = {};
 
-        data.purchase.forEach(elm => {
-            if(!unique[elm.id]) {
-                unique[elm.id] = true;
+        data.forEach(elm => {
+            productList += `<div class="card">
+                 <div class="card-header ,heading">
+                     <h2 class="mb-0">
+                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                              data-target="#collapse${elm.id}" aria-expanded="false" aria-controls="collapse${elm.id}">
+                          Order ${elm.id}
+                         </button>
+                     </h2>
+                 </div>`;
+        elm.purchaseEntries.forEach(elm2 => {
+            console.log("elm2");
+            console.log(elm2);
+            console.log("getProduct()§");
+            console.log(getProduct(elm2.productId));
+            console.log("product id");
+            console.log(elm2.productId);
+            console.log("elm");
+            console.log(elm);
 
-                productList += `<div class="card">
-        <div class="card-header ,heading">
-            <h2 class="mb-0">
-                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
-                        data-target="#collapse${elm.id}" aria-expanded="false" aria-controls="collapse${elm.id}">
-                    Order ${elm.id}
-                </button>
-            </h2>
-        </div>`
-
-
-            }
-
-        });
-
-        data.purchase.forEach(elm => {
-
-                productList2 += `
-       <div id="collapse${elm.id}" class="collapse" aria-labelledby="heading" data-parent="#test">
-            <div class="card-body stuffy">
+            productList += `<div id="collapse${elm.id}" class="collapse" aria-labelledby="heading" data-parent="#show-order">
+            <div class="card-body order">
                 <tr>
-                 <td scope="row">Brand: ${elm.productName}</td>
-                 <td scope="row">Price: ${elm.basePrice}</td>         
-                 <td scope="row">Description: ${elm.description}</td>
-                </tr>
+                 <td scope="row">Brand: ${elm2.productId}</td>
+                 <td scope="row">Price: ${elm2.currentPrice} SEK</td>
+                 <td scope="row">Quantity: ${elm2.quantity}</td>         
+                 <td scope="row">Total Price: ${elm.totalPrice} SEK</td>
+                </tr> 
             </div>
-        </div>
-    </div> `
+        </div> `;
 
-
+            });
         });
-
-        $('.stuffy').append(productList,productList2);
-
-    }
-
+        $('.order').append(productList);
+    });
 });
