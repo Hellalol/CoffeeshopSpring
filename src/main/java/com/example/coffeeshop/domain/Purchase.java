@@ -36,6 +36,7 @@ public final class Purchase {
     private Set<PurchaseEntry> truePurchaseEntries = new TreeSet<>(Comparator.comparing(purchaseEntry -> purchaseEntry.getProduct().getId()));
 
 
+
     private UUID orderNumber;
 
     @Enumerated(EnumType.STRING)
