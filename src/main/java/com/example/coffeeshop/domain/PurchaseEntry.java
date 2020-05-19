@@ -13,7 +13,8 @@ import java.math.BigDecimal;
 //@NoArgsConstructor
 @Entity
 @IdClass(PurchaseEntryId.class)
-public final class PurchaseEntry {
+public class PurchaseEntry {
+
     @Id
     @NotNull
     @ManyToOne // TODO Laziness and cascade type
@@ -22,7 +23,6 @@ public final class PurchaseEntry {
     @Id
     @NotNull
     @ManyToOne // TODO Laziness and cascade type
-    @JsonIgnore
     private Product product;
 
     @Positive

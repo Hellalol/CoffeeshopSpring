@@ -9,10 +9,10 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.*;
 
-@Data
+//@Data
 //@NoArgsConstructor
 @Entity
-public final class Purchase {
+public class Purchase {
     public enum Status {
         IN_PROGRESS, COMPLETED, CANCELLED
     }
@@ -29,7 +29,10 @@ public final class Purchase {
     // TODO Double-check that orphanRemoval correctly handles removed entries
     @OneToMany(mappedBy = "purchase", orphanRemoval = true) // TODO Laziness and cascade type
     @MapKeyJoinColumn(name = "product_id")
+    //@Transient
     private Map<Product, PurchaseEntry> purchaseEntries = new TreeMap<>(Comparator.comparing(Product::getId));
+
+    // = Collections.synchronizedSortedMap(new TreeMap.....)
 
     private UUID orderNumber;
 
@@ -93,7 +96,7 @@ public final class Purchase {
         this.customer = customer;
     }
 
-    @JsonManagedReference
+
     public Map<Product, PurchaseEntry> getPurchaseEntries() {
         return purchaseEntries;
     }
