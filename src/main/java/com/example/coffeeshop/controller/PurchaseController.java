@@ -47,13 +47,6 @@ public class PurchaseController {
         return new PurchaseDto(p);
     }
 
-    @GetMapping("/getAllDTO")
-    public List<PurchaseDto> getAllDTO(){
-        return shoppingService.getAllCustomers().stream()
-                .map(PurchaseDto::new)
-                .collect(Collectors.toList());
-    }
-
     @PostMapping("/{id}/add")
     // TODO Hash out how this and putAll are supposed to work, also figure out request mapping
     public PurchaseDto put(@PathVariable long id, @RequestBody PurchaseEntryDto entry) {
