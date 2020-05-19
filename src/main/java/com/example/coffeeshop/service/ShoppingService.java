@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,10 @@ public final class ShoppingService {
     public ShoppingService(PurchaseRepository purchaseRepository, PurchaseEntryRepository entryRepository) {
         this.purchaseRepository = purchaseRepository;
         this.entryRepository = entryRepository;
+    }
+
+    public List<Purchase> getAllCustomers(){
+        return purchaseRepository.findAll();
     }
 
     public Optional<Purchase> getById(long id) {
