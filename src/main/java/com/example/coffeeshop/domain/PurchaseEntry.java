@@ -10,7 +10,7 @@ import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 @Entity
 @IdClass(PurchaseEntryId.class)
 public final class PurchaseEntry {
@@ -22,6 +22,7 @@ public final class PurchaseEntry {
     @Id
     @NotNull
     @ManyToOne // TODO Laziness and cascade type
+    @JsonIgnore
     private Product product;
 
     @Positive
@@ -29,6 +30,9 @@ public final class PurchaseEntry {
 
     @DecimalMin(value = "0.0", inclusive = false)
     private BigDecimal currentPrice;
+
+    public PurchaseEntry() {
+    }
 
     public PurchaseEntry(Purchase purchase, Product product, int quantity, BigDecimal currentPrice) {
         this.purchase = purchase;
@@ -42,5 +46,38 @@ public final class PurchaseEntry {
         if (currentPrice == null) {
             this.currentPrice = this.product.getBasePrice();
         }
+    }
+
+    public Purchase getPurchase() {
+        return purchase;
+    }
+
+    public void setPurchase(Purchase purchase) {
+        this.purchase = purchase;
+    }
+
+    @JsonBackReference
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigDecimal getCurrentPrice() {
+        return currentPrice;
+    }
+
+    public void setCurrentPrice(BigDecimal currentPrice) {
+        this.currentPrice = currentPrice;
     }
 }

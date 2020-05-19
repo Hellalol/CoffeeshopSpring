@@ -10,7 +10,7 @@ import java.time.Instant;
 import java.util.*;
 
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 @Entity
 public final class Purchase {
     public enum Status {
@@ -43,6 +43,9 @@ public final class Purchase {
     @Setter(AccessLevel.NONE)
     private Timestamp completed;
 
+    public Purchase() {
+    }
+
     public Purchase(Customer customer) {
         this.customer = customer;
         this.orderNumber = UUID.randomUUID(); // TODO check default value generation
@@ -74,5 +77,73 @@ public final class Purchase {
         }
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    @JsonManagedReference
+    public Map<Product, PurchaseEntry> getPurchaseEntries() {
+        return purchaseEntries;
+    }
+
+    public void setPurchaseEntries(Map<Product, PurchaseEntry> purchaseEntries) {
+        this.purchaseEntries = purchaseEntries;
+    }
+
+    public UUID getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(UUID orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Timestamp getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Timestamp updated) {
+        this.updated = updated;
+    }
+
+    public Timestamp getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Timestamp completed) {
+        this.completed = completed;
+    }
+
+    @Override
+    public String toString() {
+        return "Purchase{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", purchaseEntries=" + purchaseEntries +
+                ", orderNumber=" + orderNumber +
+                ", status=" + status +
+                ", updated=" + updated +
+                ", completed=" + completed +
+                '}';
+    }
 }

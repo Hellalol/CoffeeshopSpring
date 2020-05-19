@@ -3,6 +3,7 @@ package com.example.coffeeshop.controller;
 import com.example.coffeeshop.domain.Customer;
 import com.example.coffeeshop.domain.Product;
 import com.example.coffeeshop.domain.Purchase;
+import com.example.coffeeshop.dto.CustomerDto;
 import com.example.coffeeshop.dto.PurchaseDto;
 import com.example.coffeeshop.dto.PurchaseEntryDto;
 import com.example.coffeeshop.service.ProductService;
@@ -10,6 +11,9 @@ import com.example.coffeeshop.service.ShoppingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/purchase")
@@ -38,8 +42,16 @@ public class PurchaseController {
     }
 
     @GetMapping("/{id}")
-    public PurchaseDto getPurchase(@PathVariable long id) {
-        return shoppingService.getById(id).map(PurchaseDto::new).orElseThrow();
+    public PurchaseDto getPurchase(@PathVariable Long id) {
+        Purchase p = shoppingService.getById(id).orElseThrow();
+        return new PurchaseDto(p);
+    }
+
+    @GetMapping("/getAllDTO")
+    public List<PurchaseDto> getAllDTO(){
+        return shoppingService.getAllCustomers().stream()
+                .map(PurchaseDto::new)
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/{id}/add")

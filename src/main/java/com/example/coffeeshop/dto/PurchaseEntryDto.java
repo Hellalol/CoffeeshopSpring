@@ -6,11 +6,11 @@ import lombok.*;
 import java.math.BigDecimal;
 
 @Data
-@RequiredArgsConstructor
+@AllArgsConstructor
 public final class PurchaseEntryDto {
-    private final long productId;
-    private final int quantity;
-    private final BigDecimal currentPrice;
+    private Long productId;
+    private int quantity;
+    private BigDecimal currentPrice;
 
     public PurchaseEntryDto(PurchaseEntry purchaseEntry) {
         this(purchaseEntry.getProduct().getId(), purchaseEntry.getQuantity(), purchaseEntry.getCurrentPrice());
