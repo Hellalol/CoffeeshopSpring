@@ -10,6 +10,7 @@ import java.util.*;
 
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public final class Purchase {
     public enum Status {
@@ -24,9 +25,13 @@ public final class Purchase {
     private Customer customer;
 
     // TODO Double-check that orphanRemoval correctly handles removed entries
-    @OneToMany(mappedBy = "purchase", orphanRemoval = true) // TODO Laziness and cascade type
-    @MapKeyJoinColumn(name = "product_id")
-    private Map<Product, PurchaseEntry> purchaseEntries = new TreeMap<>(Comparator.comparing(Product::getId));
+    //@OneToMany(mappedBy = "purchase", orphanRemoval = true) // TODO Laziness and cascade type
+    //@MapKeyJoinColumn(name = "product_id")
+    //@Transient
+    //private Map<Product, PurchaseEntry> purchaseEntries = new TreeMap<>(Comparator.comparing(Product::getId));
+
+    @OneToMany(mappedBy = "purchase")
+    private Set<PurchaseEntry> truePurchaseEntries = new TreeSet<>(Comparator.comparing(purchaseEntry -> purchaseEntry.getProduct().getId()));
 
     private UUID orderNumber;
 
@@ -47,11 +52,11 @@ public final class Purchase {
 
     // TODO Behaviour when key not found
     public PurchaseEntry getEntry(Product product) {
-        return this.getPurchaseEntries().get(product);
+        return this.getTruePurchaseEntries().stream().filter(e -> e.getProduct().equals(product)).findFirst().orElse(new PurchaseEntry(this, product, 0, product.getBasePrice()));
     }
 
     public BigDecimal getTotalPrice() {
-        return purchaseEntries.values().stream()
+        return truePurchaseEntries.stream()
                 .map(entry -> entry.getCurrentPrice().multiply(BigDecimal.valueOf(entry.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
@@ -59,7 +64,8 @@ public final class Purchase {
     @PrePersist
     @PreUpdate
     private void prepare() {
-        purchaseEntries.values().removeIf(entry -> entry.getQuantity() < 1);
+        //purchaseEntries.values().removeIf(entry -> entry.getQuantity() < 1);
+        truePurchaseEntries.removeIf(entry -> entry.getQuantity() < 1);
         if (status != Status.COMPLETED) {
             // Theoretically this might allow for cancelled purchases to be auto-updated
             // even when they haven't actually been changed, but that's a remote possibility.

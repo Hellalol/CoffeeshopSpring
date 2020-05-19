@@ -21,7 +21,7 @@ public class PurchaseDto {
     public PurchaseDto(Purchase purchase) {
         this.id = purchase.getId();
         this.customerId = purchase.getCustomer().getId();
-        this.purchaseEntries = purchase.getPurchaseEntries().values().stream()
+        this.purchaseEntries = purchase.getTruePurchaseEntries().stream()
                 .map(PurchaseEntryDto::new)
                 .sorted(Comparator.comparing(PurchaseEntryDto::getProductId))
                 .collect(Collectors.toList());

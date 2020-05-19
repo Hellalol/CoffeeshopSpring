@@ -26,7 +26,7 @@ public final class ShoppingService {
     }
 
     public Purchase emptyCart(Purchase p) {
-        p.getPurchaseEntries().clear();
+        p.getTruePurchaseEntries().clear();
         return purchaseRepository.save(p);
     }
 
@@ -58,11 +58,10 @@ public final class ShoppingService {
         } else if (quantity < 0) {
             throw new IllegalArgumentException("Purchase quantities may not go below zero");
         }
-        PurchaseEntry entry = entryRepository
-                .findById(new PurchaseEntryId(purchase.getId(), product.getId()))
+        PurchaseEntry entry = purchase.getTruePurchaseEntries().stream().filter(e -> e.getProduct().equals(product)).findFirst()
                 .orElse(new PurchaseEntry(purchase, product, 0, calculateCurrentPrice(purchase.getCustomer(), product)));
         entry.setQuantity(quantity);
-        purchase.getPurchaseEntries().put(product, entry);
+        purchase.getTruePurchaseEntries().add(entry);
         clearStaleEntries(purchase);
         sanitizePrices(purchase);
         return purchaseRepository.save(purchase);
@@ -71,12 +70,12 @@ public final class ShoppingService {
     // TODO Sanitize purchase entries here or in the entity class?
     private void clearStaleEntries(Purchase purchase) {
         // Since this is only used internally, there's no need to check purchase status within this method
-        purchase.getPurchaseEntries().values().removeIf(purchaseEntry -> purchaseEntry.getQuantity() < 1);
+        purchase.getTruePurchaseEntries().removeIf(purchaseEntry -> purchaseEntry.getQuantity() < 1);
     }
 
     // TODO This is a horrible hack
     private void sanitizePrices(Purchase p) {
-        p.getPurchaseEntries().values().forEach(entry -> entry.setCurrentPrice(calculateCurrentPrice(p.getCustomer(), entry.getProduct())));
+        p.getTruePurchaseEntries().forEach(entry -> entry.setCurrentPrice(calculateCurrentPrice(p.getCustomer(), entry.getProduct())));
     }
 
     // TODO What if calculation changes during a long-lived purchase?
