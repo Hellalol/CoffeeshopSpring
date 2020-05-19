@@ -10,7 +10,7 @@ import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 
 @Entity
 public final class PurchaseEntry {
