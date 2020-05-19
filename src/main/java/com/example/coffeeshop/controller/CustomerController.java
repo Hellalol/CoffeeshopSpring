@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+
 @RequestMapping("/customer")
 public class CustomerController {
 
@@ -32,6 +33,7 @@ public class CustomerController {
         return customerRepository.save(newCustomer);
     }
 
+    @CrossOrigin()
     @GetMapping(path = "/all")
     public List<CustomerDto> getAllCustomers(){
         return customerService.getAllCustomers().stream()
