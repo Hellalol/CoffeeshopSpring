@@ -29,4 +29,24 @@ public class PurchaseDto {
         this.totalPrice = purchase.getTotalPrice();
         this.status = purchase.getStatus().name();
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public List<PurchaseEntryDto> getPurchaseEntries() {
+        return purchaseEntries;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 }

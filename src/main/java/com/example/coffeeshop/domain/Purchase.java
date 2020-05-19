@@ -83,4 +83,60 @@ public final class Purchase {
             this.completed = updated;
         }
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Set<PurchaseEntry> getTruePurchaseEntries() {
+        return truePurchaseEntries;
+    }
+
+    public void setTruePurchaseEntries(Set<PurchaseEntry> truePurchaseEntries) {
+        this.truePurchaseEntries = truePurchaseEntries;
+    }
+
+    public UUID getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(UUID orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Timestamp getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Timestamp updated) {
+        this.updated = updated;
+    }
+
+    public Timestamp getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Timestamp completed) {
+        this.completed = completed;
+    }
 }

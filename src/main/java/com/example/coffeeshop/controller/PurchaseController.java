@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -45,6 +47,38 @@ public class PurchaseController {
     public PurchaseDto getPurchase(@PathVariable Long id) {
         Purchase p = shoppingService.getById(id).orElseThrow();
         return new PurchaseDto(p);
+    }
+
+    @GetMapping("/{id}/product")
+    public List<Optional<Product>> getproduct(@PathVariable Long id) {
+
+        //instansveriabler
+        Optional<Product> selectedProduct;
+        Long selectedProductId;
+        List<PurchaseEntryDto> productDTOList;
+        List<Optional<Product>> productList = new ArrayList<>();
+
+        //låta annan metod hämta purchaseDto
+        PurchaseDto purchaseDto = getPurchase(id);
+
+        //ta ut PurchaseEntriesListan från purchaseDto
+        productDTOList = purchaseDto.getPurchaseEntries();
+
+
+        //hämta produktId från listan av purchesEntries
+        for (int i = 0; i < productDTOList.size() ; i++) {
+            selectedProductId = productDTOList.get(i).getProductId();
+            //hämta varje produkt med produktId i purchesEntriesListan
+            selectedProduct = productService.getById(selectedProductId);
+            //om den hittar, lägg in i produktlista
+            if (selectedProduct.isPresent()){
+                productList.add(selectedProduct);
+            }
+
+        }
+
+        //skicka hela produkt listan
+        return productList;
     }
 
     @PostMapping("/{id}/add")
