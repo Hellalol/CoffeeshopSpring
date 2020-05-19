@@ -42,21 +42,26 @@ public class PurchaseController {
         return shoppingService.getById(id).map(PurchaseDto::new).orElseThrow();
     }
 
-    @PutMapping("/{id}/add")
+    @PostMapping("/{id}/add")
     // TODO Hash out how this and putAll are supposed to work, also figure out request mapping
     public PurchaseDto put(@PathVariable long id, @RequestBody PurchaseEntryDto entry) {
-        return null;
+        // TODO Check id and purchase entry
+        Purchase purchase = shoppingService.getById(id).orElseThrow();
+        Product product = productService.getById(entry.getProductId()).orElseThrow();
+        return new PurchaseDto(shoppingService.setProductQuantity(purchase, product, entry.getQuantity()));
     }
 
-    @PutMapping("/{id}/addAll")
+    @PostMapping("/{id}/addAll")
     // TODO Hash out how this and put are supposed to work, also figure out request mapping
     public PurchaseDto putAll(@PathVariable long id, @RequestBody Iterable<PurchaseEntryDto> entries) {
         Purchase purchase = shoppingService.getById(id).orElseThrow();
-        // Do the thing
-        return null;
+        for (PurchaseEntryDto entry : entries) {
+            put(id, entry);
+        }
+        return new PurchaseDto(purchase);
     }
 
-    @DeleteMapping("/{purchaseId}/remove/{productId}")
+    @PostMapping("/{purchaseId}/remove/{productId}")
     public PurchaseDto remove(@PathVariable long purchaseId, @PathVariable long productId) {
         Purchase purchase = shoppingService.getById(purchaseId).orElseThrow();
         Product product = productService.getById(productId).orElseThrow();
@@ -64,11 +69,17 @@ public class PurchaseController {
         return new PurchaseDto(shoppingService.setProductQuantity(purchase, product, 0));
     }
 
-    @DeleteMapping("/{id}/removeAll")
+    @PostMapping("/{id}/removeAll")
     public PurchaseDto removeAll(@PathVariable long id) {
         return shoppingService.getById(id)
                 .map(shoppingService::emptyCart)
                 .map(PurchaseDto::new)
                 .orElseThrow();
+    }
+
+    @PostMapping("/{id}/replace")
+    public PurchaseDto replace(@PathVariable long id, PurchaseDto newPurchase) {
+        removeAll(id);
+        return putAll(id, newPurchase.getPurchaseEntries());
     }
 }
