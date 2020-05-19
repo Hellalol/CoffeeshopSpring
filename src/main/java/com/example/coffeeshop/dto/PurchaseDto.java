@@ -13,20 +13,19 @@ import java.util.stream.Collectors;
 @Data
 @RequiredArgsConstructor
 public class PurchaseDto {
-    private Long id;
-    private Long customerId;
-    private List<PurchaseEntryDto> purchaseEntries;
-    private BigDecimal totalPrice;
-    private String status;
+    private final Long id;
+    private final Long customerId;
+    private final List<PurchaseEntryDto> purchaseEntries;
+    private final BigDecimal totalPrice;
+    private final String status;
 
     public PurchaseDto(Purchase purchase) {
         this.id = purchase.getId();
         this.customerId = purchase.getCustomer().getId();
-        this.purchaseEntries = purchase.getPurchaseEntries().values().stream()
-               .map(PurchaseEntryDto::new)
-               .sorted(Comparator.comparing(PurchaseEntryDto::getProductId))
-               .collect(Collectors.toList());
-        //this.purchaseEntries=new ArrayList<>();
+        this.purchaseEntries = purchase.getTruePurchaseEntries().stream()
+                .map(PurchaseEntryDto::new)
+                .sorted(Comparator.comparing(PurchaseEntryDto::getProductId))
+                .collect(Collectors.toList());
         this.totalPrice = purchase.getTotalPrice();
         this.status = purchase.getStatus().name();
     }
