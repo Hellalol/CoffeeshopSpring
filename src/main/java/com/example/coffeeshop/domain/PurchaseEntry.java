@@ -10,17 +10,18 @@ import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 @Data
-//@NoArgsConstructor
-@Entity
-@IdClass(PurchaseEntryId.class)
-public class PurchaseEntry {
+@NoArgsConstructor
 
+@Entity
+public final class PurchaseEntry {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotNull
     @ManyToOne // TODO Laziness and cascade type
     private Purchase purchase;
 
-    @Id
     @NotNull
     @ManyToOne // TODO Laziness and cascade type
     private Product product;
@@ -56,7 +57,6 @@ public class PurchaseEntry {
         this.purchase = purchase;
     }
 
-    @JsonBackReference
     public Product getProduct() {
         return product;
     }
