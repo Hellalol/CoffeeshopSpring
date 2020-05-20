@@ -34,13 +34,13 @@ if(existing === null){
     })
     //save product in purches
 }else{
-
     $.ajax({
         url: `/purchase/`+ existing +`/addProductToPurches/` + productId,
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (result) {
+            console.log("kommer till else")
             console.log(result)
         }
     })

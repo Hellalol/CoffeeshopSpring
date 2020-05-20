@@ -145,7 +145,7 @@ public class PurchaseController {
         //purchase.getTruePurchaseEntries().add(new PurchaseEntry(purchase, product, 1, product.getBasePrice()));
         log.info(String.valueOf(purchase.getTruePurchaseEntries()));
         //shoppingService.setProductQuantity(purchase, product,1);
-       shoppingService.addNewProduct(purchase, product);
+       purchase = shoppingService.addNewProduct(purchase, product);
 
         return new PurchaseDto(purchase);
     }

@@ -33,7 +33,7 @@ public final class Purchase {
     //private Map<Product, PurchaseEntry> purchaseEntries = new TreeMap<>(Comparator.comparing(Product::getId));
 
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @JsonIgnore
+
     private Set<PurchaseEntry> truePurchaseEntries = new TreeSet<>(Comparator.comparing(purchaseEntry -> purchaseEntry.getProduct().getId()));
 
 
