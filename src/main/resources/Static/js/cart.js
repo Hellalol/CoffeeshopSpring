@@ -31,12 +31,19 @@ function removeProduct(productId){
     });
 }
 
+function confirmOrder(){
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/purchase/3/checkout", //ändras
+        dataType: "json"
+    })
+}
+
 $(document).ready(function () {
     $.ajax({
         url: "http://localhost:8080/purchase/3/",
         dataType: "json"
     }).then(function (data) {
-        let total;
         console.log(data);
         data.purchaseEntries.forEach(element => {
             $(`<tr>
@@ -61,7 +68,7 @@ $(document).ready(function () {
             document.getElementById("totalPrice").innerHTML = data.totalPrice + " SEK";
         });
     })
-    
+
     $.ajax({
         url: "http://localhost:8080/purchase/3/",
         dataType: "json"
@@ -74,16 +81,17 @@ $(document).ready(function () {
                             <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading">${element.productName}</h4>
-                                <h5 class="media-heading"> ${element.description}</h5>
+                                <h5 class="media-heading"> ${element.productDescription}</h5>
                             </div>
                         <td class="col-md-1" style="text-align: center">
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <div class="amount" style="display: inline-block; margin-left: 78px">0</div>
+                       <div class="amount" style="display: inline-block; margin-left: 78px"> ${element.quantity}</div>
                     </tr>`).insertBefore($("#afterProductsReceiptPage"))
+            document.getElementById("finalPrice").innerHTML = data.totalPrice + " SEK";
         });
-    });
+    })
 });
 
 

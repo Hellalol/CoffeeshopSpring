@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="cart.js"></script>
 </head>
 <body>
 <div class="container">
@@ -28,16 +28,14 @@
                     <td>  </td>
                     <td>  </td>
                     <td><h3>Total</h3></td>
-                    <td class="text-right"><h3><strong>$31.53</strong></h3></td>
+                    <td class="text-right"><h3><strong id="finalPrice"></strong></h3></td>
                 </tr>
                 <tr>
                     <td>  </td>
                     <td>  </td>
                     <td>  </td>
                     <td>
-                        <button type="button" class="btn btn-success">
-                            <span class="glyphicon glyphicon-shopping-cart"></span> Make another purchase
-                        </button>
+                        <a href="product-details.html" class="btn btn-success">Make another purchase <span class="glyphicon glyphicon-play"></span></a>
                     </td>
                     <td>
                         <button type="button" class="btn btn-danger">
@@ -50,5 +48,6 @@
         </div>
     </div>
 </div>
+<script src="../js/cart.js"></script>
 </body>
 </html>
