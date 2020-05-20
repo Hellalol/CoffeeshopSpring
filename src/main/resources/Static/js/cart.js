@@ -12,14 +12,13 @@ function getCustomerById() {
 })
 }
 
-function addToCartorCreateNewCartAndAdd(productId) {
+function addToCartOrCreateNewCartAndAdd(productId) {
 
-    var existing = localStorage.getItem('purches-id');
-    var currentCustomerId = localStorage.getItem('customer-id');
-    var newPurchesId;
+    let existing = localStorage.getItem('purches-id');
+    let currentCustomerId = localStorage.getItem('customer-id');
+    let newPurchesId;
 
 if(existing === null){
-
     $.ajax({
         url: `/purchase/new2/` + currentCustomerId,
         type: 'POST',
@@ -121,14 +120,16 @@ $(document).ready(function () {
                             <span class="glyphicon glyphicon-remove"></span> Remove
                         </button></td>
                     </tr>`).insertBefore($("#afterProductsCartPage"))
-            document.getElementById("totalPrice").innerHTML = data.totalPrice + " SEK";
+            //document.getElementById("totalPrice").innerHTML = data.totalPrice + " SEK";
         });
+            $("#finalPrice").html(`<h3><strong>${data.totalPrice} SEK2</strong></h3>`);
     })
 
     $.ajax({
         url: "http://localhost:8080/purchase/" + purchesId,
         dataType: "json"
     }).then(function (data) {
+        console.log("132");
         console.log(data);
         data.purchaseEntries.forEach(element => {
             $(`<tr>
@@ -145,8 +146,10 @@ $(document).ready(function () {
                         <td class="col-md-1">
                        <div class="amount" style="display: inline-block; margin-left: 78px"> ${element.quantity}</div>
                     </tr>`).insertBefore($("#afterProductsReceiptPage"))
-            document.getElementById("finalPrice").innerHTML = data.totalPrice + " SEK";
+            //document.getElementById("finalPrice").innerHTML = data.totalPrice + " SEK";
+            //document.getElementById("finalPrice").innerHTML = data.totalPrice + " SEK";
         });
+            $("#finalPrice").html(`<h3><strong>${data.totalPrice} SEK3</strong></h3>`);
     })
 
     $.ajax({
@@ -167,7 +170,7 @@ $(document).ready(function () {
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartorCreateNewCartAndAdd(${element.productId})">Add to cart</button>
+                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add to cart</button>
                     </tr>`).insertBefore($("#afterProductsProductPage"))
         });
     })

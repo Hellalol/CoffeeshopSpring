@@ -42,6 +42,7 @@ public final class PurchaseEntry {
         this.currentPrice = currentPrice;
     }
 
+
     @PrePersist
     private void setDefaultPrice() {
         if (currentPrice == null) {

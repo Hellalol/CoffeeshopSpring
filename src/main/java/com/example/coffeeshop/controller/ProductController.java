@@ -6,10 +6,7 @@ import com.example.coffeeshop.dto.ProductDto;
 import com.example.coffeeshop.dto.PurchaseDto;
 import com.example.coffeeshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,11 +22,13 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @CrossOrigin()
     @GetMapping("/{id}")
     public Product getProduct(@PathVariable Long id) {
         return productService.getById(id).orElseThrow();
     }
 
+    @CrossOrigin()
     @GetMapping(path = "/all")
     public List<ProductDto> getAllProducts(){
         return productService.getAllProducts().stream()

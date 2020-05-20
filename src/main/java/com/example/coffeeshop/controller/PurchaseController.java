@@ -9,7 +9,6 @@ import com.example.coffeeshop.dto.PurchaseEntryDto;
 import com.example.coffeeshop.service.CustomerService;
 import com.example.coffeeshop.service.ProductService;
 import com.example.coffeeshop.service.ShoppingService;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,14 +16,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+
 @RestController
 @RequestMapping("/purchase")
 // TODO Throw correct exceptions
 public class PurchaseController {
+
     private final ShoppingService shoppingService;
     private final ProductService productService;
     private final CustomerService customerService;
-    private static final Logger log = LoggerFactory.getLogger(PurchaseController.class);
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(PurchaseController.class);
 
     @Autowired
     public PurchaseController(ShoppingService shoppingService, ProductService productService, CustomerService customerService) {
@@ -45,7 +46,6 @@ public class PurchaseController {
     // TODO Replace input parameter with wherever we're actually getting the customer from
     public PurchaseDto create2(@PathVariable Long id) {
         Customer customer = customerService.getCustomerById(id).get();
-
         return new PurchaseDto(shoppingService.getNewPurchase(customer));
     }
 
@@ -55,6 +55,7 @@ public class PurchaseController {
         return new PurchaseDto(shoppingService.checkout(p));
     }
 
+    @CrossOrigin()
     @GetMapping("/{id}")
     public PurchaseDto getPurchase(@PathVariable Long id) {
         Purchase p = shoppingService.getById(id).orElseThrow();
@@ -134,19 +135,12 @@ public class PurchaseController {
     }
 
     @PostMapping("/{purchaseId}/addProductToPurches/{productId}")
-    public PurchaseDto addProductToPurches(@PathVariable Long purchaseId,@PathVariable Long productId){
+    public void addProductToPurches(@PathVariable Long purchaseId,@PathVariable Long productId) {
+        //Metoden kallas efter nytt purchase ID har skapats
 
-
-        Purchase  purchase = shoppingService.getById(purchaseId).get();
-
-        log.info(String.valueOf(purchase));
+        Purchase purchase = shoppingService.getById(purchaseId).get();
         Product product = productService.getById(productId).get();
 
-        //purchase.getTruePurchaseEntries().add(new PurchaseEntry(purchase, product, 1, product.getBasePrice()));
-        log.info(String.valueOf(purchase.getTruePurchaseEntries()));
-        //shoppingService.setProductQuantity(purchase, product,1);
-       purchase = shoppingService.addNewProduct(purchase, product);
-
-        return new PurchaseDto(purchase);
+        shoppingService.addNewProduct(purchase,product);
     }
 }
