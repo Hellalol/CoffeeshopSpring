@@ -1,6 +1,7 @@
 package com.example.coffeeshop.dto;
 
 import com.example.coffeeshop.domain.Customer;
+import com.example.coffeeshop.domain.Purchase;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -20,4 +21,5 @@ public class CustomerDto {
         this.username = customer.getUsername();
         this.premiumCustomer = customer.isPremiumCustomer() ? "Premium" : "Regular";
     }
+
 }

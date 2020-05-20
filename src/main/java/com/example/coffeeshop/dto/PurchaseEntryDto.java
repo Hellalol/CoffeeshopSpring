@@ -1,5 +1,6 @@
 package com.example.coffeeshop.dto;
 
+import com.example.coffeeshop.domain.Customer;
 import com.example.coffeeshop.domain.PurchaseEntry;
 import lombok.*;
 
