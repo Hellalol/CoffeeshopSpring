@@ -3,6 +3,7 @@ package com.example.coffeeshop.controller;
 import com.example.coffeeshop.domain.Customer;
 import com.example.coffeeshop.domain.Product;
 import com.example.coffeeshop.domain.Purchase;
+import com.example.coffeeshop.domain.PurchaseEntry;
 import com.example.coffeeshop.dto.CustomerDto;
 import com.example.coffeeshop.dto.PurchaseDto;
 import com.example.coffeeshop.dto.PurchaseEntryDto;
@@ -122,5 +123,34 @@ public class PurchaseController {
         return putAll(id, newPurchase.getPurchaseEntries());
     }
 
+
+    @PostMapping("/{id}/addByOne/{productId}")
+    public PurchaseDto addByOne(@PathVariable long id, @PathVariable Long productId) {
+        Optional<Product> product = productService.getById(productId);
+        Purchase purchase = shoppingService.getById(id).orElseThrow();
+        Product realProduct = purchase.getEntry(product.get()).getProduct();
+        int newQuantity = purchase.getEntry(product.get()).getQuantity()+1;
+        shoppingService.setProductQuantity(purchase, realProduct, newQuantity);
+        return new PurchaseDto(purchase);
+    }
+
+    @PostMapping("/{id}/subtractByOne/{productId}")
+    public PurchaseDto subtractByOne(@PathVariable long id, @PathVariable Long productId) {
+        Optional<Product> product = productService.getById(productId);
+        Purchase purchase = shoppingService.getById(id).orElseThrow();
+        Product realProduct = purchase.getEntry(product.get()).getProduct();
+        int newQuantity = purchase.getEntry(product.get()).getQuantity()-1;
+        shoppingService.setProductQuantity(purchase, realProduct, newQuantity);
+        return new PurchaseDto(purchase);
+    }
+
+    @PostMapping("/{id}/removeProduct/{productId}")
+    public PurchaseDto removeProduct(@PathVariable long id, @PathVariable Long productId) {
+        Optional<Product> product = productService.getById(productId);
+        Purchase purchase = shoppingService.getById(id).orElseThrow();
+        Product realProduct = purchase.getEntry(product.get()).getProduct();
+        shoppingService.setProductQuantity(purchase, realProduct, 0);
+        return new PurchaseDto(purchase);
+    }
 
 }

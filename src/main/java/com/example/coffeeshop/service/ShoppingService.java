@@ -75,6 +75,11 @@ public final class ShoppingService {
     // TODO Sanitize purchase entries here or in the entity class?
     private void clearStaleEntries(Purchase purchase) {
         // Since this is only used internally, there's no need to check purchase status within this method
+        for (PurchaseEntry entry : purchase.getTruePurchaseEntries()) {
+            if (entry.getQuantity() < 1) {
+                entryRepository.delete(entry);
+            }
+        }
         purchase.getTruePurchaseEntries().removeIf(purchaseEntry -> purchaseEntry.getQuantity() < 1);
     }
 

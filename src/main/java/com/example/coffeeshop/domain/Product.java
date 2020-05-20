@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
 
 @Data
@@ -22,7 +23,7 @@ public final class Product {
     private Long id;
     private String productName;
 
-    @DecimalMax(value = "0.0", inclusive = false)
+    @DecimalMin(value = "0.0", inclusive = false)
     private BigDecimal basePrice;
     private String imagePath;
     private String description;

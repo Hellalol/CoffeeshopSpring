@@ -32,7 +32,7 @@ public final class Purchase {
     //@Transient
     //private Map<Product, PurchaseEntry> purchaseEntries = new TreeMap<>(Comparator.comparing(Product::getId));
 
-    @OneToMany(mappedBy = "purchase")
+    @OneToMany(mappedBy = "purchase", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<PurchaseEntry> truePurchaseEntries = new TreeSet<>(Comparator.comparing(purchaseEntry -> purchaseEntry.getProduct().getId()));
 
 

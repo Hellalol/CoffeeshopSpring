@@ -1,34 +1,42 @@
+function increaseQuantityWithOne(productId){
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/purchase/3/addByOne/" + productId, //ädras
+        data: JSON,
+        success: function() {
+            location.reload();
+        }
+    });
+}
+
+function decreaseQuantityWithOne(productId){
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/purchase/3/subtractByOne/" + productId, //ädras
+        data: JSON,
+        success: function() {
+            location.reload();
+        }
+    });
+}
+
+function removeProduct(productId){
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/purchase/3/removeProduct/" + productId, //ädras
+        data: JSON,
+        success: function() {
+            location.reload();
+        }
+    });
+}
+
 $(document).ready(function () {
-
-    function getAllProductsAndReturnName(id) {
-        // Skriv kod för att hämta alla produkter spara i en lista,
-        // söka igenom listan med hjälp av ID, tar produkten vars id stämmer och skicka tillbaka produkt namnet.
-
-        $.ajax({
-            url: "http://localhost:8080/purchase/" + id
-        }).then(function (data) {
-            console.log(data);
-            return data.productName;
-        })
-    }
-
-
-    function getAllProductsAndReturnDescription(id) {
-        // Skriv kod för att hämta alla produkter spara i en lista,
-        // söka igenom listan med hjälp av ID, tar produkten vars id stämmer och skicka tillbaka produkt description.
-
-        $.ajax({
-            url: "http://localhost:8080/purchase/" + id
-        }).then(function (data) {
-            console.log(data);
-            return data.description;
-        })
-    }
-
     $.ajax({
         url: "http://localhost:8080/purchase/3/",
         dataType: "json"
     }).then(function (data) {
+        let total;
         console.log(data);
         data.purchaseEntries.forEach(element => {
             $(`<tr>
@@ -43,18 +51,17 @@ $(document).ready(function () {
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-secondary" style="margin-left: 40px display: inline-block">-</button>
+                        <button class="btn btn-secondary" style="margin-left: 40px display: inline-block" onclick="decreaseQuantityWithOne(${element.productId})">-</button>
       <div class="amount" style="display: inline-block"> ${element.quantity}</div>
-      <button class="btn btn-secondary" style="display: inline-block" >+</button>
-                        <button type="button" class="btn btn-danger" style="display: inline-block margin-left: 40px">
+      <button class="btn btn-secondary" style="display: inline-block" onclick="increaseQuantityWithOne(${element.productId})">+</button>
+                        <button type="button" class="btn btn-danger" style="display: inline-block margin-left: 40px" onclick="removeProduct(${element.productId})">
                             <span class="glyphicon glyphicon-remove"></span> Remove
                         </button></td>
                     </tr>`).insertBefore($("#afterProductsCartPage"))
+            document.getElementById("totalPrice").innerHTML = data.totalPrice + " SEK";
         });
     })
-
-
-
+    
     $.ajax({
         url: "http://localhost:8080/purchase/3/",
         dataType: "json"

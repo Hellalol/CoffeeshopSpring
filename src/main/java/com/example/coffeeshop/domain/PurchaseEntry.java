@@ -26,7 +26,7 @@ public final class PurchaseEntry {
     @ManyToOne // TODO Laziness and cascade type
     private Product product;
 
-    @Positive
+
     private int quantity;
 
     @DecimalMin(value = "0.0", inclusive = false)
