@@ -14,7 +14,7 @@ function getCustomerById() {
 
 function addToCartorCreateNewCartAndAdd(productId) {
 
-    var existing = localStorage.getItem('purchesId');
+    var existing = localStorage.getItem('purches-id');
     var currentCustomerId = localStorage.getItem('customer-id');
     var newPurchesId;
 
@@ -28,7 +28,7 @@ if(existing === null){
         success: function (result) {
             console.log(result.id)
             newPurchesId = result.id
-            localStorage.setItem('purchesId', newPurchesId)
+            localStorage.setItem('purches-id', newPurchesId)
             return result
         }
     })
@@ -50,9 +50,10 @@ if(existing === null){
 }
 
 function increaseQuantityWithOne(productId){
+    var purchesId = localStorage.getItem('purches-id');
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/purchase/3/addByOne/" + productId, //ädras
+        url: "http://localhost:8080/purchase/" + purchesId + "/addByOne/" + productId, //ädras
         data: JSON,
         success: function() {
             location.reload();
@@ -61,9 +62,10 @@ function increaseQuantityWithOne(productId){
 }
 
 function decreaseQuantityWithOne(productId){
+    var purchesId = localStorage.getItem('purches-id');
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/purchase/3/subtractByOne/" + productId, //ädras
+        url: "http://localhost:8080/purchase/" + purchesId + "/subtractByOne/" + productId, //ädras
         data: JSON,
         success: function() {
             location.reload();
@@ -72,9 +74,10 @@ function decreaseQuantityWithOne(productId){
 }
 
 function removeProduct(productId){
+    var purchesId = localStorage.getItem('purches-id');
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/purchase/3/removeProduct/" + productId, //ädras
+        url: "http://localhost:8080/purchase/" + purchesId + "/removeProduct/" + productId, //ädras
         data: JSON,
         success: function() {
             location.reload();
@@ -83,16 +86,18 @@ function removeProduct(productId){
 }
 
 function confirmOrder(){
+    var purchesId = localStorage.getItem('purches-id');
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/purchase/3/checkout", //ändras
+        url: "http://localhost:8080/purchase/" + purchesId + "/checkout", //ändras
         dataType: "json"
     })
 }
 
 $(document).ready(function () {
+    var purchesId = localStorage.getItem('purches-id');
     $.ajax({
-        url: "http://localhost:8080/purchase/3/",
+        url: "http://localhost:8080/purchase/" + purchesId,
         dataType: "json"
     }).then(function (data) {
         console.log(data);
@@ -121,7 +126,7 @@ $(document).ready(function () {
     })
 
     $.ajax({
-        url: "http://localhost:8080/purchase/3/",
+        url: "http://localhost:8080/purchase/" + purchesId,
         dataType: "json"
     }).then(function (data) {
         console.log(data);
