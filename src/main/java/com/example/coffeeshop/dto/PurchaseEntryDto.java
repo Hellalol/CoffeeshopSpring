@@ -9,12 +9,14 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 public final class PurchaseEntryDto {
+    private String productName;
+    private String productDescription;
     private Long productId;
     private int quantity;
     private BigDecimal currentPrice;
 
     public PurchaseEntryDto(PurchaseEntry purchaseEntry) {
-        this(purchaseEntry.getProduct().getId(), purchaseEntry.getQuantity(), purchaseEntry.getCurrentPrice());
+        this(purchaseEntry.getProduct().getProductName(), purchaseEntry.getProduct().getDescription() , purchaseEntry.getProduct().getId(), purchaseEntry.getQuantity(), purchaseEntry.getCurrentPrice());
     }
 
 }
