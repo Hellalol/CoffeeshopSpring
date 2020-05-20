@@ -24,5 +24,6 @@ $(document).ready(function () {
 function addEventToBtn(id){
     $("#customer-list").on("click", `#btn${id}`, function(){
         localStorage.setItem(`id`, id);
+
     });
 }
