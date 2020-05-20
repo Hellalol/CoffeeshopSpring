@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.*;
 
-@Data
+//@Data
 //@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -33,6 +33,7 @@ public final class Purchase {
     //private Map<Product, PurchaseEntry> purchaseEntries = new TreeMap<>(Comparator.comparing(Product::getId));
 
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonIgnore
     private Set<PurchaseEntry> truePurchaseEntries = new TreeSet<>(Comparator.comparing(purchaseEntry -> purchaseEntry.getProduct().getId()));
 
 
@@ -138,5 +139,19 @@ public final class Purchase {
 
     public void setCompleted(Timestamp completed) {
         this.completed = completed;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Purchase{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", truePurchaseEntries=" + truePurchaseEntries +
+                ", orderNumber=" + orderNumber +
+                ", status=" + status +
+                ", updated=" + updated +
+                ", completed=" + completed +
+                '}';
     }
 }

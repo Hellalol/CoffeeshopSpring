@@ -3,6 +3,7 @@ package com.example.coffeeshop.controller;
 import com.example.coffeeshop.domain.Customer;
 import com.example.coffeeshop.domain.Product;
 import com.example.coffeeshop.domain.Purchase;
+import com.example.coffeeshop.domain.PurchaseEntry;
 import com.example.coffeeshop.dto.PurchaseDto;
 import com.example.coffeeshop.dto.PurchaseEntryDto;
 import com.example.coffeeshop.service.CustomerService;
@@ -134,13 +135,17 @@ public class PurchaseController {
 
     @PostMapping("/{purchaseId}/addProductToPurches/{productId}")
     public PurchaseDto addProductToPurches(@PathVariable Long purchaseId,@PathVariable Long productId){
-        Purchase purchase = shoppingService.getById(purchaseId).get();
+
+
+        Purchase  purchase = shoppingService.getById(purchaseId).get();
+
+        log.info(String.valueOf(purchase));
         Product product = productService.getById(productId).get();
 
-
-
+        //purchase.getTruePurchaseEntries().add(new PurchaseEntry(purchase, product, 1, product.getBasePrice()));
+        log.info(String.valueOf(purchase.getTruePurchaseEntries()));
         //shoppingService.setProductQuantity(purchase, product,1);
-        shoppingService.addNewProduct(purchase, product);
+       shoppingService.addNewProduct(purchase, product);
 
         return new PurchaseDto(purchase);
     }
