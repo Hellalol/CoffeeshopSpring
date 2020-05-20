@@ -1,7 +1,7 @@
 package com.example.coffeeshop.service;
 
 import com.example.coffeeshop.domain.Customer;
-import com.example.coffeeshop.domain.User;
+import com.example.coffeeshop.domain.Purchase;
 import com.example.coffeeshop.dto.CustomerDto;
 import com.example.coffeeshop.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ public class CustomerService {
 
 
     private final CustomerRepository customerRepository;
+
 
     @Autowired
     public CustomerService(CustomerRepository customerRepository) {

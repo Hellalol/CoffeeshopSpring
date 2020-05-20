@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface PurchaseEntryRepository extends JpaRepository<PurchaseEntry, PurchaseEntryId> {
     List<PurchaseEntry> findByPurchase(Purchase purchase);
+
 }
