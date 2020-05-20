@@ -10,7 +10,10 @@ $(document).ready(function () {
                     <td>${elm.name}</td>
                     <td>${elm.username}</td>
                     <td>${elm.premiumCustomer}</td>
-                    <td><button class="btn btn-secondary" id="btn${elm.id}">Show Orders</button>
+                    <td>
+                        <a href="admin-show-orders-from-customer.html">
+                            <button class="btn btn-secondary" id="btn${elm.id}">Show Orders</button>                    
+                        </a>
                     </td>
                 </tr>`;
             });
@@ -19,7 +22,7 @@ $(document).ready(function () {
 });
 
 function addEventToBtn(id){
-        $("#customer-list").on("click", `#btn${id}`, function(){
-            localStorage.setItem(`id`, id);
-        });
+    $("#customer-list").on("click", `#btn${id}`, function(){
+        localStorage.setItem(`id`, id);
+    });
 }
