@@ -1,3 +1,7 @@
+function addToCartorCreateNewCartAndAdd(productId) {
+
+}
+
 function increaseQuantityWithOne(productId){
     $.ajax({
         type: "POST",
@@ -90,6 +94,29 @@ $(document).ready(function () {
                        <div class="amount" style="display: inline-block; margin-left: 78px"> ${element.quantity}</div>
                     </tr>`).insertBefore($("#afterProductsReceiptPage"))
             document.getElementById("finalPrice").innerHTML = data.totalPrice + " SEK";
+        });
+    })
+
+    $.ajax({
+        url: "http://localhost:8080/product/all",
+        dataType: "json"
+    }).then(function (response) {
+        console.log(response);
+        response.forEach(element => {
+            $(`<tr>
+                        <td class="col-md-6">
+                        <div class="media">
+                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">${element.productName}</h4>
+                                <h5 class="media-heading"> ${element.productDescription}</h5>
+                            </div>
+                        <td class="col-md-1" style="text-align: center">
+                        </td>
+                        <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
+                        <td class="col-md-1">
+                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartorCreateNewCartAndAdd(${element.productId})">Add to cart</button>
+                    </tr>`).insertBefore($("#afterProductsProductPage"))
         });
     })
 });
