@@ -1,8 +1,11 @@
 package com.example.coffeeshop.service;
 
+import com.example.coffeeshop.controller.PurchaseController;
 import com.example.coffeeshop.domain.*;
 import com.example.coffeeshop.repository.PurchaseEntryRepository;
 import com.example.coffeeshop.repository.PurchaseRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,7 @@ import java.util.Optional;
 public final class ShoppingService {
     private final PurchaseRepository purchaseRepository;
     private final PurchaseEntryRepository entryRepository;
+    private static final Logger log = LoggerFactory.getLogger(ShoppingService.class);
 
     @Autowired
     public ShoppingService(PurchaseRepository purchaseRepository, PurchaseEntryRepository entryRepository) {
@@ -100,6 +104,23 @@ public final class ShoppingService {
         }
         clearStaleEntries(purchase);
         purchase.setStatus(Purchase.Status.COMPLETED);
+        return purchaseRepository.save(purchase);
+    }
+
+    public Purchase addNewProduct(Purchase purchase, Product product){
+        PurchaseEntry purchaseEntry = new PurchaseEntry(purchase, product, 1, product.getBasePrice());
+
+        public Purchase getNewPurchase(Customer c) {
+            return purchaseRepository.save(new Purchase(c));
+        }
+
+        log.info(String.valueOf(purchaseEntry));
+        log.info(String.valueOf(product));
+        //purchase.getTruePurchaseEntries().add(purchaseEntry);
+        log.info(String.valueOf(purchase));
+
+
+
         return purchaseRepository.save(purchase);
     }
 }

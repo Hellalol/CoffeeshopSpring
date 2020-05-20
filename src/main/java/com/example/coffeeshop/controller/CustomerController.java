@@ -74,4 +74,10 @@ public class CustomerController {
     public Optional<Product> getProductById(@PathVariable Long id) {
         return productService.getById(id);
     }
+
+    @CrossOrigin()
+    @GetMapping(path = "/{id}")
+    public Customer getCustomerById(@PathVariable Long id) {
+        return customerService.getCustomerById(id).get();
+    }
 }

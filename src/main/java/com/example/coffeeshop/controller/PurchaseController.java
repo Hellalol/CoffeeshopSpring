@@ -3,20 +3,18 @@ package com.example.coffeeshop.controller;
 import com.example.coffeeshop.domain.Customer;
 import com.example.coffeeshop.domain.Product;
 import com.example.coffeeshop.domain.Purchase;
-import com.example.coffeeshop.domain.PurchaseEntry;
-import com.example.coffeeshop.dto.CustomerDto;
 import com.example.coffeeshop.dto.PurchaseDto;
 import com.example.coffeeshop.dto.PurchaseEntryDto;
+import com.example.coffeeshop.service.CustomerService;
 import com.example.coffeeshop.service.ProductService;
 import com.example.coffeeshop.service.ShoppingService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/purchase")
@@ -24,11 +22,14 @@ import java.util.stream.Collectors;
 public class PurchaseController {
     private final ShoppingService shoppingService;
     private final ProductService productService;
+    private final CustomerService customerService;
+    private static final Logger log = LoggerFactory.getLogger(PurchaseController.class);
 
     @Autowired
-    public PurchaseController(ShoppingService shoppingService, ProductService productService) {
+    public PurchaseController(ShoppingService shoppingService, ProductService productService, CustomerService customerService) {
         this.shoppingService = shoppingService;
         this.productService = productService;
+        this.customerService = customerService;
     }
 
     @PostMapping("/new")
@@ -36,6 +37,15 @@ public class PurchaseController {
     // TODO Replace input parameter with wherever we're actually getting the customer from
     public PurchaseDto create(Customer c) {
         return new PurchaseDto(shoppingService.getNewPurchase(c));
+    }
+
+    @PostMapping("/new2/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    // TODO Replace input parameter with wherever we're actually getting the customer from
+    public PurchaseDto create2(@PathVariable Long id) {
+        Customer customer = customerService.getCustomerById(id).get();
+
+        return new PurchaseDto(shoppingService.getNewPurchase(customer));
     }
 
     @PostMapping("/{id}/checkout")
@@ -122,4 +132,16 @@ public class PurchaseController {
         return new PurchaseDto(purchase);
     }
 
+    @PostMapping("/{purchaseId}/addProductToPurches/{productId}")
+    public PurchaseDto addProductToPurches(@PathVariable Long purchaseId,@PathVariable Long productId){
+        Purchase purchase = shoppingService.getById(purchaseId).get();
+        Product product = productService.getById(productId).get();
+
+
+
+        //shoppingService.setProductQuantity(purchase, product,1);
+        shoppingService.addNewProduct(purchase, product);
+
+        return new PurchaseDto(purchase);
+    }
 }

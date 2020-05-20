@@ -32,6 +32,6 @@ function determineRoleAndRedirect(user) {
     if (user.userType === "ROLE_ADMIN")
         $(location).attr('href','admin-show-customers.html')
     else
-        $(location).attr('href','product-details.html')
+        $(location).attr('href','productPage.html')
 }
 

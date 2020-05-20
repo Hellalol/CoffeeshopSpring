@@ -1,4 +1,51 @@
+function getCustomerById() {
+    var currentCustomerId = localStorage.getItem('customer-id');
+
+    $.ajax({
+        url: `/customer/`+ currentCustomerId,
+        type: 'GET',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+}).then(function (data) {
+    console.log(data)
+    return data
+})
+}
+
 function addToCartorCreateNewCartAndAdd(productId) {
+
+    var existing = localStorage.getItem('purchesId');
+    var currentCustomerId = localStorage.getItem('customer-id');
+    var newPurchesId;
+
+if(existing === null){
+
+    $.ajax({
+        url: `/purchase/new2/` + currentCustomerId,
+        type: 'POST',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            console.log(result.id)
+            newPurchesId = result.id
+            localStorage.setItem('purchesId', newPurchesId)
+            return result
+        }
+    })
+    //save product in purches
+}else{
+
+    $.ajax({
+        url: `/purchase/`+ existing +`/addProductToPurches/` + productId,
+        type: 'POST',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            console.log(result)
+        }
+    })
+}
+
 
 }
 
