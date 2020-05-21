@@ -43,6 +43,13 @@ function addToCartOrCreateNewCartAndAdd(productId) {
 }
 
 $(document).ready(function () {
+
+    $(function () {
+        $('.example-popover').popover({
+            container: 'body'
+        })
+    })
+
     let display = "all";
 
     $.ajax({
@@ -64,10 +71,34 @@ $(document).ready(function () {
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
                         <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add to cart</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal${element.productId}" data-target="#exampleModalCenter${element.productId}">
+                        Launch demo modal
+                        </button>
+                        </td>
                     </tr>`);
+            $('#idModel').append(`
+                <div className="modal-dialog modal-dialog-centered" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLongTitle${element.productId}">${element.productName}</h5>
+                            <button type="button" className="close" data-dismiss="Model${element.productId}" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            ${element.productDescription}
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-dismiss="Model${element.productId}">Close</button>
+                        </div>
+                    </div>
+                </div>`)
+        })
 
         })
-    })
+
 
 
     $('#searchButton').click(function (event) {
@@ -95,6 +126,10 @@ $(document).ready(function () {
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
                         <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add to cart</button>
+                        </td>
+                        <td>
+                        <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
+                        </td>
                     </tr>`);
 
 
@@ -125,9 +160,15 @@ $(document).ready(function () {
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
                         <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add to cart</button>
+                        </td>
+                        <td>
+                        <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>                        
+                        </td>
                     </tr>`
                 });
                 $('#afterProductsProductPage').html(template);
+                $("#exampleModalLongTitle").html("test");
+                $("#exempleModalBodyText").append("test");
             })
         }
     })
