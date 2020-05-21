@@ -64,7 +64,22 @@ $(document).ready(function () {
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
                         <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add to cart</button>
+                        <td class="col-md-1">
+                          <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
+                          data-placement="right">
+                              Info
+                          </button>
+                        </td>                    
+                    
                     </tr>`);
+            $('[data-toggle="popover"]').popover({
+                title: `<strong>Name: ${element.productName}</strong>`,
+                content: `Description: ${element.productDescription} <br>
+                Price: ${element.currentPrice} SEK`,
+                html: true,
+                placement: "right",
+                trigger: 'focus',
+                });
 
         })
     })
@@ -95,7 +110,21 @@ $(document).ready(function () {
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
                         <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add to cart</button>
+                        <td class="col-md-1">
+                          <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
+                          data-placement="right">
+                              Info
+                          </button>
+                        </td>   
                     </tr>`);
+                    $('[data-toggle="popover"]').popover({
+                        title: `<strong>Name: ${element.productName}</strong>`,
+                        content: `Description: ${element.productDescription} <br>
+                Price: ${element.currentPrice} SEK`,
+                        html: true,
+                        placement: "right",
+                        trigger: 'focus',
+                    });
 
 
                 })
@@ -125,15 +154,24 @@ $(document).ready(function () {
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
                         <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add to cart</button>
+                        <td class="col-md-1">
+                          <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
+                          data-placement="right">
+                              Info
+                          </button>
+                        </td>   
                     </tr>`
+                    $('[data-toggle="popover"]').popover({
+                        title: `<strong>Name: ${element.productName}</strong>`,
+                        content: `Description: ${element.productDescription} <br>
+                Price: ${element.currentPrice} SEK`,
+                        html: true,
+                        placement: "right",
+                        trigger: 'focus',
+                    });
                 });
-                $('#afterProductsProductPage').html(template);
+                $('#afterProductsProductPage').html(template );
             })
         }
-    })
-
-    $('#clearSearchAndShowAllButton').click(function (event) {
-        display = "all"
-
     })
 });
