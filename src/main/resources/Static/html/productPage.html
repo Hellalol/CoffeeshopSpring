@@ -15,28 +15,60 @@
         <div class="col-sm-12 col-md-10 col-md-offset-1">
             <table class="table table-hover">
                 <thead>
-
-                    <input type="text" id="searchField">
-                    <button id="searchButton" class="btn btn-outline-secondary">Search</button>
-
-
-
                 <tr>
-                    <th>Product</th>
-                    <th> </th>
-                    <th class="text-center">Price</th>
-                    <th> </th>
+                    <td>
+                        <input type="text" id="searchField" class="form-control">
+                    </td>
+                    <td>
+                        <button id="searchButton" class="btn btn-outline-secondary">Search</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="col-md-1" colspan="1">Product</th>
+                    <th class="col-md-1" colspan="2">Details</th>
+                    <th class="col-md-1"></th>
+                    <th class="col-md-1 text-left" colspan="2">Price</th>
+                    <th class="col-md-1"></th>
+                    <th class="col-md-1"></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr id="afterProductsProductPage">
-                </tr>
-
-                    <td>
-                        <a href="product-details.html" class="btn btn-outline-secondary">Log Out <span class="glyphicon glyphicon-play"></span></a>
+                <!--<tr id="afterProductsProductPage"></tr>-->
+                <tr>
+                    <td class="col-md-1" colspan="1">
+                        <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;">
+                    </td>
+                    <td colspan="2">
+                        <div class="media-body">
+                            <h4 class="media-heading">kaffe</h4>
+                            <h5 class="media-heading">Blabla</h5>
+                        </div>
+                    </td>
+                    <td class="col-md-5">
+                    </td>
+                    <td class="col-md-1 text-center" colspan="2"><strong>101  SEK</strong></td>
+                    <td class="col-md-1">
+                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add</button>
                     </td>
                     <td>
-                        <a href="checkOutCartPage.html" class="btn btn-outline-secondary">Checkout <span class="glyphicon glyphicon-play"></span></a>
+                        <button type="button" class="btn btn-primary" data-toggle="modal${element.productId}" data-target="#exampleModalCenter${element.productId}">Info</button>
+                    </td>
+                </tr>
+                </tr>
+                <tr>
+                    <td class="col-md-1">
+                        <a href="product-details.html" class="btn btn-outline-secondary">Log Out <span
+                                class="glyphicon glyphicon-play"></span></a>
+                    </td>
+                    <td class="col-md-1"></td>
+                    <td class="col-md-1"></td>
+                    <td class="col-md-1"></td>
+                    <td class="col-md-1"></td>
+                    <td class="col-md-1"></td>
+                    <td class="col-md-1"></td>
+                    <td class="col-md-1" colspan="2">
+                        <a href="checkOutCartPage.html" class="btn btn-outline-secondary">Checkout <span
+                                class="glyphicon glyphicon-play"></span></a>
                     </td>
                 </tr>
                 </tbody>

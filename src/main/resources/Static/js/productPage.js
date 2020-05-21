@@ -63,7 +63,11 @@ $(document).ready(function () {
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add to cart</button>
+                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal${element.productId}" data-target="#exampleModalCenter${element.productId}">Info</button>
+                        </td>
                     </tr>`);
             $('[data-toggle="popover"]').popover({
                 title: `<strong>Name: ${element.productName}</strong>`,
