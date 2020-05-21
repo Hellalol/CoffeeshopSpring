@@ -44,8 +44,6 @@ if(existing === null){
         }
     })
 }
-
-
 }
 
 function increaseQuantityWithOne(productId){
@@ -155,8 +153,25 @@ $(document).ready(function () {
             $("#finalPrice").html(`<h3><strong>${data.totalPrice} SEK3</strong></h3>`);
     })
 
+
+
+    let display = "all"
+
+    $('#searchButton').click(function (event) {
+        let param = $.trim($('#searchField').val());
+        console.log(param)
+        display = "showProductsBySearch/" + param;
+        //window.location = "http://www.yourdomain.com/";
+        location.reload()
+    })
+
+    $('#clearSearchAndShowAllButton').click(function (event) {
+        display = "all"
+        location.reload()
+    })
+
     $.ajax({
-        url: "http://localhost:8080/product/showProducts",
+        url: "http://localhost:8080/product/" + display,
         dataType: "json"
     }).then(function (response) {
         console.log(response);

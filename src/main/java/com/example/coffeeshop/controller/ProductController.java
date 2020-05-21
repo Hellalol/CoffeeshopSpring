@@ -5,6 +5,8 @@ import com.example.coffeeshop.dto.CustomerDto;
 import com.example.coffeeshop.dto.ProductDto;
 import com.example.coffeeshop.dto.PurchaseDto;
 import com.example.coffeeshop.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
+    private static final Logger log = LoggerFactory.getLogger(ProductController.class);
 
     private final ProductService productService;
 
@@ -36,13 +39,17 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping(path = "/showProductsBySearch")
-    public List<ProductDto> showProducts(String search){
+    @GetMapping(path = "/showProductsBySearch/{search}")
+    public List<ProductDto> showProducts(@PathVariable String search){
+
         List<ProductDto> returnList;
+
 
         returnList = productService.search(search).stream()
                 .map(ProductDto::new)
                 .collect(Collectors.toList());
+        log.info(returnList.toString());
+
 
         if(returnList.size()>0){
             return returnList;
@@ -52,10 +59,4 @@ public class ProductController {
             return returnList;
         }
     }
-
-    @GetMapping(path = "/showProducts")
-    public List<ProductDto> showProducts(){
-
-            return getAllProducts();
-        }
 }
