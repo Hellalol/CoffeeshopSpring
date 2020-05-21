@@ -137,10 +137,15 @@ public class PurchaseController {
     @PostMapping("/{purchaseId}/addProductToPurches/{productId}")
     public void addProductToPurches(@PathVariable Long purchaseId,@PathVariable Long productId) {
         //Metoden kallas efter nytt purchase ID har skapats
+        Optional<Purchase> purchase = shoppingService.getById(purchaseId);
+        Optional<Product> product = productService.getById(productId);
 
-        Purchase purchase = shoppingService.getById(purchaseId).get();
-        Product product = productService.getById(productId).get();
 
-        shoppingService.addNewProduct(purchase,product);
+        int newQuantity = purchase.get().getEntry(product.get()).getQuantity();
+        if(newQuantity > 0) {
+            shoppingService.setProductQuantity(purchase.get(), product.get(), newQuantity+1);
+        }else{
+            shoppingService.addNewProduct(purchase.get(),product.get());
+        }
     }
 }

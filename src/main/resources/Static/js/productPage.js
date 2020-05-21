@@ -1,12 +1,6 @@
 function addToCartOrCreateNewCartAndAdd(productId) {
 
-    addPurchase();
-    addEntry(productId);
-}
-
-function addPurchase() {
     let existing = localStorage.getItem('purches-id');
-
     let currentCustomerId = localStorage.getItem('customer-id');
     let newPurchesId;
 
@@ -20,25 +14,32 @@ function addPurchase() {
                 console.log(result.id)
                 newPurchesId = result.id
                 localStorage.setItem('purches-id', newPurchesId)
+                $.ajax({
+                    url: `/purchase/`+ newPurchesId +`/addProductToPurches/` + productId,
+                    type: 'POST',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        console.log("ajax inne i axaj")
+                        console.log(result)
+                    }
+                })
+                return result
+            }
+        })
+        //save product in purches
+    }else{
+        $.ajax({
+            url: `/purchase/`+ existing +`/addProductToPurches/` + productId,
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                console.log("kommer till else")
+                console.log(result)
             }
         })
     }
-}
-
-function addEntry(productId) {
-    let existing = localStorage.getItem('purches-id');
-    console.log(existing)
-
-    $.ajax({
-        url: `/purchase/`+ existing +`/addProductToPurches/` + productId,
-        type: 'POST',
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            console.log("kommer till else")
-            console.log(result)
-        }
-    })
 }
 
 $(document).ready(function () {

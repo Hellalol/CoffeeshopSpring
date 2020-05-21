@@ -10,6 +10,13 @@ function getProduct(id) {
 }
 
 $(document).ready(function () {
+    $("#logout").click(function (event) {
+        localStorage.clear()
+    })
+    $("#goBack").click(function (event) {
+        localStorage.removeItem("id")
+    })
+
    let idFromStorage = localStorage.getItem("id");
     $.ajax({
         url: `http://localhost:8080/customer/order/${idFromStorage}`,

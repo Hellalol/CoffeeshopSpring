@@ -93,6 +93,13 @@ function confirmOrder(){
 
 $(document).ready(function () {
 
+    $("#anotherPurchase").click(function (event) {
+        localStorage.removeItem("purches-id")
+    })
+
+    $("#logout").click(function (event) {
+        localStorage.clear()
+    })
 
 
     var purchesId = localStorage.getItem('purches-id');
