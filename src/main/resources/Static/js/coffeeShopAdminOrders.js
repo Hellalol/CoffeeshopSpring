@@ -17,6 +17,17 @@ $(document).ready(function () {
         localStorage.removeItem("id")
     })
 
+    function popup(elm2) {
+        $('[data-toggle="popover"]').popover({
+            title: `<strong>Name: ${elm2.productName}</strong>`,
+            content: `Description: ${elm2.productDescription} <br>
+                Price: ${elm2.currentPrice} SEK`,
+            html: true,
+            placement: "right",
+            trigger: 'focus',
+        });
+    }
+
    let idFromStorage = localStorage.getItem("id");
     $.ajax({
         url: `http://localhost:8080/customer/order/${idFromStorage}`,
@@ -37,8 +48,9 @@ $(document).ready(function () {
                      </h4>
                  </div>`;
         elm.purchaseEntries.forEach(elm2 => {
-
-            productList += `<div id="collapse${elm.id}" class="collapse" aria-labelledby="heading" data-parent="#show-order">
+            popup(elm2);
+            productList +=
+             `<div id="collapse${elm.id}" class="collapse" aria-labelledby="heading" data-parent="#show-order">
             <div class="card-body order">
                 <tr>
                  <td scope="row">Brand: ${elm2.productName}</td>
@@ -51,15 +63,14 @@ $(document).ready(function () {
                               Info
                           </button>
                         </td> 
-                       
                 </tr> 
             </div>
-        </div> `;
+        </div> `
 
             });
 
-        });
 
+        });
         $('.order').append(productList);
     });
 });
