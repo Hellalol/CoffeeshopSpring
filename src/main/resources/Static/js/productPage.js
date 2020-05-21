@@ -4,6 +4,7 @@ function addToCartOrCreateNewCartAndAdd(productId) {
     let currentCustomerId = localStorage.getItem('customer-id');
     let newPurchesId;
 
+    //om inte pågående purchase finns, skapa ny purchase och lägg till produkt
     if(existing === null){
         $.ajax({
             url: `/purchase/new2/` + currentCustomerId,
@@ -11,7 +12,6 @@ function addToCartOrCreateNewCartAndAdd(productId) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (result) {
-                console.log(result.id)
                 newPurchesId = result.id
                 localStorage.setItem('purches-id', newPurchesId)
                 $.ajax({
@@ -20,14 +20,12 @@ function addToCartOrCreateNewCartAndAdd(productId) {
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (result) {
-                        console.log("ajax inne i axaj")
-                        console.log(result)
                     }
                 })
                 return result
             }
         })
-        //save product in purches
+        //om pågående purchase finns. lägg in produkt i den
     }else{
         $.ajax({
             url: `/purchase/`+ existing +`/addProductToPurches/` + productId,
@@ -35,8 +33,6 @@ function addToCartOrCreateNewCartAndAdd(productId) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (result) {
-                console.log("kommer till else")
-                console.log(result)
             }
         })
     }
@@ -44,12 +40,11 @@ function addToCartOrCreateNewCartAndAdd(productId) {
 
 $(document).ready(function () {
     let display = "all";
-
+    //start display
     $.ajax({
         url: "http://localhost:8080/product/" + display,
         dataType: "json"
     }).then(function (response) {
-        console.log(response);
         response.forEach(element => {
             $('#afterProductsProductPage').append(`<tr>
                         <td class="col-md-6">
@@ -63,11 +58,14 @@ $(document).ready(function () {
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add</button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal${element.productId}" data-target="#exampleModalCenter${element.productId}">Info</button>
-                        </td>
+                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add to cart</button>
+                        <td class="col-md-1">
+                          <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
+                          data-placement="right">
+                              Info
+                          </button>
+                        </td>                    
+                    
                     </tr>`);
             $('[data-toggle="popover"]').popover({
                 title: `<strong>Name: ${element.productName}</strong>`,
@@ -81,18 +79,18 @@ $(document).ready(function () {
         })
     })
 
+//display för tomt sökresultat
 
     $('#searchButton').click(function (event) {
         let param = $.trim($('#searchField').val());
         let template = ``;
+        $('#afterProductsProductPage').last().empty()
         if (param.length === 0) {
             display = "all"
-            $('#afterProductsProductPage').empty();
             $.ajax({
                 url: "http://localhost:8080/product/" + display,
                 dataType: "json"
             }).then(function (response) {
-                console.log(response);
                 response.forEach(element => {
                     $('#afterProductsProductPage').append(`<tr>
                         <td class="col-md-6">
@@ -127,18 +125,14 @@ $(document).ready(function () {
                 })
             })
         } else {
-
-            console.log(param)
             display = "showProductsBySearch/" + param;
-            console.log(display)
-
+            //display för sökresultat
             $.ajax({
                 url: "http://localhost:8080/product/" + display,
                 dataType: "json"
             }).then(function (response) {
-                console.log(response);
                 response.forEach(element => {
-                    template += `<tr>
+                    $('#afterProductsProductPage').append(`<tr>
                         <td class="col-md-6">
                         <div class="media">
                             <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
@@ -157,7 +151,7 @@ $(document).ready(function () {
                               Info
                           </button>
                         </td>   
-                    </tr>`
+                    </tr>`);
                     $('[data-toggle="popover"]').popover({
                         title: `<strong>Name: ${element.productName}</strong>`,
                         content: `Description: ${element.productDescription} <br>
@@ -167,7 +161,7 @@ $(document).ready(function () {
                         trigger: 'focus',
                     });
                 });
-                $('#afterProductsProductPage').html(template);
+
             })
         }
     })
