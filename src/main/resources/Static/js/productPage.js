@@ -39,6 +39,11 @@ function addToCartOrCreateNewCartAndAdd(productId) {
 }
 
 $(document).ready(function () {
+
+    $("#logout").click(function (event) {
+        localStorage.clear()
+    });
+
     let display = "all";
     //start display
     $.ajax({
@@ -52,13 +57,12 @@ $(document).ready(function () {
                             <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading">${element.productName}</h4>
-                                <h5 class="media-heading"> ${element.productDescription}</h5>
                             </div>
                         <td class="col-md-1" style="text-align: center">
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add to cart</button>
+                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add</button>
                         <td class="col-md-1">
                           <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
                           data-placement="right">
@@ -98,13 +102,12 @@ $(document).ready(function () {
                             <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading">${element.productName}</h4>
-                                <h5 class="media-heading"> ${element.productDescription}</h5>
                             </div>
                         <td class="col-md-1" style="text-align: center">
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add to cart</button>
+                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add</button>
                         <td class="col-md-1">
                           <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
                           data-placement="right">
@@ -138,13 +141,12 @@ $(document).ready(function () {
                             <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading">${element.productName}</h4>
-                                <h5 class="media-heading"> ${element.productDescription}</h5>
                             </div>
                         <td class="col-md-1" style="text-align: center">
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add to cart</button>
+                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add</button>
                         <td class="col-md-1">
                           <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
                           data-placement="right">

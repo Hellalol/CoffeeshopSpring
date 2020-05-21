@@ -44,13 +44,22 @@ $(document).ready(function () {
                  <td scope="row">Brand: ${elm2.productName}</td>
                  <td scope="row">Description: ${elm2.productDescription}</td>
                  <td scope="row">Price: ${elm2.currentPrice} SEK</td>
-                 <td scope="row">Quantity: ${elm2.quantity}</td>         
+                 <td scope="row">Quantity: ${elm2.quantity}</td>   
+                     <td scope="row">
+                          <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
+                          data-placement="right">
+                              Info
+                          </button>
+                        </td> 
+                       
                 </tr> 
             </div>
         </div> `;
 
             });
+
         });
+
         $('.order').append(productList);
     });
 });
