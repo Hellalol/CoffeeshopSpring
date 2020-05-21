@@ -8,7 +8,7 @@ values ('Test Testsson', 'Password', 'test','CUSTOMER', true, false),
 -- Products
 insert into product(base_price, description, product_name, image_path)
 values (100, 'Blabla', 'kaffe', 'Static/image/Coffee-Beans-Shop-Packaging-PNG-daily-roasted-coffee-beans.png'),
-(101, 'Blabla', 'kaffe1', 'Static/image/Coffee-Beans-Shop-Packaging-PNG-daily-roasted-coffee-beans.png'),
+(101, 'Solen', 'kaffe1', 'Static/image/Coffee-Beans-Shop-Packaging-PNG-daily-roasted-coffee-beans.png'),
  (102, 'Blabla', 'kaffe2', 'Static/image/Coffee-Beans-Shop-Packaging-PNG-daily-roasted-coffee-beans.png'),
  (103, 'Blabla', 'kaffe3', 'Static/image/Coffee-Beans-Shop-Packaging-PNG-daily-roasted-coffee-beans.png');
 

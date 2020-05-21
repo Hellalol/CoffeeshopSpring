@@ -94,6 +94,9 @@ function confirmOrder(){
 }
 
 $(document).ready(function () {
+
+
+
     var purchesId = localStorage.getItem('purches-id');
     $.ajax({
         url: "http://localhost:8080/purchase/" + purchesId,
@@ -153,7 +156,7 @@ $(document).ready(function () {
     })
 
     $.ajax({
-        url: "http://localhost:8080/product/all",
+        url: "http://localhost:8080/product/showProducts",
         dataType: "json"
     }).then(function (response) {
         console.log(response);
