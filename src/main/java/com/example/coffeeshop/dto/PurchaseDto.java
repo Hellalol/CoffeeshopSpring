@@ -20,7 +20,6 @@ public class PurchaseDto {
     private final List<PurchaseEntryDto> purchaseEntries;
     private final BigDecimal totalPrice;
     private final String status;
-
     private final int totalQuantity;
 
     public PurchaseDto(Purchase purchase) {
@@ -32,7 +31,6 @@ public class PurchaseDto {
                 .collect(Collectors.toList());
         this.totalPrice = purchase.getTotalPrice();
         this.status = purchase.getStatus().name();
-        //IntStream integers = purchase.getTruePurchaseEntries().stream().mapToInt(e -> e.getQuantity());
         this.totalQuantity = purchase.getTruePurchaseEntries().stream().mapToInt(PurchaseEntry::getQuantity).sum();
     }
 
