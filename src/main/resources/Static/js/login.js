@@ -3,12 +3,11 @@ $(document).ready(function () {
 });
 
 function setOnClickListeners() {
+
     $('#submit').click(function (event) {
         event.preventDefault()
         let username = $("#username").val();
         let password = $("#password").val();
-        console.log(username)
-        console.log(password)
         if(username.length>0 && password.length>0){
             authenticate(username,password);
         }
@@ -34,4 +33,3 @@ function determineRoleAndRedirect(user) {
     else
         $(location).attr('href','productPage.html')
 }
-

@@ -51,10 +51,11 @@ $(document).ready(function () {
         dataType: "json"
     }).then(function (response) {
         response.forEach(element => {
+            console.log(element.imagePath)
             $('#afterProductsProductPage').append(`<tr>
                         <td class="col-md-6">
                         <div class="media">
-                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="${element.imagePath}" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading">${element.productName}</h4>
                             </div>
@@ -99,7 +100,7 @@ $(document).ready(function () {
                     $('#afterProductsProductPage').append(`<tr>
                         <td class="col-md-6">
                         <div class="media">
-                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="${element.imagePath}" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading">${element.productName}</h4>
                             </div>
@@ -123,8 +124,6 @@ $(document).ready(function () {
                         placement: "right",
                         trigger: 'focus',
                     });
-
-
                 })
             })
         } else {
@@ -138,7 +137,7 @@ $(document).ready(function () {
                     $('#afterProductsProductPage').append(`<tr>
                         <td class="col-md-6">
                         <div class="media">
-                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="${element.imagePath}" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading">${element.productName}</h4>
                             </div>
@@ -160,7 +159,7 @@ $(document).ready(function () {
                 Price: ${element.currentPrice} SEK`,
                         html: true,
                         placement: "right",
-                        trigger: 'focus',
+                        trigger: 'focus'
                     });
                 });
 

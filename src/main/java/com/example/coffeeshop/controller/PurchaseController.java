@@ -3,7 +3,6 @@ package com.example.coffeeshop.controller;
 import com.example.coffeeshop.domain.Customer;
 import com.example.coffeeshop.domain.Product;
 import com.example.coffeeshop.domain.Purchase;
-import com.example.coffeeshop.domain.PurchaseEntry;
 import com.example.coffeeshop.dto.PurchaseDto;
 import com.example.coffeeshop.dto.PurchaseEntryDto;
 import com.example.coffeeshop.service.CustomerService;
@@ -18,6 +17,7 @@ import java.util.Optional;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/purchase")
 // TODO Throw correct exceptions
 public class PurchaseController {
