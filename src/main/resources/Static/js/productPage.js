@@ -11,15 +11,19 @@ function addToCartOrCreateNewCartAndAdd(productId) {
             type: 'POST',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
+            async: false,
             success: function (result) {
                 newPurchesId = result.id
                 localStorage.setItem('purches-id', newPurchesId)
+                
                 $.ajax({
                     url: `/purchase/`+ newPurchesId +`/addProductToPurches/` + productId,
                     type: 'POST',
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (result) {
+
+
                     }
                 })
                 return result
@@ -33,25 +37,55 @@ function addToCartOrCreateNewCartAndAdd(productId) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (result) {
+
+
             }
         })
     }
 }
 
+function quantityCounterDelux(){
+    let existing = localStorage.getItem('purches-id');
+    let counter = 0;
+
+    if(existing!==null){
+
+        $.ajax({
+            url: `/purchase/` + existing,
+            type: 'GET',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                result.purchaseEntries.forEach(element => {
+                    console.log(element.quantity)
+                  counter += element.quantity
+                    console.log(counter)
+                    $("#quantityCounter").html(counter)
+                    //document.getElementById("quantityCounter").innerText=counter;
+
+                })
+            }
+        })
+    }else{
+        $("#quantityCounter").html(counter)
+    }
+}
+
 $(document).ready(function () {
+    quantityCounterDelux()
+    let currentCustomerId = localStorage.getItem('customer-id');
 
     $("#logout").click(function (event) {
         localStorage.clear()
     });
 
-    let display = "all";
+    let display = "all/" + currentCustomerId;
     //start display
     $.ajax({
         url: "http://localhost:8080/product/" + display,
         dataType: "json"
     }).then(function (response) {
         response.forEach(element => {
-            console.log(element.imagePath)
             $('#afterProductsProductPage').append(`<tr>
                         <td class="col-md-6">
                         <div class="media">
@@ -63,7 +97,7 @@ $(document).ready(function () {
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add</button>
+                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId}); quantityCounterDelux(); ">Add</button>
                         <td class="col-md-1">
                           <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
                           data-placement="right">
@@ -91,7 +125,7 @@ $(document).ready(function () {
         let template = ``;
         $('#afterProductsProductPage').last().empty()
         if (param.length === 0) {
-            display = "all"
+            display = "all/" + currentCustomerId;
             $.ajax({
                 url: "http://localhost:8080/product/" + display,
                 dataType: "json"
@@ -108,7 +142,7 @@ $(document).ready(function () {
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add</button>
+                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId}); quantityCounterDelux();">Add</button>
                         <td class="col-md-1">
                           <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
                           data-placement="right">
@@ -127,7 +161,7 @@ $(document).ready(function () {
                 })
             })
         } else {
-            display = "showProductsBySearch/" + param;
+            display = "showProductsBySearch/" + param + "/" + currentCustomerId;
             //display för sökresultat
             $.ajax({
                 url: "http://localhost:8080/product/" + display,
@@ -145,7 +179,7 @@ $(document).ready(function () {
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId})">Add</button>
+                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId}); quantityCounterDelux();">Add</button>
                         <td class="col-md-1">
                           <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
                           data-placement="right">

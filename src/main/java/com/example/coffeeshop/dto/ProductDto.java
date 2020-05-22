@@ -21,6 +21,10 @@ public final class ProductDto {
         this(product.getId(), product.getProductName(), product.getBasePrice(), product.getImagePath(), product.getDescription());
     }
 
+    public ProductDto(Product product, BigDecimal currentPrice) {
+        this(product.getId(), product.getProductName(), currentPrice, product.getImagePath(), product.getDescription());
+    }
+
     public Long getProductId() {
         return productId;
     }
