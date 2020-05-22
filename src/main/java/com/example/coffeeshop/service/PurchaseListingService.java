@@ -13,6 +13,7 @@ import java.util.List;
 public final class PurchaseListingService {
     private final PurchaseRepository purchaseRepository;
 
+
     @Autowired
     public PurchaseListingService(PurchaseRepository purchaseRepository) {
         this.purchaseRepository = purchaseRepository;

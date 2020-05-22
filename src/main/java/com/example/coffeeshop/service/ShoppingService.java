@@ -104,6 +104,14 @@ public final class ShoppingService {
         }
         clearStaleEntries(purchase);
         purchase.setStatus(Purchase.Status.COMPLETED);
+        if (!purchase.getCustomer().isPremiumCustomer()) {
+            purchase.getCustomer().setPremiumCustomer(
+                    purchase.getCustomer().getPurchases().stream()
+                    .map(Purchase::getTotalPrice)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    // TODO Check and move premium customer treshold
+                    .compareTo(BigDecimal.valueOf(500_000)) >= 0);
+        }
         return purchaseRepository.save(purchase);
     }
 

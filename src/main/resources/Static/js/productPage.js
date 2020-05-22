@@ -84,7 +84,7 @@ $(document).ready(function () {
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-outline-primary waves-effect" style="display: inline-block" onclick="addToCart(${element.productId});">Add</button>
+                        <button class="glow-on-hover" style="display: inline-block" onclick="addToCart(${element.productId});">Add</button>
                         <td class="col-md-1">
                           <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
                           data-placement="right">
@@ -130,7 +130,7 @@ $(document).ready(function () {
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-outline-primary waves-effect" style="display: inline-block" onclick="addToCart(${element.productId}); quantityCounter();">Add</button>
+                        <button class="glow-on-hover" style="display: inline-block" onclick="addToCart(${element.productId}); quantityCounter();">Add</button>
                         <td class="col-md-1">
                           <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
                           data-placement="right">
@@ -168,7 +168,7 @@ $(document).ready(function () {
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-outline-primary waves-effect" style="display: inline-block" onclick="addToCart(${element.productId}); quantityCounter();">Add</button>
+                        <button class="glow-on-hover" style="display: inline-block" onclick="addToCart(${element.productId}); quantityCounter();">Add</button>
                         <td class="col-md-1">
                           <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
                           data-placement="right">
