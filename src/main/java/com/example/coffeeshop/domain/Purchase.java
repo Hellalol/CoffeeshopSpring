@@ -35,7 +35,8 @@ public final class Purchase {
 
     //CascadeType.ALL enligt https://thorben-janssen.com/avoid-cascadetype-delete-many-assocations/
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PurchaseEntry> truePurchaseEntries;// = new TreeSet<>(Comparator.comparing(purchaseEntry -> purchaseEntry.getProduct().getId()));
+    @JsonIgnore
+    private Set<PurchaseEntry> truePurchaseEntries = new TreeSet<>(Comparator.comparing(purchaseEntry -> purchaseEntry.getProduct().getId()));
 
 
 
@@ -57,7 +58,7 @@ public final class Purchase {
     public Purchase(Customer customer) {
         this.customer = customer;
         this.orderNumber = UUID.randomUUID(); // TODO check default value generation
-        this.truePurchaseEntries = new TreeSet<>(Comparator.comparing(purchaseEntry -> purchaseEntry.getProduct().getId()));
+        //this.truePurchaseEntries = new TreeSet<>(Comparator.comparing(purchaseEntry -> purchaseEntry.getProduct().getId()));
     }
 
     // TODO Behaviour when key not found

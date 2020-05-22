@@ -16,7 +16,7 @@ values (100, 'Blabla', 'kaffe', 'Static/image/Coffee-Beans-Shop-Packaging-PNG-da
 INSERT into purchase(order_number, status, customer_id)
 values ('2f903cef-3696-47a1-8664-5da0e187c9be', 'COMPLETED', 3),
 ('4cdf6e4c-9849-11ea-bb37-0242ac130002', 'COMPLETED', 3),
-('726a28fa-812e-48b3-bddd-e3fb9aa40fc9', 'IN_PROGRESS', 3),
+('726a28fa-812e-48b3-bddd-e3fb9aa40fc9', 'COMPLETED', 3),
 ('4cdf6a78-9849-11ea-bb37-0242ac130002', 'COMPLETED', 4);
 
 -- Purchase_entry
