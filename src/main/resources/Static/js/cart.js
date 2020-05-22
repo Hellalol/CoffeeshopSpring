@@ -112,7 +112,7 @@ $(document).ready(function () {
             $(`<tr>
                         <td class="col-md-6">
                         <div class="media">
-                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="${element.imagePath}" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading">${element.productName}</h4>
                                 <h5 class="media-heading">${element.productDescription}</h5>
@@ -128,9 +128,9 @@ $(document).ready(function () {
                             <span class="glyphicon glyphicon-remove"></span> Remove
                         </button></td>
                     </tr>`).insertBefore($("#afterProductsCartPage"))
-            //document.getElementById("totalPrice").innerHTML = data.totalPrice + " SEK";
         });
-            $("#finalPrice").html(`<h3><strong>${data.totalPrice} SEK2</strong></h3>`);
+        //document.getElementById("totalPrice").innerHTML = data.totalPrice + " SEK";
+            $("#totalPrice").html(`<h3><strong>${data.totalPrice} SEK</strong></h3>`);
     })
 
     $.ajax({
@@ -143,7 +143,7 @@ $(document).ready(function () {
             $(`<tr>
                         <td class="col-md-6">
                         <div class="media">
-                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="${element.imagePath}" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading">${element.productName}</h4>
                                 <h5 class="media-heading"> ${element.productDescription}</h5>
@@ -154,10 +154,8 @@ $(document).ready(function () {
                         <td class="col-md-1">
                        <div class="amount" style="display: inline-block; margin-left: 78px"> ${element.quantity}</div>
                     </tr>`).insertBefore($("#afterProductsReceiptPage"))
-            //document.getElementById("finalPrice").innerHTML = data.totalPrice + " SEK";
-            //document.getElementById("finalPrice").innerHTML = data.totalPrice + " SEK";
         });
-            $("#finalPrice").html(`<h3><strong>${data.totalPrice} SEK3</strong></h3>`);
+            $("#finalPrice").html(`<h3><strong>${data.totalPrice} SEK</strong></h3>`);
     })
 
 
@@ -186,7 +184,7 @@ $(document).ready(function () {
             $(`<tr>
                         <td class="col-md-6">
                         <div class="media">
-                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="${element.imagePath}" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading">${element.productName}</h4>
                                 <h5 class="media-heading"> ${element.productDescription}</h5>

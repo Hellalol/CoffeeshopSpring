@@ -14,9 +14,10 @@ public final class PurchaseEntryDto {
     private Long productId;
     private int quantity;
     private BigDecimal currentPrice;
+    private String imagePath;
 
     public PurchaseEntryDto(PurchaseEntry purchaseEntry) {
-        this(purchaseEntry.getProduct().getProductName(), purchaseEntry.getProduct().getDescription() , purchaseEntry.getProduct().getId(), purchaseEntry.getQuantity(), purchaseEntry.getCurrentPrice());
+        this(purchaseEntry.getProduct().getProductName(), purchaseEntry.getProduct().getDescription() , purchaseEntry.getProduct().getId(), purchaseEntry.getQuantity(), purchaseEntry.getCurrentPrice(), purchaseEntry.getProduct().getImagePath());
     }
 
     public String getProductName() {
