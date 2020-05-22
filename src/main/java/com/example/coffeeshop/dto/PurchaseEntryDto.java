@@ -20,6 +20,7 @@ public final class PurchaseEntryDto {
         this(purchaseEntry.getProduct().getProductName(), purchaseEntry.getProduct().getDescription() , purchaseEntry.getProduct().getId(), purchaseEntry.getQuantity(), purchaseEntry.getCurrentPrice(), purchaseEntry.getProduct().getImagePath());
     }
 
+    
     public String getProductName() {
         return productName;
     }
