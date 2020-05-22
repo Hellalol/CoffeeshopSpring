@@ -44,6 +44,7 @@ public final class Customer extends User {
         // calculation changes to unexpectedly change current status
         if (!premiumCustomer) {
             premiumCustomer = purchases.stream()
+                    .filter(purchase -> purchase.getStatus().equals(Purchase.Status.COMPLETED))
                     .map(Purchase::getTotalPrice)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
                     // TODO Check and move premium customer treshold
@@ -58,7 +59,6 @@ public final class Customer extends User {
     public void setPurchases(List<Purchase> purchases) {
         this.purchases = purchases;
     }
-
 
     public boolean isPremiumCustomer() {
         return premiumCustomer;

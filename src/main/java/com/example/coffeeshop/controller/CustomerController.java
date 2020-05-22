@@ -2,6 +2,7 @@ package com.example.coffeeshop.controller;
 
 import com.example.coffeeshop.domain.Customer;
 import com.example.coffeeshop.domain.Product;
+import com.example.coffeeshop.domain.Purchase;
 import com.example.coffeeshop.dto.CustomerDto;
 import com.example.coffeeshop.dto.PurchaseDto;
 import com.example.coffeeshop.repository.CustomerRepository;
@@ -61,6 +62,7 @@ public class CustomerController {
                 .filter(customer -> customer.getId().equals(id))
                 .map(Customer::getPurchases)
                 .flatMap(Collection::stream)
+                .filter(purchase -> purchase.getStatus().equals(Purchase.Status.COMPLETED))
                 .map(PurchaseDto::new)
                 .collect(Collectors.toList());
     }
