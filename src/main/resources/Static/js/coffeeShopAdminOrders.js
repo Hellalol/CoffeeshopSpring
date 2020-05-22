@@ -71,7 +71,7 @@ $(document).ready(function () {
                               Info
                           </button>
                         </td> 
-                </tr> 
+                </tr>
             </div>
         </div>  `;
             });
