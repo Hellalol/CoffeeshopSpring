@@ -139,9 +139,8 @@ public class PurchaseController {
         //Metoden kallas efter nytt purchase ID har skapats
         Optional<Purchase> purchase = shoppingService.getById(purchaseId);
         Optional<Product> product = productService.getById(productId);
-
-
         int newQuantity = purchase.get().getEntry(product.get()).getQuantity();
+
         if(newQuantity > 0) {
             shoppingService.setProductQuantity(purchase.get(), product.get(), newQuantity+1);
         }else{

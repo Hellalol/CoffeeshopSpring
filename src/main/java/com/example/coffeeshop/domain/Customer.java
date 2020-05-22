@@ -51,7 +51,6 @@ public final class Customer extends User {
         }
     }
 
-    @JsonManagedReference
     public List<Purchase> getPurchases() {
         return purchases;
     }
