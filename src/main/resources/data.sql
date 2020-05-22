@@ -7,10 +7,10 @@ values ('Test Testsson', 'Password', 'test','CUSTOMER', true, false),
 
 -- Products
 insert into product(base_price, description, product_name, image_path)
-values (100, 'Blabla', 'kaffe', 'Static/image/Coffee-Beans-Shop-Packaging-PNG-daily-roasted-coffee-beans.png'),
-(101, 'Solen', 'kaffe1', 'Static/image/Coffee-Beans-Shop-Packaging-PNG-daily-roasted-coffee-beans.png'),
- (102, 'Blabla', 'kaffe2', 'Static/image/Coffee-Beans-Shop-Packaging-PNG-daily-roasted-coffee-beans.png'),
- (103, 'Blabla', 'kaffe3', 'Static/image/Coffee-Beans-Shop-Packaging-PNG-daily-roasted-coffee-beans.png');
+values (170, 'Robusta wings, cinnamon caramelization acerbic sugar, extra a mocha foam body filter.', 'Mörkaste', '../images/c1.jpg'),
+(133, 'Aged viennese caffeine, cup black cream decaffeinated barista fair trade aged.', 'Vekaste', '../images/c2.jpg'),
+ (300, 'Acerbic, blue mountain ristretto, beans strong galão dark skinny rich.', 'Blått inte Gott', '../images/c5.jpg'),
+ (400, 'Seasonal to go, id galão, et mocha turkish that half and half rich white.', 'Premium', '../images/Coffee-Beans-Shop-Packaging-PNG-daily-roasted-coffee-beans.png');
 
 -- Purchase
 INSERT into purchase(order_number, status, customer_id)

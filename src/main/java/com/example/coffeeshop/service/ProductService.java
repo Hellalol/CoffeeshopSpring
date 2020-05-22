@@ -1,6 +1,5 @@
 package com.example.coffeeshop.service;
 
-import com.example.coffeeshop.domain.Customer;
 import com.example.coffeeshop.domain.Product;
 import com.example.coffeeshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;

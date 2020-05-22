@@ -1,9 +1,7 @@
 package com.example.coffeeshop.controller;
 
 import com.example.coffeeshop.domain.Product;
-import com.example.coffeeshop.dto.CustomerDto;
 import com.example.coffeeshop.dto.ProductDto;
-import com.example.coffeeshop.dto.PurchaseDto;
 import com.example.coffeeshop.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/product")
 public class ProductController {
     private static final Logger log = LoggerFactory.getLogger(ProductController.class);
