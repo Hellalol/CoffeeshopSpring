@@ -56,7 +56,6 @@ $(document).ready(function () {
                          </button>
                      </h4>
                  </div>`;
-
             elm.purchaseEntries.forEach(elm2 => {
                 productList +=
                     `<div id="collapse${elm.id}" class="collapse" aria-labelledby="heading" data-parent="#show-order">
