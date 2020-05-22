@@ -1,8 +1,11 @@
 package com.example.coffeeshop.service;
 
+import com.example.coffeeshop.controller.PurchaseController;
 import com.example.coffeeshop.domain.*;
 import com.example.coffeeshop.repository.PurchaseEntryRepository;
 import com.example.coffeeshop.repository.PurchaseRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,7 @@ import java.util.Optional;
 public final class ShoppingService {
     private final PurchaseRepository purchaseRepository;
     private final PurchaseEntryRepository entryRepository;
+    private static final Logger log = LoggerFactory.getLogger(ShoppingService.class);
 
     @Autowired
     public ShoppingService(PurchaseRepository purchaseRepository, PurchaseEntryRepository entryRepository) {
@@ -75,6 +79,11 @@ public final class ShoppingService {
     // TODO Sanitize purchase entries here or in the entity class?
     private void clearStaleEntries(Purchase purchase) {
         // Since this is only used internally, there's no need to check purchase status within this method
+        for (PurchaseEntry entry : purchase.getTruePurchaseEntries()) {
+            if (entry.getQuantity() < 1) {
+                entryRepository.delete(entry);
+            }
+        }
         purchase.getTruePurchaseEntries().removeIf(purchaseEntry -> purchaseEntry.getQuantity() < 1);
     }
 
@@ -95,6 +104,12 @@ public final class ShoppingService {
         }
         clearStaleEntries(purchase);
         purchase.setStatus(Purchase.Status.COMPLETED);
+        return purchaseRepository.save(purchase);
+    }
+
+    public Purchase addNewProduct(Purchase purchase, Product product){
+        PurchaseEntry purchaseEntry = new PurchaseEntry(purchase, product, 1, product.getBasePrice());
+        entryRepository.save(purchaseEntry);
         return purchaseRepository.save(purchase);
     }
 }

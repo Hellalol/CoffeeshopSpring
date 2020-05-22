@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    $("#logout").click(function (event) {
+        localStorage.clear()
+    })
+
     let listCustomers = "";
     $.ajax({
         url: "http://localhost:8080/customer/all",

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
-@Data
+//@Data
 //@NoArgsConstructor
 
 @Entity
@@ -26,7 +26,7 @@ public final class PurchaseEntry {
     @ManyToOne // TODO Laziness and cascade type
     private Product product;
 
-    @Positive
+
     private int quantity;
 
     @DecimalMin(value = "0.0", inclusive = false)
@@ -41,6 +41,7 @@ public final class PurchaseEntry {
         this.quantity = quantity;
         this.currentPrice = currentPrice;
     }
+
 
     @PrePersist
     private void setDefaultPrice() {
@@ -79,5 +80,24 @@ public final class PurchaseEntry {
 
     public void setCurrentPrice(BigDecimal currentPrice) {
         this.currentPrice = currentPrice;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "PurchaseEntry{" +
+                "id=" + id +
+                ", purchase=" + purchase +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                ", currentPrice=" + currentPrice +
+                '}';
     }
 }

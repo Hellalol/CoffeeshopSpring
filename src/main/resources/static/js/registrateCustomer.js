@@ -55,6 +55,7 @@ $(document).ready(function() {
 
             if(allInputsAreFilledOutCorrectly){
                 $('#submit-button').attr("disabled", true);
+
                 $('#reset-button').attr("disabled", true);
                 console.log("All input finns")
                 $.ajax({

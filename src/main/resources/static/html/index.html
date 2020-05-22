@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link href="login.css" rel="stylesheet"/>
+    <link href="../css/login.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="../js/login.js"></script>
 </head>
 
 <body>
@@ -20,21 +21,30 @@
 <div class="main">
     <div class="col-md-6 col-sm-12">
         <div class="login-form">
-            <form>
+            <form id="login-form">
+
                 <div class="form-group">
                     <label>User Name</label>
-                    <input type="text" class="form-control" placeholder="User Name">
+                    <input type="text" class="form-control" placeholder="Username" id="username">
                 </div>
+
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input type="password" class="form-control" placeholder="Password" id="password">
                 </div>
-                <button type="submit" class="btn btn-black">Login</button>
-                <button type="submit" class="btn btn-secondary">Register</button>
+
+                <a href="" id="login-redirect">
+                <button type="submit" class="btn btn-black" id="submit">Login</button>
+                </a>
             </form>
+                    <a href="registrate-customer.html">
+                        <button class="btn btn-secondary" id="register">Register</button>
+                    </a>
+
         </div>
     </div>
 </div>
+
 
 </body>
 </html>

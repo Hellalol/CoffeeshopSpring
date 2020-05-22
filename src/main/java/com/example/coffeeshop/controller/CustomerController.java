@@ -2,12 +2,10 @@ package com.example.coffeeshop.controller;
 
 import com.example.coffeeshop.domain.Customer;
 import com.example.coffeeshop.domain.Product;
-import com.example.coffeeshop.domain.Purchase;
-import com.example.coffeeshop.domain.User;
+
 import com.example.coffeeshop.dto.CustomerDto;
 import com.example.coffeeshop.dto.PurchaseDto;
 import com.example.coffeeshop.repository.CustomerRepository;
-import com.example.coffeeshop.security.MyUserDetailsImpl;
 import com.example.coffeeshop.service.CustomerService;
 import com.example.coffeeshop.service.ProductService;
 import com.example.coffeeshop.service.PurchaseListingService;
@@ -75,5 +73,11 @@ public class CustomerController {
     @GetMapping(path = "/product/{id}")
     public Optional<Product> getProductById(@PathVariable Long id) {
         return productService.getById(id);
+    }
+
+    @CrossOrigin()
+    @GetMapping(path = "/{id}")
+    public Customer getCustomerById(@PathVariable Long id) {
+        return customerService.getCustomerById(id).get();
     }
 }

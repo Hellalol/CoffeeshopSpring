@@ -9,15 +9,14 @@
     <script src="../js/coffeeShopAdminOrders.js"></script>
 </head>
 <body>
-
-<h1>Customer Orders</h1>
+<br>
 <div class="container" id="show-order">
     <table class="table">
         <thead class="thead-dark">
         <tr>
-            <th scope="col">Order Numbers</th>
-            <th scope="col">Date</th>
-            <th scope="col">Amount</th>
+            <th scope="col"><h3>Customer Orders</h3></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
         </thead>
     </table>
@@ -35,9 +34,22 @@
         </div>
     </div>
 
+    <table>
+    <tfoot>
 
+    <td>
+        <a href="index.html" class="btn btn-success" id="logout">
+            Log out <span class="glyphicon glyphicon-log-out"></span>
+        </a>
+    </td>
+    <td>
+        <a href="admin-show-customers.html" class="btn btn-success" id="goBack">
+            Go back <span class="glyphicon glyphicon-log-out"></span>
+        </a>
+    </td>
+    </tfoot>
+    </table>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
