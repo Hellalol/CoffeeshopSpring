@@ -37,3 +37,6 @@ function authenticate(user) {
     else
         $(location).attr('href','productPage.html')
 }
+
+
+
