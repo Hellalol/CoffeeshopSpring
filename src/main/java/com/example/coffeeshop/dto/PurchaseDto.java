@@ -1,6 +1,7 @@
 package com.example.coffeeshop.dto;
 
 import com.example.coffeeshop.domain.Purchase;
+import com.example.coffeeshop.domain.PurchaseEntry;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Data
 @RequiredArgsConstructor
@@ -19,6 +21,8 @@ public class PurchaseDto {
     private final BigDecimal totalPrice;
     private final String status;
 
+    private final int totalQuantity;
+
     public PurchaseDto(Purchase purchase) {
         this.id = purchase.getId();
         this.customerId = purchase.getCustomer().getId();
@@ -28,6 +32,8 @@ public class PurchaseDto {
                 .collect(Collectors.toList());
         this.totalPrice = purchase.getTotalPrice();
         this.status = purchase.getStatus().name();
+        //IntStream integers = purchase.getTruePurchaseEntries().stream().mapToInt(e -> e.getQuantity());
+        this.totalQuantity = purchase.getTruePurchaseEntries().stream().mapToInt(PurchaseEntry::getQuantity).sum();
     }
 
     public Long getId() {

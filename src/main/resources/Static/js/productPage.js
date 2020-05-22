@@ -1,54 +1,37 @@
-function addToCartOrCreateNewCartAndAdd(productId) {
 
-    let existing = localStorage.getItem('purches-id');
+
+function createPurchase(){
     let currentCustomerId = localStorage.getItem('customer-id');
     let newPurchesId;
-
-    //om inte pågående purchase finns, skapa ny purchase och lägg till produkt
-    if(existing === null){
-        $.ajax({
-            url: `/purchase/new2/` + currentCustomerId,
-            type: 'POST',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            async: false,
-            success: function (result) {
-                newPurchesId = result.id
-                localStorage.setItem('purches-id', newPurchesId)
-                
-                $.ajax({
-                    url: `/purchase/`+ newPurchesId +`/addProductToPurches/` + productId,
-                    type: 'POST',
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (result) {
-
-
-                    }
-                })
-                return result
-            }
-        })
-        //om pågående purchase finns. lägg in produkt i den
-    }else{
-        $.ajax({
-            url: `/purchase/`+ existing +`/addProductToPurches/` + productId,
-            type: 'POST',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-
-
-            }
-        })
-    }
+    $.ajax({
+        url: `/purchase/new2/` + currentCustomerId,
+        type: 'POST',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (result) {
+            newPurchesId = result.id
+            localStorage.setItem('purches-id', newPurchesId)
+        }
+    })
 }
 
-function quantityCounterDelux(){
-    let existing = localStorage.getItem('purches-id');
+function addToCart(productId) {
     let counter = 0;
+    let newPurchesId = localStorage.getItem('purches-id');
+    //om inte pågående purchase finns, skapa ny purchase och lägg till produkt
+    $.ajax({
+        url: `/purchase/`+ newPurchesId +`/addProductToPurches/` + productId,
+        type: 'POST',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function () {}
+    })
+    quantityCounter();
+}
 
-    if(existing!==null){
+function quantityCounter(){
+    let existing = localStorage.getItem('purches-id');
 
         $.ajax({
             url: `/purchase/` + existing,
@@ -56,23 +39,17 @@ function quantityCounterDelux(){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (result) {
-                result.purchaseEntries.forEach(element => {
-                    console.log(element.quantity)
-                  counter += element.quantity
-                    console.log(counter)
+                    console.log(result.totalQuantity)
+                    counter = result.totalQuantity
                     $("#quantityCounter").html(counter)
                     //document.getElementById("quantityCounter").innerText=counter;
-
-                })
             }
         })
-    }else{
-        $("#quantityCounter").html(counter)
-    }
 }
 
 $(document).ready(function () {
-    quantityCounterDelux()
+    createPurchase();
+    quantityCounter();
     let currentCustomerId = localStorage.getItem('customer-id');
 
     $("#logout").click(function (event) {
@@ -97,7 +74,7 @@ $(document).ready(function () {
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId}); quantityCounterDelux(); ">Add</button>
+                        <button class="btn btn-outline-primary waves-effect" style="display: inline-block" onclick="addToCart(${element.productId});">Add</button>
                         <td class="col-md-1">
                           <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
                           data-placement="right">
@@ -142,7 +119,7 @@ $(document).ready(function () {
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId}); quantityCounterDelux();">Add</button>
+                        <button class="btn btn-outline-primary waves-effect" style="display: inline-block" onclick="addToCart(${element.productId}); quantityCounter();">Add</button>
                         <td class="col-md-1">
                           <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
                           data-placement="right">
@@ -179,7 +156,7 @@ $(document).ready(function () {
                         </td>
                         <td class="col-md-1 text-center"><strong>${element.currentPrice} SEK</strong></td> 
                         <td class="col-md-1">
-                        <button class="btn btn-secondary" style="display: inline-block" onclick="addToCartOrCreateNewCartAndAdd(${element.productId}); quantityCounterDelux();">Add</button>
+                        <button class="btn btn-outline-primary waves-effect" style="display: inline-block" onclick="addToCart(${element.productId}); quantityCounter();">Add</button>
                         <td class="col-md-1">
                           <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" 
                           data-placement="right">

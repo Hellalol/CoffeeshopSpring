@@ -1,3 +1,4 @@
+/*
 function getCustomerById() {
     var currentCustomerId = localStorage.getItem('customer-id');
 
@@ -7,7 +8,7 @@ function getCustomerById() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
 }).then(function (data) {
-    console.log(data)
+    //console.log(data)
     return data
 })
 }
@@ -40,11 +41,13 @@ if(existing === null){
         dataType: "json",
         success: function (result) {
             console.log("kommer till else")
-            console.log(result)
+            //console.log(result)
         }
     })
 }
 }
+
+ */
 
 function increaseQuantityWithOne(productId){
     var purchesId = localStorage.getItem('purches-id');
@@ -169,7 +172,7 @@ $(document).ready(function () {
         //window.location = "http://www.yourdomain.com/";
         location.reload()
     })
-
+/*
     $('#clearSearchAndShowAllButton').click(function (event) {
         display = "all"
         location.reload()
@@ -197,6 +200,8 @@ $(document).ready(function () {
                     </tr>`).insertBefore($("#afterProductsProductPage"))
         });
     })
+
+ */
 });
 
 
