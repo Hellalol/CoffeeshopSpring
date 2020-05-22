@@ -22,27 +22,24 @@ public class CustomerService {
     }
 
 
-    public void registrateCustomer(String customerName, String password, String userName) {
+    public Customer registrateCustomer(Customer customer) { //returnera String för att visa att användaren redan finns?
 
         //Nödvändigt att kolla om kunden redan finns här? Bättre att göra på klientsidan?
-        Optional<Customer> customer = customerRepository.findCustomerByNameIgnoreCase(customerName);
-        Customer registratingCustomer = new Customer();
+        Optional<Customer> checkCustomer = customerRepository.findCustomerByNameIgnoreCase(customer.getName());
 
-        if(!customer.isPresent()){ //Om kunden inte hittas från databasen sätts fieldsen i if-satsen.
-            registratingCustomer.setName(customerName);
-            registratingCustomer.setPassword(password);
-            registratingCustomer.setUsername(userName);
+
+        if(checkCustomer.isEmpty()){ //Om kunden inte hittas från databasen sätts fieldsen i if-satsen.
+            Customer registratingCustomer = new Customer();
+            registratingCustomer.setName(customer.getName());
+            registratingCustomer.setPassword(customer.getPassword());
+            registratingCustomer.setUsername(customer.getUsername());
+            registratingCustomer.setActive(true);
+            customerRepository.save(registratingCustomer);
+            return registratingCustomer;
         }
         else
-            //log -> return "Customer already exists in the world";
-                //KOLLA AMIGOSCODE
-
-
-        //Kunden sparas ner i databasen med repot.
-        customerRepository.save(registratingCustomer);
-
-
-         //log -> return "Customer registration completed.";
+            return customer;
+        //log -> return "Customer registration completed.";
     }
 
     public List<Customer>getAllCustomers(){

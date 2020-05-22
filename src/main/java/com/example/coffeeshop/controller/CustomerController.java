@@ -26,27 +26,32 @@ import java.util.stream.Collectors;
 public class CustomerController {
     private static final Logger log = LoggerFactory.getLogger(CustomerController.class);
 
-    CustomerRepository customerRepository;
     CustomerService customerService;
     PurchaseListingService purchaseListingService;
     ProductService productService;
 
 
     @Autowired
-    public CustomerController(CustomerRepository customerRepository, CustomerService customerService,
+    public CustomerController(CustomerService customerService,
                               PurchaseListingService purchaseListingService,
                               ProductService productService) {
-        this.customerRepository = customerRepository;
         this.customerService = customerService;
         this.purchaseListingService = purchaseListingService;
         this.productService = productService;
-
     }
 
+    /*
     //TODO : Om klienten skriver in en mailadress som redan finns crashar programmet. Åtgärd?
-    @PostMapping()
-    public Customer customer(@RequestBody Customer newCustomer) {
+    @PostMapping("/register")
+    public @ResponseBody Customer customer(Customer newCustomer) {
         return customerRepository.save(newCustomer);
+    }
+     */
+
+    @PostMapping("/register")
+    @ResponseBody
+    public Customer put (@RequestBody Customer newCustomer) {
+       return customerService.registrateCustomer(newCustomer);
     }
 
     @CrossOrigin()
