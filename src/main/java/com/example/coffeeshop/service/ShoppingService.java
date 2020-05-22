@@ -116,9 +116,6 @@ public final class ShoppingService {
     }
 
     public Purchase addNewProduct(Purchase purchase, Product product){
-        //PurchaseEntry purchaseEntry = new PurchaseEntry(purchase, product, 1, product.getBasePrice());
-        //entryRepository.save(purchaseEntry);
-        //return purchaseRepository.save(purchase);
         return setProductQuantity(purchase, product, 1);
     }
 }

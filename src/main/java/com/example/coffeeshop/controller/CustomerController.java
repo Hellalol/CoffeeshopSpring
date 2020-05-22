@@ -38,13 +38,6 @@ public class CustomerController {
         this.productService = productService;
     }
 
-    /*
-    //TODO : Om klienten skriver in en mailadress som redan finns crashar programmet. Åtgärd?
-    @PostMapping("/register")
-    public @ResponseBody Customer customer(Customer newCustomer) {
-        return customerRepository.save(newCustomer);
-    }
-     */
 
     @PostMapping("/register")
     @ResponseBody

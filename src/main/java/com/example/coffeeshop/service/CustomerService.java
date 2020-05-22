@@ -22,13 +22,10 @@ public class CustomerService {
     }
 
 
-    public Customer registrateCustomer(Customer customer) { //returnera String för att visa att användaren redan finns?
-
-        //Nödvändigt att kolla om kunden redan finns här? Bättre att göra på klientsidan?
+    public Customer registrateCustomer(Customer customer) {
         Optional<Customer> checkCustomer = customerRepository.findCustomerByNameIgnoreCase(customer.getName());
 
-
-        if(checkCustomer.isEmpty()){ //Om kunden inte hittas från databasen sätts fieldsen i if-satsen.
+        if(checkCustomer.isEmpty()){
             Customer registratingCustomer = new Customer();
             registratingCustomer.setName(customer.getName());
             registratingCustomer.setPassword(customer.getPassword());
@@ -39,7 +36,6 @@ public class CustomerService {
         }
         else
             return customer;
-        //log -> return "Customer registration completed.";
     }
 
     public List<Customer>getAllCustomers(){
