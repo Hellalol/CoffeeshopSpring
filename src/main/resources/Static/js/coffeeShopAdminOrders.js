@@ -47,10 +47,10 @@ $(document).ready(function () {
                          </button>
                      </h4>
                  </div>`;
+
         elm.purchaseEntries.forEach(elm2 => {
-            popup(elm2);
             productList +=
-             `<div id="collapse${elm.id}" class="collapse" aria-labelledby="heading" data-parent="#show-order">
+                    `<div id="collapse${elm.id}" class="collapse" aria-labelledby="heading" data-parent="#show-order">
             <div class="card-body order">
                 <tr>
                  <td scope="row">Brand: ${elm2.productName}</td>
@@ -65,8 +65,9 @@ $(document).ready(function () {
                         </td> 
                 </tr> 
             </div>
-        </div> `
+        </div>  `;
 
+            popup(elm2)
             });
 
 
