@@ -7,6 +7,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="../css/login.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="../js/login.js"></script>
 </head>
@@ -20,9 +21,8 @@
 </div>
 <div class="main">
     <div class="col-md-6 col-sm-12">
-        <div class="login-form">
-            <form id="login-form">
-
+        <div class="login-form"  id="">
+            <form>
                 <div class="form-group">
                     <label>User Name</label>
                     <input type="text" class="form-control" placeholder="Username" id="username">
@@ -32,15 +32,14 @@
                     <label>Password</label>
                     <input type="password" class="form-control" placeholder="Password" id="password">
                 </div>
-
                 <a href="" id="login-redirect">
                 <button type="submit" class="btn btn-black" id="submit">Login</button>
                 </a>
-            </form>
+                <i id="errormsg"></i>
+                </form>
                     <a href="registrate-customer.html">
                         <button class="btn btn-secondary" id="register">Register</button>
                     </a>
-
         </div>
     </div>
 </div>

@@ -73,3 +73,8 @@ body {
     background-color: #000 !important;
     color: #fff;
 }
+
+#errormsg{
+    font-size: 20px;
+    color: red;
+}
