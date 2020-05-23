@@ -21,13 +21,13 @@ public class CustomerService {
         Optional<Customer> checkCustomer = customerRepository.findCustomerByNameIgnoreCase(customer.getName());
 
         if (checkCustomer.isEmpty()) {
-            Customer registratingCustomer = new Customer();
-            registratingCustomer.setName(customer.getName());
-            registratingCustomer.setPassword(customer.getPassword());
-            registratingCustomer.setUsername(customer.getUsername());
-            registratingCustomer.setActive(true);
-            customerRepository.save(registratingCustomer);
-            return registratingCustomer;
+            Customer registeringCustomer = new Customer();
+            registeringCustomer.setName(customer.getName());
+            registeringCustomer.setPassword(customer.getPassword());
+            registeringCustomer.setUsername(customer.getUsername());
+            registeringCustomer.setActive(true);
+            customerRepository.save(registeringCustomer);
+            return registeringCustomer;
         } else {
             return customer;
         }

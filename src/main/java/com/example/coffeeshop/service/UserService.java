@@ -19,5 +19,4 @@ public final class UserService {
     public Optional<User> getCurrentUser(String userName, String password) {
         return userRepository.findByUsernameAndPassword(userName, password);
     }
-
 }

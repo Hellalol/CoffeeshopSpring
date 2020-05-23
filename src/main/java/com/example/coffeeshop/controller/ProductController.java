@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -34,7 +33,7 @@ public class ProductController {
     @CrossOrigin()
     @GetMapping("/{id}")
     public Product getProduct(@PathVariable Long id) {
-        return productService.getById(id).orElseThrow(NoSuchElementException::new);
+        return productService.getById(id).orElseThrow();
     }
 
     @CrossOrigin()
@@ -47,8 +46,7 @@ public class ProductController {
 
     @GetMapping(path = "/all/{customerId}")
     public List<ProductDto> getAllProductsCheckForPremium(@PathVariable Long customerId) {
-        Customer customer = customerService.getCustomerById(customerId)
-                .orElseThrow(NoSuchElementException::new);
+        Customer customer = customerService.getCustomerById(customerId).orElseThrow();
         return productService.getAllProducts().stream()
                 .map(product -> new ProductDto(product, pricingService.calculate(customer, product)))
                 .collect(Collectors.toList());
@@ -56,8 +54,8 @@ public class ProductController {
 
     @GetMapping(path = "/showProductsBySearch/{search}/{customerId}")
     public List<ProductDto> showProducts(@PathVariable String search, @PathVariable Long customerId) {
-        Customer customer = customerService.getCustomerById(customerId)
-                .orElseThrow(NoSuchElementException::new);
+        Customer customer = customerService.getCustomerById(customerId).orElseThrow();
+
         List<ProductDto> returnList = productService.search(search).stream()
                 .map(product -> new ProductDto(product, pricingService.calculate(customer, product)))
                 .collect(Collectors.toList());
