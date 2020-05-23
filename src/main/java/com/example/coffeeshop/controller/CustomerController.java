@@ -5,10 +5,8 @@ import com.example.coffeeshop.domain.Product;
 import com.example.coffeeshop.domain.Purchase;
 import com.example.coffeeshop.dto.CustomerDto;
 import com.example.coffeeshop.dto.PurchaseDto;
-import com.example.coffeeshop.repository.CustomerRepository;
 import com.example.coffeeshop.service.CustomerService;
 import com.example.coffeeshop.service.ProductService;
-import com.example.coffeeshop.service.PurchaseListingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,26 +22,20 @@ import java.util.stream.Collectors;
 @RequestMapping("/customer")
 public class CustomerController {
     private static final Logger log = LoggerFactory.getLogger(CustomerController.class);
-
-    CustomerService customerService;
-    PurchaseListingService purchaseListingService;
-    ProductService productService;
-
+    private final CustomerService customerService;
+    private final ProductService productService;
 
     @Autowired
-    public CustomerController(CustomerService customerService,
-                              PurchaseListingService purchaseListingService,
-                              ProductService productService) {
+    public CustomerController(CustomerService customerService, ProductService productService) {
         this.customerService = customerService;
-        this.purchaseListingService = purchaseListingService;
         this.productService = productService;
     }
 
 
     @PostMapping("/register")
     @ResponseBody
-    public Customer put (@RequestBody Customer newCustomer) {
-       return customerService.registrateCustomer(newCustomer);
+    public Customer put(@RequestBody Customer newCustomer) {
+        return customerService.registerCustomer(newCustomer);
     }
 
     @CrossOrigin()

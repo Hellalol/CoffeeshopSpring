@@ -1,6 +1,5 @@
 package com.example.coffeeshop.service;
 
-import com.example.coffeeshop.controller.PurchaseController;
 import com.example.coffeeshop.domain.*;
 import com.example.coffeeshop.repository.PurchaseEntryRepository;
 import com.example.coffeeshop.repository.PurchaseRepository;
@@ -26,7 +25,7 @@ public final class ShoppingService {
         this.entryRepository = entryRepository;
     }
 
-    public List<Purchase> getAllCustomers(){
+    public List<Purchase> getAllCustomers() {
         return purchaseRepository.findAll();
     }
 
@@ -107,15 +106,15 @@ public final class ShoppingService {
         if (!purchase.getCustomer().isPremiumCustomer()) {
             purchase.getCustomer().setPremiumCustomer(
                     purchase.getCustomer().getPurchases().stream()
-                    .map(Purchase::getTotalPrice)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add)
-                    // TODO Check and move premium customer treshold
-                    .compareTo(BigDecimal.valueOf(500_000)) >= 0);
+                            .map(Purchase::getTotalPrice)
+                            .reduce(BigDecimal.ZERO, BigDecimal::add)
+                            // TODO Check and move premium customer treshold
+                            .compareTo(BigDecimal.valueOf(500_000)) >= 0);
         }
         return purchaseRepository.save(purchase);
     }
 
-    public Purchase addNewProduct(Purchase purchase, Product product){
+    public Purchase addNewProduct(Purchase purchase, Product product) {
         return setProductQuantity(purchase, product, 1);
     }
 }

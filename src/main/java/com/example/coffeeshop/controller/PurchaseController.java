@@ -21,7 +21,6 @@ import java.util.Optional;
 @RequestMapping("/purchase")
 // TODO Throw correct exceptions
 public class PurchaseController {
-
     private final ShoppingService shoppingService;
     private final ProductService productService;
     private final CustomerService customerService;

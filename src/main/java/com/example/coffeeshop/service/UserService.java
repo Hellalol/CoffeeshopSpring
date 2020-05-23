@@ -9,16 +9,15 @@ import java.util.Optional;
 
 @Service
 public final class UserService {
-
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> getCurrentUser(String userName, String password){
-        return userRepository.findByUsernameAndPassword(userName,password);
+    public Optional<User> getCurrentUser(String userName, String password) {
+        return userRepository.findByUsernameAndPassword(userName, password);
     }
 
 }
