@@ -10,8 +10,6 @@ function getProduct(id) {
 }
 
 $(document).ready(function () {
-
-
     $("#logout").click(function (event) {
         localStorage.clear()
     })
@@ -34,13 +32,12 @@ $(document).ready(function () {
     $.ajax({
         url: `http://localhost:8080/customer/order/${idFromStorage}`,
     }).then(function (data) {
-
         $('.collapse').collapse();
         $(function () {
-                    $('[data-toggle="popover"]').popover({
-                        html: true,
-                        placement: "right",
-                        trigger: 'focus',
+            $('[data-toggle="popover"]').popover({
+                html: true,
+                placement: "right",
+                trigger: 'focus',
             });
         });
 
