@@ -23,12 +23,12 @@ public final class PurchaseDto {
     public PurchaseDto(Purchase purchase) {
         this.id = purchase.getId();
         this.customerId = purchase.getCustomer().getId();
-        this.purchaseEntries = purchase.getTruePurchaseEntries().stream()
+        this.purchaseEntries = purchase.getPurchaseEntries().stream()
                 .map(PurchaseEntryDto::new)
                 .sorted(Comparator.comparing(PurchaseEntryDto::getProductId))
                 .collect(Collectors.toList());
         this.totalPrice = purchase.getTotalPrice();
         this.status = purchase.getStatus().name();
-        this.totalQuantity = purchase.getTruePurchaseEntries().stream().mapToInt(PurchaseEntry::getQuantity).sum();
+        this.totalQuantity = purchase.getPurchaseEntries().stream().mapToInt(PurchaseEntry::getQuantity).sum();
     }
 }

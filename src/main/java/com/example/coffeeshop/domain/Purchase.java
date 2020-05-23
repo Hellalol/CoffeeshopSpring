@@ -31,7 +31,7 @@ public final class Purchase {
     //CascadeType.ALL enligt https://thorben-janssen.com/avoid-cascadetype-delete-many-assocations/
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private Set<PurchaseEntry> truePurchaseEntries = new TreeSet<>(Comparator.comparing(purchaseEntry -> purchaseEntry.getProduct().getId()));
+    private Set<PurchaseEntry> purchaseEntries = new TreeSet<>(Comparator.comparing(purchaseEntry -> purchaseEntry.getProduct().getId()));
     private UUID orderNumber;
 
     @Enumerated(EnumType.STRING)
@@ -50,7 +50,7 @@ public final class Purchase {
     }
 
     public BigDecimal getTotalPrice() {
-        return truePurchaseEntries.stream()
+        return purchaseEntries.stream()
                 .map(entry -> entry.getCurrentPrice()
                         .multiply(BigDecimal.valueOf(entry.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -59,7 +59,7 @@ public final class Purchase {
     @PrePersist
     @PreUpdate
     private void prepare() {
-        truePurchaseEntries.removeIf(entry -> entry.getQuantity() < 1);
+        purchaseEntries.removeIf(entry -> entry.getQuantity() < 1);
         if (status != Status.COMPLETED) {
             // Theoretically this might allow for cancelled purchases to be auto-updated
             // even when they haven't actually been changed, but that's a remote possibility.
@@ -76,7 +76,7 @@ public final class Purchase {
         return "Purchase{" +
                 "id=" + id +
                 ", customer=" + customer +
-                ", truePurchaseEntries=" + truePurchaseEntries +
+                ", truePurchaseEntries=" + purchaseEntries +
                 ", orderNumber=" + orderNumber +
                 ", status=" + status +
                 ", updated=" + updated +

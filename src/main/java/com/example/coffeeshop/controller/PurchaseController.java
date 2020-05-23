@@ -68,7 +68,7 @@ public class PurchaseController {
         // TODO Check id and purchase entry
         Purchase purchase = purchaseService.getById(id).orElseThrow();
         Product product = productService.getById(entry.getProductId()).orElseThrow();
-        purchaseService.setProductQuantity(purchase, product, entry.getQuantity());
+        purchaseService.setQuantity(purchase, product, entry.getQuantity());
         return new PurchaseDto(purchase);
     }
 
@@ -106,14 +106,14 @@ public class PurchaseController {
     public PurchaseDto addByOne(@PathVariable long id, @PathVariable Long productId) {
         Purchase purchase = purchaseService.getById(id).orElseThrow();
         Product product = productService.getById(productId).orElseThrow();
-        return new PurchaseDto(purchaseService.incrementProductQuantity(purchase, product));
+        return new PurchaseDto(purchaseService.incrementQuantity(purchase, product));
     }
 
     @PostMapping("/{id}/subtractByOne/{productId}")
     public PurchaseDto subtractByOne(@PathVariable long id, @PathVariable Long productId) {
         Purchase purchase = purchaseService.getById(id).orElseThrow();
         Product product = productService.getById(productId).orElseThrow();
-        return new PurchaseDto(purchaseService.decrementProductQuantity(purchase, product));
+        return new PurchaseDto(purchaseService.decrementQuantity(purchase, product));
     }
 
     @PostMapping("/{id}/removeProduct/{productId}")
@@ -128,6 +128,6 @@ public class PurchaseController {
         //Metoden kallas efter nytt purchase ID har skapats
         Purchase purchase = purchaseService.getById(purchaseId).orElseThrow();
         Product product = productService.getById(productId).orElseThrow();
-        return new PurchaseDto(purchaseService.incrementProductQuantity(purchase, product));
+        return new PurchaseDto(purchaseService.incrementQuantity(purchase, product));
     }
 }
