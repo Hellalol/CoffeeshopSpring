@@ -9,17 +9,21 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 public final class ProductDto {
-    private Long productId;
-    private String productName;
-    private BigDecimal currentPrice;
-    private String imagePath;
-    private String productDescription;
+    private final Long productId;
+    private final String productName;
+    private final BigDecimal currentPrice;
+    private final String imagePath;
+    private final String productDescription;
 
     public ProductDto(Product product) {
-        this(product.getId(), product.getProductName(), product.getBasePrice(), product.getImagePath(), product.getDescription());
+        this(product, product.getBasePrice());
     }
 
     public ProductDto(Product product, BigDecimal currentPrice) {
-        this(product.getId(), product.getProductName(), currentPrice, product.getImagePath(), product.getDescription());
+        this.productId = product.getId();
+        this.productName = product.getProductName();
+        this.currentPrice = currentPrice;
+        this.imagePath = product.getImagePath();
+        this.productDescription = product.getDescription();
     }
 }

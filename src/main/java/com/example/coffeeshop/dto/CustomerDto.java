@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class CustomerDto {
+public final class CustomerDto {
     private final Long id;
     private final String name;
     private final String username;

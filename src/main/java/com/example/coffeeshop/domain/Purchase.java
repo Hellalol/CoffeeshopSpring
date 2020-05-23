@@ -32,7 +32,6 @@ public final class Purchase {
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<PurchaseEntry> truePurchaseEntries = new TreeSet<>(Comparator.comparing(purchaseEntry -> purchaseEntry.getProduct().getId()));
-
     private UUID orderNumber;
 
     @Enumerated(EnumType.STRING)

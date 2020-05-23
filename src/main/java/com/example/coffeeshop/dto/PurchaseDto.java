@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Data
 @RequiredArgsConstructor
-public class PurchaseDto {
+public final class PurchaseDto {
     private final Long id;
     private final Long customerId;
     private final List<PurchaseEntryDto> purchaseEntries;

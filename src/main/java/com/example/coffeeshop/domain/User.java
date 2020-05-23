@@ -32,7 +32,6 @@ public abstract class User {
 
     @NotBlank
     private String password;
-
     private boolean active;
 
     public User(String name, String username, String password) {
