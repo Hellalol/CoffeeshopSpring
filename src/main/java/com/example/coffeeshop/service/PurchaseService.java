@@ -14,18 +14,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public final class ShoppingService {
+public final class PurchaseService {
     private final PurchaseRepository purchaseRepository;
     private final PurchaseEntryRepository entryRepository;
-    private static final Logger log = LoggerFactory.getLogger(ShoppingService.class);
+    private static final Logger log = LoggerFactory.getLogger(PurchaseService.class);
 
     @Autowired
-    public ShoppingService(PurchaseRepository purchaseRepository, PurchaseEntryRepository entryRepository) {
+    public PurchaseService(PurchaseRepository purchaseRepository, PurchaseEntryRepository entryRepository) {
         this.purchaseRepository = purchaseRepository;
         this.entryRepository = entryRepository;
     }
 
-    public List<Purchase> getAllCustomers() {
+    public List<Purchase> getAllPurchases() {
         return purchaseRepository.findAll();
     }
 
@@ -66,8 +66,9 @@ public final class ShoppingService {
         } else if (quantity < 0) {
             throw new IllegalArgumentException("Purchase quantities may not go below zero");
         }
-        PurchaseEntry entry = purchase.getTruePurchaseEntries().stream().filter(e -> e.getProduct().equals(product)).findFirst()
-                .orElse(new PurchaseEntry(purchase, product, 0, calculateCurrentPrice(purchase.getCustomer(), product)));
+
+        PurchaseEntry entry = purchase.getEntry(product);
+        entry.setCurrentPrice(calculateCurrentPrice(purchase.getCustomer(), product));
         entry.setQuantity(quantity);
         purchase.getTruePurchaseEntries().add(entry);
         clearStaleEntries(purchase);
@@ -75,7 +76,6 @@ public final class ShoppingService {
         return purchaseRepository.save(purchase);
     }
 
-    // TODO Sanitize purchase entries here or in the entity class?
     private void clearStaleEntries(Purchase purchase) {
         // Since this is only used internally, there's no need to check purchase status within this method
         for (PurchaseEntry entry : purchase.getTruePurchaseEntries()) {
@@ -103,14 +103,7 @@ public final class ShoppingService {
         }
         clearStaleEntries(purchase);
         purchase.setStatus(Purchase.Status.COMPLETED);
-        if (!purchase.getCustomer().isPremiumCustomer()) {
-            purchase.getCustomer().setPremiumCustomer(
-                    purchase.getCustomer().getPurchases().stream()
-                            .map(Purchase::getTotalPrice)
-                            .reduce(BigDecimal.ZERO, BigDecimal::add)
-                            // TODO Check and move premium customer treshold
-                            .compareTo(BigDecimal.valueOf(500_000)) >= 0);
-        }
+        // There used to be premium customer logic here. It's in the Customer class now.
         return purchaseRepository.save(purchase);
     }
 

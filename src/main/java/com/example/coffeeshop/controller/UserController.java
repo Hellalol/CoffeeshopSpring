@@ -14,8 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/login")
 public class UserController {
-
-    public UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
@@ -23,7 +22,7 @@ public class UserController {
     }
 
     @RequestMapping("/{username}/{password}")
-    public Optional<User> getCurrentUser(@PathVariable String username, @PathVariable String password){
-        return userService.getCurrentUser(username,password);
+    public Optional<User> getCurrentUser(@PathVariable String username, @PathVariable String password) {
+        return userService.getCurrentUser(username, password);
     }
 }

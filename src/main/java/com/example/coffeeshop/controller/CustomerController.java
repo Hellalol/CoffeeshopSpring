@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -30,7 +30,6 @@ public class CustomerController {
         this.customerService = customerService;
         this.productService = productService;
     }
-
 
     @PostMapping("/register")
     @ResponseBody
@@ -50,10 +49,9 @@ public class CustomerController {
     @CrossOrigin()
     @GetMapping(path = "/order/{id}")
     public List<PurchaseDto> getAllOrder(@PathVariable Long id) {
-        return customerService.getAllCustomers().stream()
-                .filter(customer -> customer.getId().equals(id))
-                .map(Customer::getPurchases)
-                .flatMap(Collection::stream)
+        return customerService.getCustomerById(id)
+                .orElseThrow(NoSuchElementException::new)
+                .getPurchases().stream()
                 .filter(purchase -> purchase.getStatus().equals(Purchase.Status.COMPLETED))
                 .map(PurchaseDto::new)
                 .collect(Collectors.toList());
@@ -68,6 +66,7 @@ public class CustomerController {
     @CrossOrigin()
     @GetMapping(path = "/{id}")
     public Customer getCustomerById(@PathVariable Long id) {
-        return customerService.getCustomerById(id).get();
+        return customerService.getCustomerById(id)
+                .orElseThrow(NoSuchElementException::new);
     }
 }
