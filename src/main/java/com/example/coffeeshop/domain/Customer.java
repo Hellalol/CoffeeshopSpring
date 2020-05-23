@@ -1,9 +1,5 @@
 package com.example.coffeeshop.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.DiscriminatorValue;
@@ -15,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 //@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @DiscriminatorValue("CUSTOMER")
@@ -50,21 +48,5 @@ public final class Customer extends User {
                     // TODO Check and move premium customer treshold
                     .compareTo(BigDecimal.valueOf(500_000)) >= 0;
         }
-    }
-
-    public List<Purchase> getPurchases() {
-        return purchases;
-    }
-
-    public void setPurchases(List<Purchase> purchases) {
-        this.purchases = purchases;
-    }
-
-    public boolean isPremiumCustomer() {
-        return premiumCustomer;
-    }
-
-    public void setPremiumCustomer(boolean premiumCustomer) {
-        this.premiumCustomer = premiumCustomer;
     }
 }

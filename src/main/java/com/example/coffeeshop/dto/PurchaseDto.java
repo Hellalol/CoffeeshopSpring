@@ -6,11 +6,9 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Data
 @RequiredArgsConstructor
@@ -32,25 +30,5 @@ public class PurchaseDto {
         this.totalPrice = purchase.getTotalPrice();
         this.status = purchase.getStatus().name();
         this.totalQuantity = purchase.getTruePurchaseEntries().stream().mapToInt(PurchaseEntry::getQuantity).sum();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public List<PurchaseEntryDto> getPurchaseEntries() {
-        return purchaseEntries;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public String getStatus() {
-        return status;
     }
 }
