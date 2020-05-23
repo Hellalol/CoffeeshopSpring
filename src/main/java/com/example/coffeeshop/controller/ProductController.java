@@ -4,14 +4,13 @@ import com.example.coffeeshop.domain.Customer;
 import com.example.coffeeshop.domain.Product;
 import com.example.coffeeshop.dto.ProductDto;
 import com.example.coffeeshop.service.CustomerService;
+import com.example.coffeeshop.service.PricingService;
 import com.example.coffeeshop.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -23,11 +22,13 @@ public class ProductController {
     private static final Logger log = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
     private final CustomerService customerService;
+    private final PricingService pricingService;
 
     @Autowired
-    public ProductController(ProductService productService, CustomerService customerService) {
+    public ProductController(ProductService productService, CustomerService customerService, PricingService pricingService) {
         this.productService = productService;
         this.customerService = customerService;
+        this.pricingService = pricingService;
     }
 
     @CrossOrigin()
@@ -46,21 +47,19 @@ public class ProductController {
 
     @GetMapping(path = "/all/{customerId}")
     public List<ProductDto> getAllProductsCheckForPremium(@PathVariable Long customerId) {
-        Customer customer = customerService.getCustomerById(customerId).orElseThrow(NoSuchElementException::new);
-        BigDecimal priceFactor = customer.isPremiumCustomer() ? new BigDecimal("0.9") : BigDecimal.ONE;
-
+        Customer customer = customerService.getCustomerById(customerId)
+                .orElseThrow(NoSuchElementException::new);
         return productService.getAllProducts().stream()
-                .map(product -> new ProductDto(product, product.getBasePrice().multiply(priceFactor).setScale(2, RoundingMode.HALF_UP)))
+                .map(product -> new ProductDto(product, pricingService.calculate(customer, product)))
                 .collect(Collectors.toList());
     }
 
     @GetMapping(path = "/showProductsBySearch/{search}/{customerId}")
     public List<ProductDto> showProducts(@PathVariable String search, @PathVariable Long customerId) {
-        Customer customer = customerService.getCustomerById(customerId).orElseThrow(NoSuchElementException::new);
-        BigDecimal priceFactor = customer.isPremiumCustomer() ? new BigDecimal("0.9") : BigDecimal.ONE;
-
+        Customer customer = customerService.getCustomerById(customerId)
+                .orElseThrow(NoSuchElementException::new);
         List<ProductDto> returnList = productService.search(search).stream()
-                .map(product -> new ProductDto(product, product.getBasePrice().multiply(priceFactor).setScale(2, RoundingMode.HALF_UP)))
+                .map(product -> new ProductDto(product, pricingService.calculate(customer, product)))
                 .collect(Collectors.toList());
         if (returnList.isEmpty()) {
             returnList = getAllProductsCheckForPremium(customerId);

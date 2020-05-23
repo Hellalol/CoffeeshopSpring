@@ -29,6 +29,10 @@ public final class PurchaseEntry {
     @DecimalMin(value = "0.0", inclusive = true)
     private BigDecimal currentPrice;
 
+    public PurchaseEntry(Purchase purchase, Product product) {
+        this(purchase, product, 0, product.getBasePrice());
+    }
+
     public PurchaseEntry(Purchase purchase, Product product, int quantity, BigDecimal currentPrice) {
         this.purchase = purchase;
         this.product = product;

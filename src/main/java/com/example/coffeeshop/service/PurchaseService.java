@@ -8,21 +8,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public final class PurchaseService {
+    private static final Logger log = LoggerFactory.getLogger(PurchaseService.class);
     private final PurchaseRepository purchaseRepository;
     private final PurchaseEntryRepository entryRepository;
-    private static final Logger log = LoggerFactory.getLogger(PurchaseService.class);
+    private final PricingService pricingService;
 
     @Autowired
-    public PurchaseService(PurchaseRepository purchaseRepository, PurchaseEntryRepository entryRepository) {
+    public PurchaseService(PurchaseRepository purchaseRepository, PurchaseEntryRepository entryRepository, PricingService pricingService) {
         this.purchaseRepository = purchaseRepository;
         this.entryRepository = entryRepository;
+        this.pricingService = pricingService;
     }
 
     public List<Purchase> getAllPurchases() {
@@ -60,6 +60,14 @@ public final class PurchaseService {
         }
     }
 
+    public Purchase incrementProductQuantity(Purchase purchase, Product product) {
+        return setProductQuantity(purchase, product, getPurchaseEntry(purchase, product).getQuantity() + 1);
+    }
+
+    public Purchase decrementProductQuantity(Purchase purchase, Product product) {
+        return setProductQuantity(purchase, product, Math.max(0, getPurchaseEntry(purchase, product).getQuantity() - 1));
+    }
+
     public Purchase setProductQuantity(Purchase purchase, Product product, int quantity) {
         if (purchase.getStatus() != Purchase.Status.IN_PROGRESS) {
             throw new IllegalArgumentException("Only purchases in progress may be edited");
@@ -67,13 +75,16 @@ public final class PurchaseService {
             throw new IllegalArgumentException("Purchase quantities may not go below zero");
         }
 
-        PurchaseEntry entry = purchase.getEntry(product);
-        entry.setCurrentPrice(calculateCurrentPrice(purchase.getCustomer(), product));
+        PurchaseEntry entry = getPurchaseEntry(purchase, product);
         entry.setQuantity(quantity);
         purchase.getTruePurchaseEntries().add(entry);
         clearStaleEntries(purchase);
         sanitizePrices(purchase);
         return purchaseRepository.save(purchase);
+    }
+
+    public Purchase removeProduct(Purchase purchase, Product product) {
+        return setProductQuantity(purchase, product, 0);
     }
 
     private void clearStaleEntries(Purchase purchase) {
@@ -88,13 +99,7 @@ public final class PurchaseService {
 
     // TODO This is a horrible hack
     private void sanitizePrices(Purchase p) {
-        p.getTruePurchaseEntries().forEach(entry -> entry.setCurrentPrice(calculateCurrentPrice(p.getCustomer(), entry.getProduct())));
-    }
-
-    // TODO What if calculation changes during a long-lived purchase?
-    private BigDecimal calculateCurrentPrice(Customer c, Product p) {
-        BigDecimal priceFactor = c.isPremiumCustomer() ? new BigDecimal("0.9") : BigDecimal.ONE;
-        return p.getBasePrice().multiply(priceFactor).setScale(2, RoundingMode.HALF_UP);
+        p.getTruePurchaseEntries().forEach(entry -> entry.setCurrentPrice(pricingService.calculate(p.getCustomer(), entry.getProduct())));
     }
 
     public Purchase checkout(Purchase purchase) {
@@ -109,5 +114,10 @@ public final class PurchaseService {
 
     public Purchase addNewProduct(Purchase purchase, Product product) {
         return setProductQuantity(purchase, product, 1);
+    }
+
+    private PurchaseEntry getPurchaseEntry(Purchase purchase, Product product) {
+        return entryRepository.findFirstByPurchaseAndProduct(purchase, product)
+                .orElseGet(() -> new PurchaseEntry(purchase, product));
     }
 }

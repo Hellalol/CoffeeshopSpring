@@ -49,13 +49,6 @@ public final class Purchase {
         this.orderNumber = UUID.randomUUID(); // TODO check default value generation
     }
 
-    public PurchaseEntry getEntry(Product product) {
-        return this.getTruePurchaseEntries().stream()
-                .filter(e -> e.getProduct().equals(product))
-                .findFirst()
-                .orElse(new PurchaseEntry(this, product, 0, product.getBasePrice()));
-    }
-
     public BigDecimal getTotalPrice() {
         return truePurchaseEntries.stream()
                 .map(entry -> entry.getCurrentPrice()
