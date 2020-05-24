@@ -18,11 +18,11 @@ public final class PurchaseEntry {
     private Long id;
 
     @NotNull
-    @ManyToOne // TODO Laziness and cascade type
+    @ManyToOne
     private Purchase purchase;
 
     @NotNull
-    @ManyToOne // TODO Laziness and cascade type
+    @ManyToOne
     private Product product;
     private int quantity;
 

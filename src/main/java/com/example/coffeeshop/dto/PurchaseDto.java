@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +24,7 @@ public final class PurchaseDto {
         this.customerId = purchase.getCustomer().getId();
         this.purchaseEntries = purchase.getPurchaseEntries().stream()
                 .map(PurchaseEntryDto::new)
-                .sorted(Comparator.comparing(PurchaseEntryDto::getProductId))
+                //.sorted(Comparator.comparing(PurchaseEntryDto::getProductId)) // The entity set is already sorted
                 .collect(Collectors.toList());
         this.totalPrice = purchase.getTotalPrice();
         this.status = purchase.getStatus().name();

@@ -19,7 +19,7 @@ import java.util.List;
 public final class Customer extends User {
     private boolean premiumCustomer = false;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer") // TODO Fetch type and cascade type
     private List<Purchase> purchases = new ArrayList<>();
 
     public Customer() {
@@ -45,7 +45,6 @@ public final class Customer extends User {
                     .filter(purchase -> purchase.getStatus().equals(Purchase.Status.COMPLETED))
                     .map(Purchase::getTotalPrice)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
-                    // TODO Check and move premium customer treshold
                     .compareTo(BigDecimal.valueOf(500_000)) >= 0;
         }
     }

@@ -24,7 +24,7 @@ public final class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne // TODO Laziness and cascade type
+    @ManyToOne
     @JsonIgnore
     private Customer customer;
 
@@ -46,7 +46,7 @@ public final class Purchase {
 
     public Purchase(Customer customer) {
         this.customer = customer;
-        this.orderNumber = UUID.randomUUID(); // TODO check default value generation
+        this.orderNumber = UUID.randomUUID();
     }
 
     public BigDecimal getTotalPrice() {
