@@ -1,15 +1,12 @@
 package com.example.coffeeshop.dto;
 
 import com.example.coffeeshop.domain.Customer;
-import com.example.coffeeshop.domain.Purchase;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-
-@Data //Förmodligen behövs inte den här
+@Data
 @RequiredArgsConstructor
-public class CustomerDto {
-
+public final class CustomerDto {
     private final Long id;
     private final String name;
     private final String username;
@@ -21,5 +18,4 @@ public class CustomerDto {
         this.username = customer.getUsername();
         this.premiumCustomer = customer.isPremiumCustomer() ? "Premium" : "Regular";
     }
-
 }

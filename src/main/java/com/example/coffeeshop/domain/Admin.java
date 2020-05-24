@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-
 @Entity
 @DiscriminatorValue("ADMIN")
 public final class Admin extends User {
