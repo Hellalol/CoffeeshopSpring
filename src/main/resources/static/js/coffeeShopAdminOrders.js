@@ -1,6 +1,6 @@
 function getProduct(id) {
     $.ajax({
-        url: `/product/${id}`,
+        url: `http://localhost:8080/product/${id}`,
         type: 'GET',
         contentType: "application/json; charset=utf-8",
         dataType: "json",

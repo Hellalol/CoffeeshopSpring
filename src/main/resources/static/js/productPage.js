@@ -2,15 +2,14 @@ let counter = 0;
 
 function createPurchase() {
     let currentCustomerId = localStorage.getItem('customer-id');
-    let newPurchesId;
     $.ajax({
-        url: `/purchase/new2/` + currentCustomerId,
+        url: `http://localhost:8080/purchase/new2/` + currentCustomerId,
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: false,
         success: function (result) {
-            newPurchesId = result.id
+            let newPurchesId = result.id;
             localStorage.setItem('purches-id', newPurchesId)
         }
     })
@@ -25,7 +24,7 @@ function addToCart(productId) {
     let newPurchesId = localStorage.getItem('purches-id');
     //om inte pågående purchase finns, skapa ny purchase och lägg till produkt
     $.ajax({
-        url: `/purchase/` + newPurchesId + `/addProductToPurches/` + productId,
+        url: `http://localhost:8080/purchase/` + newPurchesId + `/addProductToPurches/` + productId,
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -39,7 +38,7 @@ function addToCart(productId) {
 function quantityCounter() {
     let existing = localStorage.getItem('purches-id');
     $.ajax({
-        url: `/purchase/` + existing,
+        url: `http://localhost:8080/purchase/` + existing,
         type: 'GET',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
