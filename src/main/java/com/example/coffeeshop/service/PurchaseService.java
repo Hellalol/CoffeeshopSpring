@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public final class PurchaseService {
+public class PurchaseService {
     private static final Logger log = LoggerFactory.getLogger(PurchaseService.class);
     private final PurchaseRepository purchaseRepository;
     private final PurchaseEntryRepository entryRepository;

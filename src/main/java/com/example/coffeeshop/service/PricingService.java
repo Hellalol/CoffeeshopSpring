@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Service
-public final class PricingService {
+public class PricingService {
     public BigDecimal calculate(Customer c, Product p) {
         BigDecimal priceFactor = c.isPremiumCustomer() ? BigDecimal.valueOf(0.9) : BigDecimal.ONE;
         return priceFactor.multiply(p.getBasePrice()).setScale(2, RoundingMode.UP);
