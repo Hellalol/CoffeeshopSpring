@@ -85,7 +85,6 @@ public final class PurchaseService {
         purchase.getPurchaseEntries().removeIf(purchaseEntry -> purchaseEntry.getQuantity() < 1);
     }
 
-    // TODO This is a horrible hack
     private void sanitizePrices(Purchase p) {
         p.getPurchaseEntries().forEach(entry -> entry.setCurrentPrice(pricingService.calculate(p.getCustomer(), entry.getProduct())));
     }
