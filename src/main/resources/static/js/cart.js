@@ -1,5 +1,5 @@
 function increaseQuantityWithOne(productId) {
-    let purchaseId = localStorage.getItem('purches-id');
+    let purchaseId = sessionStorage.getItem('purches-id');
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/purchase/" + purchaseId + "/addByOne/" + productId, //ädras
@@ -11,7 +11,7 @@ function increaseQuantityWithOne(productId) {
 }
 
 function decreaseQuantityWithOne(productId) {
-    let purchaseId = localStorage.getItem('purches-id');
+    let purchaseId = sessionStorage.getItem('purches-id');
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/purchase/" + purchaseId + "/subtractByOne/" + productId, //ädras
@@ -23,7 +23,7 @@ function decreaseQuantityWithOne(productId) {
 }
 
 function removeProduct(productId) {
-    let purchaseId = localStorage.getItem('purches-id');
+    let purchaseId = sessionStorage.getItem('purches-id');
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/purchase/" + purchaseId + "/removeProduct/" + productId, //ädras
@@ -35,7 +35,7 @@ function removeProduct(productId) {
 }
 
 function confirmOrder() {
-    let purchaseId = localStorage.getItem('purches-id');
+    let purchaseId = sessionStorage.getItem('purches-id');
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/purchase/" + purchaseId + "/checkout", //ändras
@@ -46,14 +46,14 @@ function confirmOrder() {
 $(document).ready(function () {
 
     $("#anotherPurchase").click(function (event) {
-        localStorage.removeItem("purches-id")
+        sessionStorage.removeItem("purches-id")
     })
 
     $("#logout").click(function (event) {
-        localStorage.clear()
+        sessionStorage.clear()
     })
 
-    let purchaseId = localStorage.getItem('purches-id');
+    let purchaseId = sessionStorage.getItem('purches-id');
     $.ajax({
         url: "http://localhost:8080/purchase/" + purchaseId,
         dataType: "json"
