@@ -1,7 +1,7 @@
 let counter = 0;
 
 function createPurchase() {
-    let currentCustomerId = localStorage.getItem('customer-id');
+    let currentCustomerId = sessionStorage.getItem('customer-id');
     let newPurchesId;
     $.ajax({
         url: `/purchase/new2/` + currentCustomerId,
@@ -11,7 +11,7 @@ function createPurchase() {
         async: false,
         success: function (result) {
             newPurchesId = result.id
-            localStorage.setItem('purches-id', newPurchesId)
+            sessionStorage.setItem('purches-id', newPurchesId)
         }
     })
 }
@@ -22,7 +22,7 @@ function addToBadge(quantity) {
 
 function addToCart(productId) {
     counter = quantityCounter();
-    let newPurchesId = localStorage.getItem('purches-id');
+    let newPurchesId = sessionStorage.getItem('purches-id');
     //om inte pågående purchase finns, skapa ny purchase och lägg till produkt
     $.ajax({
         url: `/purchase/` + newPurchesId + `/addProductToPurches/` + productId,
@@ -37,7 +37,7 @@ function addToCart(productId) {
 }
 
 function quantityCounter() {
-    let existing = localStorage.getItem('purches-id');
+    let existing = sessionStorage.getItem('purches-id');
     $.ajax({
         url: `/purchase/` + existing,
         type: 'GET',
@@ -55,15 +55,15 @@ $(document).ready(function () {
     counter = quantityCounter();
     if (counter > 0)
         addToBadge(counter);
-    let newPurchesId = localStorage.getItem('purches-id');
+    let newPurchesId = sessionStorage.getItem('purches-id');
     if (newPurchesId === null) {
         createPurchase();
     }
 
-    let currentCustomerId = localStorage.getItem('customer-id');
+    let currentCustomerId = sessionStorage.getItem('customer-id');
 
     $("#logout").click(function (event) {
-        localStorage.clear()
+        sessionStorage.clear()
     });
 
     let display = "all/" + currentCustomerId;

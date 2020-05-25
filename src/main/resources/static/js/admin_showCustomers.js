@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $("#logout").click(function (event) {
-        localStorage.clear()
+        sessionStorage.clear()
     })
 
     let listCustomers = "";
@@ -27,6 +27,6 @@ $(document).ready(function () {
 
 function addEventToBtn(id) {
     $("#customer-list").on("click", `#btn${id}`, function () {
-        localStorage.setItem(`id`, id);
+        sessionStorage.setItem(`id`, id);
     });
 }

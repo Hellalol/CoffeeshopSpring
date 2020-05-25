@@ -20,7 +20,7 @@ function requestJSON(username, password) {
         dataType: 'json',
         success: function (user) {
             authenticate(user);
-            localStorage.setItem("customer-id", user.id);
+            sessionStorage.setItem("customer-id", user.id);
         }
     })
 }
