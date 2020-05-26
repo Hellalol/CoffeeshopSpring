@@ -54,10 +54,6 @@ function quantityCounter() {
 $(document).ready(function () {
 
 
-    window.onbeforeunload = function() {
-        sessionStorage.clear();
-        localStorage.clear()
-    };
 
     counter = quantityCounter();
     if (counter > 0)

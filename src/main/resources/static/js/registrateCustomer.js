@@ -36,10 +36,6 @@ function validateLength(input1, input2, input3, input4) {
 
 $(document).ready(function () {
 
-    window.onbeforeunload = function() {
-        sessionStorage.clear();
-        localStorage.clear()
-    };
 
 
     showPasswordFunction();
