@@ -1,4 +1,10 @@
 $(document).ready(function () {
+
+    window.onbeforeunload = function() {
+        sessionStorage.clear();
+        localStorage.clear()
+    };
+
     $("#logout").click(function (event) {
         sessionStorage.clear()
     })

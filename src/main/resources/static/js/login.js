@@ -21,6 +21,7 @@ function requestJSON(username, password) {
         success: function (user) {
             authenticate(user);
             sessionStorage.setItem("customer-id", user.id);
+
         }
     })
 }

@@ -45,6 +45,11 @@ function confirmOrder() {
 
 $(document).ready(function () {
 
+    window.onbeforeunload = function() {
+        sessionStorage.clear();
+        localStorage.clear()
+    };
+
     $("#anotherPurchase").click(function (event) {
         sessionStorage.removeItem("purches-id")
     })
