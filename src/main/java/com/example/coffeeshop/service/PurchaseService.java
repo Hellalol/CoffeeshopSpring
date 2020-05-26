@@ -1,6 +1,10 @@
 package com.example.coffeeshop.service;
 
-import com.example.coffeeshop.domain.*;
+import com.example.coffeeshop.domain.Customer;
+import com.example.coffeeshop.domain.Product;
+import com.example.coffeeshop.domain.Purchase;
+import com.example.coffeeshop.domain.PurchaseEntry;
+import com.example.coffeeshop.repository.CustomerRepository;
 import com.example.coffeeshop.repository.PurchaseEntryRepository;
 import com.example.coffeeshop.repository.PurchaseRepository;
 import org.slf4j.Logger;
@@ -8,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -16,12 +21,14 @@ public class PurchaseService {
     private final PurchaseRepository purchaseRepository;
     private final PurchaseEntryRepository entryRepository;
     private final PricingService pricingService;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    public PurchaseService(PurchaseRepository purchaseRepository, PurchaseEntryRepository entryRepository, PricingService pricingService) {
+    public PurchaseService(PurchaseRepository purchaseRepository, PurchaseEntryRepository entryRepository, PricingService pricingService, CustomerRepository customerRepository) {
         this.purchaseRepository = purchaseRepository;
         this.entryRepository = entryRepository;
         this.pricingService = pricingService;
+        this.customerRepository= customerRepository;
     }
 
     public Optional<Purchase> getById(long id) {
@@ -95,8 +102,22 @@ public class PurchaseService {
         }
         clearStaleEntries(purchase);
         purchase.setStatus(Purchase.Status.COMPLETED);
-        // There used to be premium customer logic here. It's in the Customer class now.
-        return purchaseRepository.save(purchase);
+        Purchase completedPurchase = purchaseRepository.save(purchase);
+        updatePremiumStatus(purchase.getCustomer());
+        customerRepository.save(purchase.getCustomer());
+        return completedPurchase;
+    }
+
+    private void updatePremiumStatus(Customer customer) {
+        // Once a customer's premium, it should stick; we don't want future
+        // calculation changes to unexpectedly change current status
+        if (!customer.isPremiumCustomer()) {
+            customer.setPremiumCustomer(customer.getPurchases().stream()
+                    .filter(purchase -> purchase.getStatus().equals(Purchase.Status.COMPLETED))
+                    .map(Purchase::getTotalPrice)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    .compareTo(BigDecimal.valueOf(500_000)) >= 0);
+        }
     }
 
     private PurchaseEntry getPurchaseEntry(Purchase purchase, Product product) {
