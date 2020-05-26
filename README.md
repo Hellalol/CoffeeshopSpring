@@ -1,2 +1,2 @@
 # CoffeeshopSpring
-Webshop, MySql, github management, produkten är kaffe
+Webshop gjord med REST, MySql och Javascript(jquery)
