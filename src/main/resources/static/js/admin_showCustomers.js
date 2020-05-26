@@ -1,16 +1,22 @@
 $(document).ready(function () {
-    $("#logout").click(function (event) {
+
+    window.onbeforeunload = function() {
+        sessionStorage.clear();
         localStorage.clear()
+    };
+
+    $("#logout").click(function (event) {
+        sessionStorage.clear()
     })
 
     let listCustomers = "";
     $.ajax({
         url: "http://localhost:8080/customer/all",
-    }).then(function(data){
+    }).then(function (data) {
         data.forEach(elm => {
-        addEventToBtn(elm.id);
-           listCustomers +=
-               `<tr>
+            addEventToBtn(elm.id);
+            listCustomers +=
+                `<tr>
                     <td>${elm.name}</td>
                     <td>${elm.username}</td>
                     <td>${elm.premiumCustomer}</td>
@@ -20,13 +26,13 @@ $(document).ready(function () {
                         </a>
                     </td>
                 </tr>`;
-            });
+        });
         $('#customer-list').html(listCustomers);
     })
 });
 
-function addEventToBtn(id){
-    $("#customer-list").on("click", `#btn${id}`, function(){
-        localStorage.setItem(`id`, id);
+function addEventToBtn(id) {
+    $("#customer-list").on("click", `#btn${id}`, function () {
+        sessionStorage.setItem(`id`, id);
     });
 }

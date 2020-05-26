@@ -1,6 +1,6 @@
 function getProduct(id) {
     $.ajax({
-        url: `/customer/product/${id}`,
+        url: `http://localhost:8080/product/${id}`,
         type: 'GET',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -11,12 +11,16 @@ function getProduct(id) {
 
 $(document).ready(function () {
 
+    window.onbeforeunload = function() {
+        sessionStorage.clear();
+        localStorage.clear()
+    };
 
     $("#logout").click(function (event) {
-        localStorage.clear()
+        sessionStorage.clear()
     })
     $("#goBack").click(function (event) {
-        localStorage.removeItem("id")
+        sessionStorage.removeItem("id")
     })
 
     // function popup(elm2) {
@@ -30,17 +34,16 @@ $(document).ready(function () {
     //     });
     // }
 
-    let idFromStorage = localStorage.getItem("id");
+    let idFromStorage = sessionStorage.getItem("id");
     $.ajax({
         url: `http://localhost:8080/customer/order/${idFromStorage}`,
     }).then(function (data) {
-
         $('.collapse').collapse();
         $(function () {
-                    $('[data-toggle="popover"]').popover({
-                        html: true,
-                        placement: "right",
-                        trigger: 'focus',
+            $('[data-toggle="popover"]').popover({
+                html: true,
+                placement: "right",
+                trigger: 'focus',
             });
         });
 

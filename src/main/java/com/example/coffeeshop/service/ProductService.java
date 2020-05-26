@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public final class ProductService {
+public class ProductService {
     private final ProductRepository productRepository;
 
     @Autowired
@@ -25,8 +25,7 @@ public final class ProductService {
         return productRepository.findDistinctByProductNameContainingOrDescriptionContaining(query, query);
     }
 
-    public List<Product>getAllProducts(){
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
-
     }
 }

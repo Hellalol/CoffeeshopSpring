@@ -1,8 +1,8 @@
 function increaseQuantityWithOne(productId) {
-    var purchesId = localStorage.getItem('purches-id');
+    let purchaseId = sessionStorage.getItem('purches-id');
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/purchase/" + purchesId + "/addByOne/" + productId, //ädras
+        url: "http://localhost:8080/purchase/" + purchaseId + "/addByOne/" + productId, //ädras
         data: JSON,
         success: function () {
             location.reload();
@@ -11,10 +11,10 @@ function increaseQuantityWithOne(productId) {
 }
 
 function decreaseQuantityWithOne(productId) {
-    var purchesId = localStorage.getItem('purches-id');
+    let purchaseId = sessionStorage.getItem('purches-id');
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/purchase/" + purchesId + "/subtractByOne/" + productId, //ädras
+        url: "http://localhost:8080/purchase/" + purchaseId + "/subtractByOne/" + productId, //ädras
         data: JSON,
         success: function () {
             location.reload();
@@ -23,10 +23,10 @@ function decreaseQuantityWithOne(productId) {
 }
 
 function removeProduct(productId) {
-    var purchesId = localStorage.getItem('purches-id');
+    let purchaseId = sessionStorage.getItem('purches-id');
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/purchase/" + purchesId + "/removeProduct/" + productId, //ädras
+        url: "http://localhost:8080/purchase/" + purchaseId + "/removeProduct/" + productId, //ädras
         data: JSON,
         success: function () {
             location.reload();
@@ -35,28 +35,32 @@ function removeProduct(productId) {
 }
 
 function confirmOrder() {
-    var purchesId = localStorage.getItem('purches-id');
+    let purchaseId = sessionStorage.getItem('purches-id');
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/purchase/" + purchesId + "/checkout", //ändras
+        url: "http://localhost:8080/purchase/" + purchaseId + "/checkout", //ändras
         dataType: "json"
     })
 }
 
 $(document).ready(function () {
 
+    window.onbeforeunload = function() {
+        sessionStorage.clear();
+        localStorage.clear()
+    };
+
     $("#anotherPurchase").click(function (event) {
-        localStorage.removeItem("purches-id")
+        sessionStorage.removeItem("purches-id")
     })
 
     $("#logout").click(function (event) {
-        localStorage.clear()
+        sessionStorage.clear()
     })
 
-
-    var purchesId = localStorage.getItem('purches-id');
+    let purchaseId = sessionStorage.getItem('purches-id');
     $.ajax({
-        url: "http://localhost:8080/purchase/" + purchesId,
+        url: "http://localhost:8080/purchase/" + purchaseId,
         dataType: "json"
     }).then(function (data) {
         console.log(data);
@@ -85,7 +89,7 @@ $(document).ready(function () {
     })
 
     $.ajax({
-        url: "http://localhost:8080/purchase/" + purchesId,
+        url: "http://localhost:8080/purchase/" + purchaseId,
         dataType: "json"
     }).then(function (data) {
         console.log("132");

@@ -6,15 +6,12 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Data
 @RequiredArgsConstructor
-public class PurchaseDto {
+public final class PurchaseDto {
     private final Long id;
     private final Long customerId;
     private final List<PurchaseEntryDto> purchaseEntries;
@@ -25,32 +22,12 @@ public class PurchaseDto {
     public PurchaseDto(Purchase purchase) {
         this.id = purchase.getId();
         this.customerId = purchase.getCustomer().getId();
-        this.purchaseEntries = purchase.getTruePurchaseEntries().stream()
+        this.purchaseEntries = purchase.getPurchaseEntries().stream()
                 .map(PurchaseEntryDto::new)
-                .sorted(Comparator.comparing(PurchaseEntryDto::getProductId))
+                //.sorted(Comparator.comparing(PurchaseEntryDto::getProductId)) // The entity set is already sorted
                 .collect(Collectors.toList());
         this.totalPrice = purchase.getTotalPrice();
         this.status = purchase.getStatus().name();
-        this.totalQuantity = purchase.getTruePurchaseEntries().stream().mapToInt(PurchaseEntry::getQuantity).sum();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public List<PurchaseEntryDto> getPurchaseEntries() {
-        return purchaseEntries;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public String getStatus() {
-        return status;
+        this.totalQuantity = purchase.getPurchaseEntries().stream().mapToInt(PurchaseEntry::getQuantity).sum();
     }
 }
